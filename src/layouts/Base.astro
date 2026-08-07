@@ -46,6 +46,7 @@ const NAV_KO = [
   { href: '/research', label: '연구' },
   { href: '/clinical-trials', label: '임상연구' },
   { href: '/contact', label: '연락하기' },
+  { href: '/links', label: '참조 사이트' },
   { href: '/about', label: 'About Us' },
 ];
 const NAV_EN = [
@@ -66,6 +67,7 @@ const NAV_EN = [
   { href: '/research', label: 'Research' },
   { href: '/clinical-trials', label: 'Clinical Trials' },
   { href: '/contact', label: 'Contact' },
+  { href: '/links', label: 'References' },
   { href: '/about', label: 'About Us' },
 ];
 const nav = isEN ? NAV_EN : NAV_KO;
@@ -81,7 +83,6 @@ const T = isEN ? {
   disclaimer: 'This site provides information about adrenoleukodystrophy. It does not replace medical care. Diagnosis and treatment decisions rest with the treating clinicians.',
   cafe: 'ALD Bridge (Naver Cafe, Korean)',
   blog: 'Related blog (Korean)',
-  links: 'References & Links',
   admin: 'Admin',
   switch: '한국어',
   switchTo: '',
@@ -96,7 +97,6 @@ const T = isEN ? {
   disclaimer: '이 사이트는 부신백질이영양증에 대한 정보를 제공합니다. 진료나 상담을 대신하지 않으며, 개별 환자의 진단과 치료는 담당 의료진의 판단에 따릅니다.',
   cafe: 'ALD 브릿지 (네이버 카페)',
   blog: '관련 블로그',
-  links: '참조 사이트',
   admin: '관리자',
   switch: 'English',
   switchTo: '/en',
@@ -160,6 +160,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       --gutter: max(0px, (min(var(--shell), 100vw - 2rem) - var(--read) - var(--gap) * 2) / 2);
       /* 제목선·표·그림이 오른쪽으로 뻗는 양 (여백을 넘지 않게) */
       --bleed: min(12rem, var(--gutter));
+      --headh: 92px;   /* 헤더 높이 — 모바일 메뉴 위치 계산에 씀 */
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -187,13 +188,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     }
     .head-inner {
       display: flex; align-items: center; gap: 2rem;
-      min-height: 92px; max-width: var(--wide); margin: 0 auto; padding: 0 2.5rem;
+      min-height: var(--headh); max-width: var(--wide); margin: 0 auto; padding: 0 2.5rem;
     }
     .brand { display: flex; align-items: center; text-decoration: none; flex: none; }
     .brand img { height: 62px; width: auto; display: block; }
 
-    nav.main { display: flex; gap: 1.6rem; margin-left: auto; align-items: stretch; }
-    @media (min-width: 901px) { .langswitch { order: 99; } }
+    nav.main { display: flex; gap: clamp(1rem, 1.35vw, 1.6rem); margin-left: auto; align-items: stretch; }
+    @media (min-width: 1240px) { .langswitch { order: 99; } }
     .navgroup { position: relative; display: flex; }
     .navtop {
       position: relative; display: inline-flex; align-items: center; gap: .35rem;
@@ -374,14 +375,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     .foot-links a:hover { color: var(--deep); text-decoration: underline; }
     .foot-note { margin: 3rem 0 0; padding-top: 1.8rem; border-top: 1px solid var(--rule-2); color: var(--muted); font-size: .9rem; line-height: 1.8; max-width: 46rem; }
 
-    @media (max-width: 900px) {
-      :global(.container), .head-inner { padding-inline: 1.35rem; }
-      body { font-size: 17px; }
-      .head-inner { min-height: 70px; }
+    /* 가로 메뉴가 헤더를 넘치기 전에 접는다 (메뉴 10개 · 영문 라벨 기준) */
+    @media (max-width: 1239px) {
       nav.main {
-        position: fixed; inset: 70px 0 auto 0; background: var(--paper); flex-direction: column;
+        position: fixed; inset: var(--headh) 0 auto 0; background: var(--paper); flex-direction: column;
         gap: 0; padding: .25rem 1.35rem 1.4rem; border-bottom: 1px solid var(--rule); display: none;
-        max-height: calc(100vh - 70px); overflow-y: auto;
+        max-height: calc(100vh - var(--headh)); overflow-y: auto; z-index: 90;
       }
       nav.main.open { display: flex; }
       .navgroup { display: block; }
@@ -396,7 +395,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       .navgroup.open .navtop svg { transform: rotate(180deg); }
       .submenu a { padding: .75rem 1rem; border-bottom: 1px solid var(--rule); font-size: .97rem; }
       .submenu a:last-child { border-bottom: 0; }
-      .langswitch { margin-left: auto; margin-right: .7rem; padding: .35rem .75rem; font-size: .8rem; }
+      .langswitch { margin-left: auto; margin-right: .7rem; }
       .menu-toggle {
         display: grid; place-items: center; width: 42px; height: 42px;
         background: none; border: 1px solid var(--rule-2); cursor: pointer;
@@ -406,6 +405,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
         content: ''; position: absolute; left: 0; width: 18px; height: 1.5px; background: var(--ink);
       }
       .menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --headh: 70px; }
+      :global(.container), .head-inner { padding-inline: 1.35rem; }
+      body { font-size: 17px; }
+      .langswitch { padding: .35rem .75rem; font-size: .8rem; }
       .brand img { height: 46px; }
       .page-head .container { padding-block: 2.6rem 2rem; }
       .prose { padding-top: 2.4rem; }
@@ -493,7 +499,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
           </div>
         </div>
         <div class="foot-links">
-          {[...nav.flatMap((n) => n.children ? n.children : [n]), { href: '/links', label: T.links }].map((n) => <a href={url(n.href)}>{n.label}</a>)}
+          {nav.flatMap((n) => n.children ? n.children : [n]).map((n) => <a href={url(n.href)}>{n.label}</a>)}
         </div>
       </div>
       <p class="foot-note">
