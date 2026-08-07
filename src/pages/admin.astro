@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 <Base title="관리자" description="문의 내역 열람">
   <!-- 로그인 화면 -->
   <section id="login">
-    <p>등록된 관리자만 문의 내역을 볼 수 있습니다.</p>
+    <p id="lead">등록된 관리자만 문의 내역을 볼 수 있습니다.</p>
     <form id="loginForm" class="lform" novalidate>
       <label>
         <span>이메일</span>
@@ -12,11 +12,26 @@ import Base from '../layouts/Base.astro';
       </label>
       <label>
         <span>비밀번호</span>
-        <input name="password" type="password" autocomplete="current-password" required />
+        <input name="password" type="password" autocomplete="current-password" required minlength="6" />
+        <small id="pwhint" hidden>6자 이상. 본인만 아는 것으로 정하세요.</small>
       </label>
-      <button class="submit" type="submit">로그인</button>
+      <button class="submit" type="submit" id="mainBtn">로그인</button>
       <p class="result" role="status"></p>
     </form>
+
+    <div class="alt">
+      <p id="altText">처음 오셨나요? <button type="button" class="linkbtn" data-toggle>계정 만들기</button></p>
+      <p><button type="button" class="linkbtn" id="reset">비밀번호를 잊으셨나요?</button></p>
+    </div>
+
+    <div class="howto">
+      <p><strong>관리자 계정은 이렇게 만듭니다</strong></p>
+      <ol>
+        <li>기존 관리자가 <strong>새 관리자의 이메일을 명단에 등록</strong>합니다.</li>
+        <li>새 관리자가 이 화면에서 <strong>직접 계정을 만듭니다.</strong> 비밀번호는 본인만 압니다.</li>
+        <li>명단에 없는 이메일로 만든 계정은 <strong>즉시 삭제</strong>되며 아무것도 볼 수 없습니다.</li>
+      </ol>
+    </div>
   </section>
 
   <!-- 문의함 -->
@@ -61,6 +76,25 @@ import Base from '../layouts/Base.astro';
   .ghost:hover { color: var(--ink); border-color: var(--ink); }
   .result { margin: 0; font-size: .93rem; min-height: 1.3em; }
   .result.err { color: #9a3412; }
+  .result.ok { color: var(--deep); font-weight: 600; }
+
+  .alt { margin-top: 1.6rem; display: grid; gap: .4rem; }
+  .alt p { margin: 0; font-size: .93rem; color: var(--muted); }
+  .linkbtn {
+    appearance: none; background: none; border: 0; padding: 0; cursor: pointer;
+    font-family: inherit; font-size: inherit; color: var(--deep-2); font-weight: 600;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .linkbtn:hover { color: var(--ink); }
+
+  .howto {
+    margin-top: 3rem; padding: 1.3rem 1.5rem; background: var(--paper-2);
+    border-left: 3px solid var(--rule-2); max-width: 34rem;
+  }
+  .howto p { margin: 0 0 .7rem; font-size: .95rem; }
+  .howto ol { margin: 0; padding-left: 1.3rem; }
+  .howto li { font-size: .92rem; color: var(--ink-2); margin-bottom: .45rem; line-height: 1.7; }
+  .howto li:last-child { margin-bottom: 0; }
 
   .bar {
     display: flex; justify-content: space-between; align-items: center; gap: 1rem;
@@ -104,7 +138,8 @@ import Base from '../layouts/Base.astro';
 <script>
   import { auth, db } from '../lib/firebase.js';
   import {
-    signInWithEmailAndPassword, signOut, onAuthStateChanged,
+    signInWithEmailAndPassword, createUserWithEmailAndPassword,
+    sendPasswordResetEmail, deleteUser, signOut, onAuthStateChanged,
   } from 'firebase/auth';
   import {
     collection, query, orderBy, getDocs, doc, getDoc, updateDoc, deleteDoc,
@@ -196,19 +231,85 @@ import Base from '../layouts/Base.astro';
     } catch (err) { console.error(err); alert('처리하지 못했습니다.'); }
   });
 
+  // 로그인 <-> 가입 전환
+  let mode = 'login';
+  const btn = $('#mainBtn') as HTMLButtonElement;
+  const lead = $('#lead') as HTMLElement;
+  const altText = $('#altText') as HTMLElement;
+  const pwhint = $('#pwhint') as HTMLElement;
+  const pwInput = form.querySelector<HTMLInputElement>('[name=password]')!;
+
+  function setMode(m: string) {
+    mode = m;
+    const signup = m === 'signup';
+    btn.textContent = signup ? '계정 만들기' : '로그인';
+    lead.textContent = signup
+      ? '명단에 등록된 이메일로만 계정을 만들 수 있습니다. 비밀번호는 본인만 아는 것으로 정하세요.'
+      : '등록된 관리자만 문의 내역을 볼 수 있습니다.';
+    altText.innerHTML = signup
+      ? '이미 계정이 있으신가요? <button type="button" class="linkbtn" data-toggle>로그인</button>'
+      : '처음 오셨나요? <button type="button" class="linkbtn" data-toggle>계정 만들기</button>';
+    pwhint.hidden = !signup;
+    pwInput.autocomplete = signup ? 'new-password' : 'current-password';
+    out.className = 'result'; out.textContent = '';
+  }
+  document.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest('[data-toggle]');
+    if (b) setMode(mode === 'signup' ? 'login' : 'signup');
+  });
+
+  // 비밀번호 재설정
+  $('#reset').addEventListener('click', async () => {
+    const email = String(new FormData(form).get('email') || '').trim();
+    out.className = 'result';
+    if (!email) { out.className = 'result err'; out.textContent = '이메일을 먼저 입력해 주십시오.'; return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      out.className = 'result ok';
+      out.textContent = '재설정 메일을 보냈습니다. 받은편지함을 확인해 주십시오.';
+    } catch {
+      out.className = 'result err';
+      out.textContent = '메일을 보내지 못했습니다. 이메일 주소를 확인해 주십시오.';
+    }
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     out.className = 'result'; out.textContent = '';
-    const btn = form.querySelector<HTMLButtonElement>('.submit')!;
     const fd = new FormData(form);
-    btn.disabled = true; btn.textContent = '확인 중…';
+    const email = String(fd.get('email') || '').trim();
+    const pw = String(fd.get('password') || '');
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = mode === 'signup' ? '만드는 중…' : '확인 중…';
     try {
-      await signInWithEmailAndPassword(auth, String(fd.get('email')), String(fd.get('password')));
-    } catch {
+      if (mode === 'signup') {
+        const cred = await createUserWithEmailAndPassword(auth, email, pw);
+        let ok = false;
+        try {
+          const s = await getDoc(doc(db, 'allowedUsers', email.toLowerCase()));
+          ok = s.exists() && s.data()?.role === 'admin';
+        } catch { ok = false; }
+        if (!ok) {
+          try { await deleteUser(cred.user); } catch { await signOut(auth); }
+          out.className = 'result err';
+          out.textContent = '관리자 명단에 없는 이메일입니다. 기존 관리자에게 등록을 요청해 주십시오.';
+        }
+      } else {
+        await signInWithEmailAndPassword(auth, email, pw);
+      }
+    } catch (err: any) {
       out.className = 'result err';
-      out.textContent = '이메일 또는 비밀번호가 맞지 않습니다.';
+      const code = err?.code || '';
+      out.textContent =
+        code === 'auth/email-already-in-use' ? '이미 계정이 있는 이메일입니다. 로그인해 주십시오.'
+        : code === 'auth/weak-password'      ? '비밀번호는 6자 이상이어야 합니다.'
+        : code === 'auth/invalid-email'      ? '이메일 주소 형식이 올바르지 않습니다.'
+        : mode === 'signup'                  ? '계정을 만들지 못했습니다.'
+        :                                      '이메일 또는 비밀번호가 맞지 않습니다.';
     } finally {
-      btn.disabled = false; btn.textContent = '로그인';
+      btn.disabled = false;
+      btn.textContent = label || '로그인';
     }
   });
 
@@ -230,7 +331,7 @@ import Base from '../layouts/Base.astro';
       await signOut(auth);
       loginSec.hidden = false; inboxSec.hidden = true;
       out.className = 'result err';
-      out.textContent = '관리자로 등록되지 않은 계정입니다.';
+      out.textContent = '관리자 명단에 없는 계정입니다. 기존 관리자에게 등록을 요청해 주십시오.';
       return;
     }
     $('#who').textContent = user.email;
