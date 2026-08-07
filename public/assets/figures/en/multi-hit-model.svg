@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 640" role="img"
+     aria-labelledby="mh-title mh-desc" font-family="'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <title id="mh-title">How the same variant becomes a different disease</title>
+  <desc id="mh-desc">From the same starting point — an ABCD1 variant — adrenomyeloneuropathy follows a path of slow axonal degeneration while cerebral disease follows one in which neuroinflammation switches on. Which path is taken appears to be determined by genetic, epigenetic, environmental and stochastic factors acting together.</desc>
+
+  <style>
+    .t   { fill: currentColor; font-size: 15px; text-anchor: middle; }
+    .tb  { fill: currentColor; font-size: 16px; font-weight: 700; text-anchor: middle; }
+    .hd  { fill: currentColor; font-size: 17px; font-weight: 700; text-anchor: middle; }
+    .sm  { fill: currentColor; font-size: 12.5px; text-anchor: middle; opacity: .72; }
+    .ln  { stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .dot { stroke: currentColor; stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; }
+    .rule{ stroke: currentColor; stroke-width: 1.2; opacity: .45; }
+    .hit { fill: none; stroke: currentColor; stroke-width: 1.6; opacity: .85; }
+    .key { fill: none; stroke: currentColor; stroke-width: 2.6; }
+  </style>
+  <defs>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- 출발점 -->
+  <text class="hd" x="420" y="30">ABCD1 variant</text>
+  <path class="ln" d="M420,42 L420,64 M180,64 L660,64"/>
+  <path class="ln" marker-end="url(#m)" d="M180,64 L180,92"/>
+  <path class="ln" marker-end="url(#m)" d="M660,64 L660,92"/>
+  <line class="rule" x1="420" y1="80" x2="420" y2="600"/>
+
+  <!-- 좌: AMN -->
+  <text class="hd" x="180" y="112">Adrenomyeloneuropathy (AMN)</text>
+  <text class="sm" x="180" y="132">Usually adulthood · slow</text>
+
+  <text class="t"  x="180" y="176">VLCFA accumulation</text>
+  <path class="ln" marker-end="url(#m)" d="M180,188 L180,216"/>
+  <text class="t"  x="180" y="238">Oxidative stress · mitochondrial dysfunction</text>
+  <path class="ln" marker-end="url(#m)" d="M180,250 L180,284"/>
+  <text class="t"  x="180" y="306">Oligodendrocyte support</text>
+  <text class="t"  x="180" y="326">of axons declines</text>
+  <path class="ln" marker-end="url(#m)" d="M180,338 L180,372"/>
+  <text class="tb" x="180" y="394">Axons degenerate slowly</text>
+  <path class="ln" marker-end="url(#m)" d="M180,406 L180,440"/>
+  <rect class="key" x="52" y="442" width="256" height="52" rx="4"/>
+  <text class="tb" x="180" y="468">Spinal cord symptoms (gait, bladder)</text>
+  <text class="sm" x="180" y="487">Progresses over years to decades</text>
+
+  <!-- 우: 대뇌형 -->
+  <text class="hd" x="660" y="112">Cerebral ALD (cALD)</text>
+  <text class="sm" x="660" y="132">Usually childhood · rapid</text>
+
+  <text class="t"  x="660" y="176">VLCFA accumulation</text>
+  <path class="ln" marker-end="url(#m)" d="M660,188 L660,216"/>
+  <text class="t"  x="660" y="238">Peroxisomal dysfunction</text>
+  <path class="ln" marker-end="url(#m)" d="M660,250 L660,284"/>
+
+  <rect class="key" x="524" y="286" width="272" height="70" rx="4"/>
+  <text class="tb" x="660" y="312">Neuroinflammation switches on</text>
+  <text class="sm" x="660" y="332">Microglia · astrocytes · macrophages</text>
+  <text class="sm" x="660" y="349">Once started, it sustains itself</text>
+
+  <path class="ln" marker-end="url(#m)" d="M660,358 L660,392"/>
+  <text class="tb" x="660" y="414">Rapid demyelination and cell loss</text>
+  <path class="ln" marker-end="url(#m)" d="M660,426 L660,440"/>
+  <rect class="key" x="532" y="442" width="256" height="52" rx="4"/>
+  <text class="tb" x="660" y="468">Cerebral symptoms · rapid progression</text>
+  <text class="sm" x="660" y="487">Must be caught before this stage</text>
+
+  <!-- 가운데: hit -->
+  <g class="hit">
+    <circle cx="420" cy="196" r="34"/>
+    <circle cx="420" cy="300" r="34"/>
+    <circle cx="420" cy="404" r="34"/>
+  </g>
+  <text class="t" x="420" y="192" font-size="13">First</text>
+  <text class="t" x="420" y="208" font-size="13">hit</text>
+  <text class="t" x="420" y="296" font-size="13">Second</text>
+  <text class="t" x="420" y="312" font-size="13">hit</text>
+  <text class="t" x="420" y="400" font-size="13">Third</text>
+  <text class="t" x="420" y="416" font-size="13">hit</text>
+
+  <path class="dot" marker-end="url(#m)" d="M386,196 L300,196"/>
+  <path class="dot" marker-end="url(#m)" d="M454,196 L540,196"/>
+  <path class="dot" marker-end="url(#m)" d="M454,300 L520,300"/>
+  <path class="dot" marker-end="url(#m)" d="M454,404 L560,404"/>
+
+  <!-- 악화요인 -->
+  <rect class="key" x="252" y="528" width="336" height="76" rx="4" opacity=".9"/>
+  <text class="tb" x="420" y="553">What constitutes a hit</text>
+  <text class="tb" x="420" y="573">is not yet known</text>
+  <text class="sm" x="420" y="594">Genetic · epigenetic · environmental · stochastic</text>
+  <path class="dot" d="M420,438 L420,526"/>
+
+  <text class="sm" x="420" y="628" opacity=".6">Updated from a figure published in J Korean Child Neurol Soc, 2016</text>
+</svg>

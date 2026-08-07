@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" role="img"
+     aria-labelledby="px-title px-desc" font-family="'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <title id="px-title">Peroxisomal handling of very long chain fatty acids</title>
+  <desc id="px-desc">Saturated very long chain fatty acids made in the cytosol enter the peroxisome through the ALDP (ABCD1) transporter and are broken down by beta oxidation. In ALD the transporter fails, so the fatty acids cannot enter and accumulate in the cytosol.</desc>
+
+  <style>
+    .t   { fill: currentColor; font-size: 15px; text-anchor: middle; }
+    .tb  { fill: currentColor; font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .sm  { fill: currentColor; font-size: 12.5px; text-anchor: middle; opacity: .72; }
+    .it  { fill: currentColor; font-size: 13px; font-style: italic; text-anchor: middle; opacity: .8; }
+    .ln  { stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .mem { stroke: currentColor; stroke-width: 2.2; fill: none; }
+    .port{ stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .blk { fill: currentColor; }
+  </style>
+  <defs>
+    <marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <text class="sm" x="762" y="34" font-size="14">Cytosol</text>
+
+  <!-- 상단 경로 -->
+  <text class="t"  x="96" y="82">Saturated</text>
+  <text class="t"  x="96" y="102">CoA</text>
+  <path class="ln" marker-end="url(#p)" d="M170,94 L268,94"/>
+  <text class="it" x="219" y="82">ELOVL1</text>
+
+  <text class="tb" x="372" y="82">Saturated VLCFA</text>
+  <text class="tb" x="372" y="102">CoA</text>
+
+  <path class="ln" marker-end="url(#p)" d="M478,94 L596,94"/>
+  <text class="it" x="537" y="82">ω-oxidation</text>
+  <text class="t"  x="726" y="82">Dicarboxylic</text>
+  <text class="t"  x="726" y="102">VLCFA</text>
+  <text class="sm" x="726" y="122">Overflow pathway for surplus substrate</text>
+
+  <!-- Peroxisome -->
+  <ellipse class="mem" cx="420" cy="330" rx="330" ry="168"/>
+  <ellipse class="mem" cx="420" cy="330" rx="322" ry="160"/>
+  <text class="tb" x="150" y="336">Peroxisome</text>
+
+  <!-- ALDP 운반체 -->
+  <ellipse class="blk" cx="392" cy="170" rx="15" ry="21"/>
+  <ellipse class="blk" cx="428" cy="170" rx="15" ry="21"/>
+  <path class="ln" d="M410,116 L410,246"/>
+  <text class="tb" x="410" y="216">ALDP (ABCD1)</text>
+  <text class="sm" x="410" y="236">The door that fails in ALD</text>
+
+  <!-- 베타 산화 -->
+  <path class="ln" marker-end="url(#p)" d="M410,262 L410,368"/>
+  <text class="tb" x="410" y="300">β-oxidation</text>
+  <text class="sm" x="410" y="320">Shortens fatty acids</text>
+  <text class="t"  x="410" y="396">Saturated medium-chain fatty acids</text>
+
+  <!-- 다른 운반체 -->
+  <g class="port">
+    <rect x="676" y="238" width="46" height="22" rx="10" transform="rotate(38 699 249)"/>
+    <rect x="700" y="292" width="46" height="22" rx="10" transform="rotate(20 723 303)"/>
+    <rect x="706" y="352" width="46" height="22" rx="10" transform="rotate(-8 729 363)"/>
+  </g>
+  <text class="sm" x="800" y="236">ALDRP (ABCD2)</text>
+  <text class="sm" x="800" y="292">PMP70 (ABCD3)</text>
+  <text class="sm" x="800" y="352">PMP69 (ABCD4)</text>
+
+  <!-- 막힘 표시 -->
+  <g class="ln" opacity=".9">
+    <path d="M470,150 L512,124"/>
+    <path d="M470,124 L512,150"/>
+  </g>
+  <text class="sm" x="562" y="142" text-anchor="start">This is where ALD blocks</text>
+  <text class="sm" x="562" y="160" text-anchor="start">→ fatty acids accumulate in the cytosol</text>
+
+  <text class="sm" x="430" y="548" opacity=".6">Adapted from a figure published in J Korean Child Neurol Soc, 2016</text>
+</svg>

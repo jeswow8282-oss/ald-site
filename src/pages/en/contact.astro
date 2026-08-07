@@ -1,0 +1,236 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Contact" description="Research enquiries, and enquiries from patients and families.">
+  <p>
+    Enquiries about ALD are welcome. Please choose whichever applies below.
+    What you send <strong>can be read only by the site operator.</strong>
+  </p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab is-on" data-type="patient" role="tab" aria-selected="true">Patients and families</button>
+    <button class="tab" data-type="research" role="tab" aria-selected="false">Research</button>
+  </div>
+
+  <!-- ─────────── 환자·보호자 ─────────── -->
+  <section class="pane" data-pane="patient">
+    <div class="notice">
+      <p><strong>Please read first</strong></p>
+      <ul>
+        <li>This is <strong>not a clinical service.</strong> Questions about the diagnosis or treatment of an individual patient cannot be answered here.</li>
+        <li><strong>In an emergency, go to hospital.</strong> Do not wait for a reply here.</li>
+        <li>The site is run alongside other work, so <strong>replies may be slow or may not be possible.</strong></li>
+        <li>Please <strong>do not include personal information that is not necessary</strong>, such as identification numbers or detailed medical history.</li>
+      </ul>
+    </div>
+
+    <form class="cform" data-form="patient" novalidate>
+      <label>
+        <span>What should we call you? <em>required</em></span>
+        <input name="name" type="text" maxlength="100" required placeholder="Name or a nickname" />
+        <small>It does not have to be your real name.</small>
+      </label>
+      <label>
+        <span>Where to reply <em>required</em></span>
+        <input name="contact" type="text" maxlength="200" required placeholder="Email address" />
+        <small>Email is preferred. A phone number is not needed.</small>
+      </label>
+      <label>
+        <span>Your message <em>required</em></span>
+        <textarea name="message" rows="9" maxlength="5000" required
+          placeholder="For example:&#10;· A family member has been diagnosed and we do not know where to go&#10;· Something on this site is unclear&#10;· I found something that appears to be wrong"></textarea>
+        <small class="count">0 / 5000</small>
+      </label>
+      <div class="agree">
+        <label class="chk">
+          <input type="checkbox" name="agree" required />
+          <span>I have read the notes above and agree that what I enter will be stored so that my enquiry can be handled.</span>
+        </label>
+      </div>
+      <button class="submit" type="submit">Send</button>
+      <p class="result" role="status"></p>
+    </form>
+  </section>
+
+  <!-- ─────────── 연구 ─────────── -->
+  <section class="pane" data-pane="research" hidden>
+    <div class="notice">
+      <p><strong>Research enquiries</strong></p>
+      <ul>
+        <li>Collaboration, data requests and clinical trial enquiries are welcome.</li>
+        <li>Please also get in touch if you are looking for data on the Korean ALD patient population.</li>
+        <li>Including your affiliation and purpose will speed up a reply.</li>
+      </ul>
+    </div>
+
+    <form class="cform" data-form="research" novalidate>
+      <label>
+        <span>Name and affiliation <em>required</em></span>
+        <input name="name" type="text" maxlength="100" required placeholder="e.g. Jane Doe / Department of Neurology, X University" />
+      </label>
+      <label>
+        <span>Email for reply <em>required</em></span>
+        <input name="contact" type="email" maxlength="200" required placeholder="name@example.org" />
+        <small>An institutional address is preferred.</small>
+      </label>
+      <label>
+        <span>문의 내용 <em>필수</em></span>
+        <textarea name="message" rows="9" maxlength="5000" required
+          placeholder="Research topic, the collaboration you have in mind, or the data you need."></textarea>
+        <small class="count">0 / 5000</small>
+      </label>
+      <div class="agree">
+        <label class="chk">
+          <input type="checkbox" name="agree" required />
+          <span>I agree that what I enter will be stored so that my enquiry can be handled.</span>
+        </label>
+      </div>
+      <button class="submit" type="submit">보내기</button>
+      <p class="result" role="status"></p>
+    </form>
+  </section>
+
+  <hr />
+
+  <h2>How your message is handled</h2>
+  <ul>
+    <li>Messages <strong>can be read only by the site operator.</strong> Neither other visitors nor the sender can retrieve them afterwards.</li>
+    <li>They are not used for any purpose other than answering the enquiry, and are not shared with third parties.</li>
+    <li>Messages are deleted periodically once answered.</li>
+    <li>The only items collected are <strong>a name to use, contact details and the message itself.</strong></li>
+  </ul>
+</Base>
+
+<style>
+  .tabs { display: flex; gap: 0; margin: 2.5rem 0 0; border-bottom: 1px solid var(--rule); }
+  .tab {
+    appearance: none; background: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 1rem; font-weight: 600; color: var(--muted);
+    padding: .9rem 1.4rem; border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color .2s, border-color .2s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.is-on { color: var(--deep); border-bottom-color: var(--deep); }
+
+  .pane { padding-top: 2.2rem; }
+
+  .notice {
+    background: var(--paper-2); border-left: 3px solid var(--deep);
+    padding: 1.2rem 1.4rem; margin-bottom: 2.2rem;
+  }
+  .notice p { margin: 0 0 .6rem; }
+  .notice ul { margin: 0; padding-left: 1.2rem; }
+  .notice li { margin-bottom: .45rem; font-size: .96rem; color: var(--ink-2); }
+  .notice li:last-child { margin-bottom: 0; }
+
+  .cform { display: grid; gap: 1.7rem; }
+  .cform > label { display: grid; gap: .5rem; }
+  .cform > label > span { font-weight: 600; font-size: .98rem; }
+  .cform em { font-style: normal; color: var(--deep-2); font-size: .82rem; margin-left: .4rem; font-weight: 500; }
+  .cform input, .cform textarea {
+    font-family: inherit; font-size: 1rem; line-height: 1.7; color: var(--ink);
+    background: #fff; border: 1px solid var(--rule-2); padding: .8rem .9rem;
+    width: 100%; border-radius: 0;
+  }
+  .cform input:focus, .cform textarea:focus {
+    outline: none; border-color: var(--deep); box-shadow: 0 0 0 3px rgba(30,61,56,.09);
+  }
+  .cform textarea { resize: vertical; }
+  .cform small { color: var(--muted); font-size: .86rem; }
+  .count { justify-self: end; font-variant-numeric: tabular-nums; }
+
+  .agree { background: var(--paper-2); padding: 1rem 1.1rem; }
+  .chk { display: flex; gap: .7rem; align-items: flex-start; cursor: pointer; }
+  .chk input { width: auto; margin-top: .35rem; flex: none; }
+  .chk span { font-size: .93rem; color: var(--ink-2); line-height: 1.65; }
+
+  .submit {
+    justify-self: start; appearance: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 1rem; font-weight: 600;
+    background: var(--deep); color: var(--paper); padding: .9rem 2.4rem;
+    transition: background .25s;
+  }
+  .submit:hover:not(:disabled) { background: var(--deep-2); }
+  .submit:disabled { opacity: .5; cursor: default; }
+
+  .result { margin: 0; font-size: .95rem; min-height: 1.4em; }
+  .result.ok { color: var(--deep); font-weight: 600; }
+  .result.err { color: #9a3412; }
+
+  @media (max-width: 560px) {
+    .tab { padding: .8rem .9rem; font-size: .93rem; }
+    .submit { width: 100%; text-align: center; }
+  }
+</style>
+
+<script>
+  import { auth, db } from '../../lib/firebase.js';
+  import { signInAnonymously } from 'firebase/auth';
+  import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+  // 탭 전환
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab');
+  const panes = document.querySelectorAll<HTMLElement>('.pane');
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => {
+      const type = t.dataset.type;
+      tabs.forEach((x) => {
+        const on = x === t;
+        x.classList.toggle('is-on', on);
+        x.setAttribute('aria-selected', String(on));
+      });
+      panes.forEach((p) => { p.hidden = p.dataset.pane !== type; });
+    });
+  });
+
+  // 글자 수 표시
+  document.querySelectorAll<HTMLTextAreaElement>('textarea[name="message"]').forEach((ta) => {
+    const count = ta.parentElement?.querySelector('.count');
+    const upd = () => { if (count) count.textContent = `${ta.value.length} / 5000`; };
+    ta.addEventListener('input', upd); upd();
+  });
+
+  // 제출
+  document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
+    const btn = form.querySelector<HTMLButtonElement>('.submit')!;
+    const out = form.querySelector<HTMLParagraphElement>('.result')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      out.className = 'result'; out.textContent = '';
+
+      const fd = new FormData(form);
+      const name = String(fd.get('name') || '').trim();
+      const contact = String(fd.get('contact') || '').trim();
+      const message = String(fd.get('message') || '').trim();
+
+      if (!name || !contact || !message) {
+        out.className = 'result err'; out.textContent = 'Please complete all required fields.'; return;
+      }
+      if (!fd.get('agree')) {
+        out.className = 'result err'; out.textContent = 'Please tick the consent box.'; return;
+      }
+
+      btn.disabled = true; btn.textContent = 'Sending…';
+      try {
+        if (!auth.currentUser) await signInAnonymously(auth);
+        await addDoc(collection(db, 'submissions'), {
+          type: form.dataset.form,
+          name, contact, message,
+          createdAt: serverTimestamp(),
+          status: 'new',
+        });
+        form.reset();
+        form.querySelectorAll('.count').forEach((c) => { c.textContent = '0 / 5000'; });
+        out.className = 'result ok';
+        out.textContent = 'Thank you. We will look at this and reply.';
+      } catch (err) {
+        console.error(err);
+        out.className = 'result err';
+        out.textContent = 'Sending failed. Please try again shortly, or let us know another way if it continues.';
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 600" role="img"
+     aria-labelledby="nh-title nh-desc" font-family="'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <title id="nh-title">Natural history of ALD</title>
+  <desc id="nh-desc">The upper panel shows how, from the same ABCD1 variant, the course diverges with age into cerebral disease or adrenomyeloneuropathy. The lower panel shows adrenal function crossing the threshold from subclinical to clinically apparent insufficiency.</desc>
+
+  <style>
+    .t   { fill: currentColor; font-size: 14px; }
+    .tb  { fill: currentColor; font-size: 15px; font-weight: 700; }
+    .sm  { fill: currentColor; font-size: 12.5px; opacity: .72; }
+    .cap { fill: currentColor; font-size: 16px; font-weight: 700; }
+    .ax  { stroke: currentColor; stroke-width: 1.6; fill: none; }
+    .cv  { stroke: currentColor; stroke-width: 2.6; fill: none; }
+    .cv2 { stroke: currentColor; stroke-width: 1.6; fill: none; }
+    .dot { stroke: currentColor; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+    .lead{ stroke: currentColor; stroke-width: 1.2; fill: none; opacity: .7; }
+  </style>
+  <defs>
+    <marker id="n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- (가) -->
+  <text class="cap" x="24" y="30">(a) Phenotypes diverge with age</text>
+  <path class="ax" d="M90,300 L720,300"/>
+  <text class="sm" x="700" y="322">Age →</text>
+
+  <!-- 급속 진행 대뇌형 -->
+  <path class="cv" d="M110,300 C150,290 168,220 176,196 C182,178 196,182 200,204 C210,258 236,262 268,244
+                       C330,210 356,150 372,116 C380,96 398,100 402,124 C410,178 442,178 476,152
+                       C540,104 600,66 700,52"/>
+  <text class="tb" x="600" y="40">Rapidly progressive cerebral ALD</text>
+
+  <!-- 서서히 진행 대뇌형 -->
+  <path class="cv2" d="M110,300 C300,286 520,214 700,146"/>
+  <text class="t" x="602" y="140">Slowly progressive cerebral ALD</text>
+
+  <!-- AMN -->
+  <path class="cv" d="M110,300 C320,296 540,264 700,222"/>
+  <text class="tb" x="596" y="248">Adrenomyeloneuropathy (AMN)</text>
+
+  <!-- 자극/완화 주석 -->
+  <text class="sm" x="128" y="180">Trigger</text>
+  <path class="lead" marker-end="url(#n)" d="M168,184 L176,198"/>
+  <text class="sm" x="212" y="234">Modifier</text>
+  <path class="lead" marker-end="url(#n)" d="M214,222 L202,206"/>
+  <text class="sm" x="298" y="104">Trigger</text>
+  <path class="lead" marker-end="url(#n)" d="M348,108 L370,118"/>
+  <text class="sm" x="412" y="88">Modifier</text>
+  <path class="lead" marker-end="url(#n)" d="M420,96 L406,122"/>
+
+  <path class="dot" d="M176,196 L150,120"/>
+  <path class="dot" d="M372,116 L352,44"/>
+  <text class="sm" x="196" y="112">Untreated</text>
+  <text class="sm" x="330" y="36">Vegetative state · death</text>
+
+  <text class="sm" x="24" y="286">ABCD1</text>
+  <text class="sm" x="24" y="302">variant</text>
+  <path class="lead" marker-end="url(#n)" d="M70,296 L106,300"/>
+
+  <!-- (나) -->
+  <text class="cap" x="24" y="392">(b) Adrenal insufficiency appears when it crosses the threshold</text>
+  <path class="ax" d="M90,560 L620,560"/>
+  <line class="ax" x1="90" y1="470" x2="620" y2="470" stroke-dasharray="6 4"/>
+  <text class="sm" x="106" y="462">Threshold</text>
+  <path class="cv" d="M110,556 L560,412"/>
+
+  <text class="t"  x="636" y="424">Clinically apparent</text>
+  <text class="t"  x="636" y="442">adrenal insufficiency</text>
+  <text class="t"  x="636" y="512">Subclinical adrenal insufficiency</text>
+  <text class="sm" x="636" y="532">Detected only by testing</text>
+  <text class="sm" x="560" y="582">Age →</text>
+
+  <text class="sm" x="24" y="596" opacity=".6">Adapted from a figure published in J Korean Child Neurol Soc, 2016</text>
+</svg>
