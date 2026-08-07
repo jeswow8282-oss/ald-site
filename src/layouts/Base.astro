@@ -1,9 +1,8 @@
 ---
 // ── 검색 노출 스위치 ─────────────────────────────────────────────
-// true  = 검색엔진에 노출하지 않음 (소수에게만 링크로 공유하는 단계)
-// false = 정식 공개. 도메인 연결하고 내용 확정된 뒤에 false로 바꾸세요.
-//         public/robots.txt 도 함께 바꿔야 합니다.
-const NOINDEX = true;
+// true  = 검색엔진에 노출하지 않음
+// false = 정식 공개 (현재). public/robots.txt 와 함께 관리합니다.
+const NOINDEX = false;
 // ─────────────────────────────────────────────────────────────────
 
 const { frontmatter, title: titleProp, description: descProp, home, headings = [] } = Astro.props;
@@ -14,10 +13,15 @@ const description =
   '부신백질이영양증(ALD)에 대한 한국어 정보. 대뇌형·부신척수신경병증·여성 ALD·부신기능부전·신생아 선별검사·식사요법.';
 // base(하위 경로) 배포를 고려한 링크 처리
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-const url = (p) => (p === '/' ? BASE + '/' : BASE + p);
-const path = Astro.url.pathname.replace(/\/$/, '').replace(BASE, '') || '/';
+const url = (p) => (p === '/' ? BASE + (L || '') + '/' : BASE + (L || '') + p);
+const abs = (p) => (p === '/' ? BASE + '/' : BASE + p);
 
-const nav = [
+const rawPath = Astro.url.pathname.replace(/\/$/, '').replace(BASE, '') || '/';
+const isEN = rawPath === '/en' || rawPath.startsWith('/en/');
+const path = isEN ? (rawPath.replace(/^\/en/, '') || '/') : rawPath;
+const L = isEN ? '/en' : '';
+
+const NAV_KO = [
   { href: '/pathogenesis', label: 'ALD 개요' },
   { label: '표현형', children: [
       { href: '/cerebral-ald',          label: '대뇌형 (cALD)' },
@@ -27,36 +31,89 @@ const nav = [
     ] },
   { href: '/newborn-screening', label: '신생아 선별검사' },
   { label: '치료', children: [
-      { href: '/treatment',                    label: '대뇌형 치료' },
-      { href: '/amn#치료와-관리',                label: 'AMN 치료와 관리' },
-      { href: '/adrenal-insufficiency#치료',     label: '부신기능부전 관리' },
+      { href: '/treatment',                 label: '대뇌형 치료' },
+      { href: '/amn#치료와-관리',             label: 'AMN 치료와 관리' },
+      { href: '/adrenal-insufficiency#치료',  label: '부신기능부전 관리' },
     ] },
   { href: '/diet', label: '식사요법' },
   { href: '/research', label: '연구' },
   { href: '/clinical-trials', label: '임상연구' },
   { href: '/contact', label: '연락하기' },
 ];
+const NAV_EN = [
+  { href: '/pathogenesis', label: 'About ALD' },
+  { label: 'Phenotypes', children: [
+      { href: '/cerebral-ald',          label: 'Cerebral ALD' },
+      { href: '/amn',                   label: 'Adrenomyeloneuropathy' },
+      { href: '/women',                 label: 'Women with ALD' },
+      { href: '/adrenal-insufficiency', label: 'Adrenal Insufficiency' },
+    ] },
+  { href: '/newborn-screening', label: 'Newborn Screening' },
+  { label: 'Treatment', children: [
+      { href: '/treatment',                     label: 'Cerebral ALD Treatment' },
+      { href: '/amn#treatment-and-care',        label: 'AMN Care' },
+      { href: '/adrenal-insufficiency#treatment', label: 'Adrenal Management' },
+    ] },
+  { href: '/diet', label: 'Diet' },
+  { href: '/research', label: 'Research' },
+  { href: '/clinical-trials', label: 'Clinical Trials' },
+  { href: '/contact', label: 'Contact' },
+];
+const nav = isEN ? NAV_EN : NAV_KO;
+
+const T = isEN ? {
+  htmlLang: 'en',
+  siteName: 'Korea ALD',
+  homeTitle: 'Korea ALD — Adrenoleukodystrophy Information',
+  suffix: 'Korea ALD',
+  eyebrow: 'Adrenoleukodystrophy',
+  toc: 'On this page',
+  footTag: 'Adrenoleukodystrophy · Information in English',
+  disclaimer: 'This site provides information about adrenoleukodystrophy. It does not replace medical care. Diagnosis and treatment decisions rest with the treating clinicians.',
+  cafe: 'ALD Bridge (Naver Cafe, Korean)',
+  blog: 'Related blog (Korean)',
+  admin: 'Admin',
+  switch: '한국어',
+  switchTo: '',
+} : {
+  htmlLang: 'ko',
+  siteName: '부신백질이영양증(ALD) 정보',
+  homeTitle: '부신백질이영양증(ALD) — 한국어 정보',
+  suffix: '부신백질이영양증(ALD)',
+  eyebrow: '부신백질이영양증',
+  toc: '이 페이지 안에서',
+  footTag: 'Adrenoleukodystrophy · 한국어 정보',
+  disclaimer: '이 사이트는 부신백질이영양증에 대한 정보를 제공합니다. 진료나 상담을 대신하지 않으며, 개별 환자의 진단과 치료는 담당 의료진의 판단에 따릅니다.',
+  cafe: 'ALD 브릿지 (네이버 카페)',
+  blog: '관련 블로그',
+  admin: '관리자',
+  switch: 'English',
+  switchTo: '/en',
+};
+
 const isOn = (item) =>
   item.href ? path === item.href.split('#')[0]
             : (item.children || []).some((c) => path === c.href.split('#')[0]);
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org').href;
 ---
 <!doctype html>
-<html lang="ko">
+<html lang={T.htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{home ? '부신백질이영양증(ALD) — 한국어 정보' : `${title} — 부신백질이영양증(ALD)`}</title>
+  <title>{home ? T.homeTitle : `${title} — ${T.suffix}`}</title>
   <meta name="description" content={description} />
   {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="부신백질이영양증(ALD) 정보" />
+  <meta property="og:site_name" content={T.siteName} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:locale" content="ko_KR" />
-  <link rel="icon" href={url('/logo-mark.svg')} type="image/svg+xml" />
-  <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+  <meta property="og:locale" content={isEN ? "en_US" : "ko_KR"} />
+  <link rel="alternate" hreflang="ko" href={new URL(abs(path === "/" ? "/" : path), Astro.site).href} />
+  <link rel="alternate" hreflang="en" href={new URL(abs("/en" + (path === "/" ? "/" : path)), Astro.site).href} />
+  <link rel="icon" href={abs('/logo-mark.svg')} type="image/svg+xml" />
+  <link rel="apple-touch-icon" href={abs('/apple-touch-icon.png')} />
   <script is:inline>
     if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
   </script>
@@ -123,6 +180,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     .brand img { height: 62px; width: auto; display: block; }
 
     nav.main { display: flex; gap: 1.6rem; margin-left: auto; align-items: stretch; }
+    @media (min-width: 901px) { .langswitch { order: 99; } }
     .navgroup { position: relative; display: flex; }
     .navtop {
       position: relative; display: inline-flex; align-items: center; gap: .35rem;
@@ -158,6 +216,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     .submenu a:hover { background: var(--paper-2); color: var(--ink); }
     .submenu a[aria-current="page"] { color: var(--deep); font-weight: 600; border-left-color: var(--deep); }
 
+.langswitch {
+      align-self: center; margin-left: 1.6rem; padding: .4rem .9rem;
+      border: 1px solid var(--rule-2); text-decoration: none;
+      color: var(--ink-2); font-size: .85rem; font-weight: 600; white-space: nowrap;
+      transition: border-color .2s, color .2s;
+    }
+    .langswitch:hover { color: var(--deep); border-color: var(--deep); }
     .menu-toggle { display: none; margin-left: auto; }
 
     /* ── 페이지 머리 : 색 밴드 대신 여백과 괘선 ── */
@@ -318,6 +383,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       .navgroup.open .navtop svg { transform: rotate(180deg); }
       .submenu a { padding: .75rem 1rem; border-bottom: 1px solid var(--rule); font-size: .97rem; }
       .submenu a:last-child { border-bottom: 0; }
+      .langswitch { margin-left: auto; margin-right: .7rem; padding: .35rem .75rem; font-size: .8rem; }
       .menu-toggle {
         display: grid; place-items: center; width: 42px; height: 42px;
         background: none; border: 1px solid var(--rule-2); cursor: pointer;
@@ -339,9 +405,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
   <header class="site-head">
     <div class="head-inner">
       <a class="brand" href={url('/')} aria-label="KOREA ALD 홈으로">
-        <img src={url('/logo.svg')} alt="KOREA ALD" width="150" height="142" />
+        <img src={abs('/logo.svg')} alt="KOREA ALD" width="150" height="142" />
       </a>
-      <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
+      <a class="langswitch" href={abs(isEN ? (path === '/' ? '/' : path) : '/en' + (path === '/' ? '/' : path))}
+         hreflang={isEN ? 'ko' : 'en'} aria-label={isEN ? '한국어로 보기' : 'View in English'}>{T.switch}</a>
+      <button class="menu-toggle" aria-label={isEN ? 'Open menu' : '메뉴 열기'} aria-expanded="false"><span></span></button>
       <nav class="main" id="mainnav">
         {nav.map((n) => (
           n.children ? (
@@ -368,7 +436,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     <div class="page-head">
       <div class="container">
         <div class="inner">
-          <span class="eyebrow">부신백질이영양증</span>
+          <span class="eyebrow">{T.eyebrow}</span>
           <h1>{title}</h1>
         </div>
       </div>
@@ -380,7 +448,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       <div class="page-body">
         {toc.length > 2 && (
           <aside class="toc" aria-label="이 페이지의 목차">
-            <p class="toc-title">이 페이지 안에서</p>
+            <p class="toc-title">{T.toc}</p>
             <nav>
               <ol>
                 {toc.map((h) => (
@@ -399,16 +467,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     <div class="container">
       <div class="foot-grid">
         <div>
-          <p class="foot-brand">부신백질이영양증</p>
-          <p class="foot-sub">Adrenoleukodystrophy · 한국어 정보</p>
+          <p class="foot-brand">{isEN ? "Korea ALD" : "부신백질이영양증"}</p>
+          <p class="foot-sub">{T.footTag}</p>
           <div class="foot-ext">
             <a href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">
-              ALD 브릿지 (네이버 카페) <i>↗</i>
+              {T.cafe} <i>↗</i>
             </a>
             <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">
-              관련 블로그 <i>↗</i>
+              {T.blog} <i>↗</i>
             </a>
-            <a class="admin-link" href={url('/admin')}>관리자</a>
+            <a class="admin-link" href={abs('/admin')}>{T.admin}</a>
           </div>
         </div>
         <div class="foot-links">
@@ -416,8 +484,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
         </div>
       </div>
       <p class="foot-note">
-        이 사이트는 부신백질이영양증에 대한 정보를 제공합니다.
-        진료나 상담을 대신하지 않으며, 개별 환자의 진단과 치료는 담당 의료진의 판단에 따릅니다.
+        {T.disclaimer}
       </p>
     </div>
   </footer>

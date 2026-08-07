@@ -20,7 +20,6 @@ ALD 환자에게서 얻은 세포를 유도만능줄기세포(iPSC)로 만든 �
 
 ALD 환자 유래 iPSC에 대한 유전체 교정을 시도한 초기 연구에 해당합니다.
 
-- Jung ES, Quan Z, Chang MY, Hong W, Kim JH, Kim SH, You S, Kim DS, Jang J, Lee SH, Kim HH, Kang HC
 - *bioRxiv*, 2020
 - → [원문 보기](https://www.biorxiv.org/content/10.1101/2020.02.23.962118v1)
 
@@ -30,7 +29,6 @@ ALD 환자 유래 iPSC에 대한 유전체 교정을 시도한 초기 연구에 
 
 치료받은 마우스에서 *ABCD1* mRNA가 유의하게 증가했고, ALD의 진단 지표인 **혈장 C24:0-LysoPC와 C26:0-LysoPC가 감소**했습니다.
 
-- Hong SA, Seo JH, Wi S, **Jung ES**, Yu J, Hwang GH, Yu JH, Baek A, Park S, Bae S, Cho SR
 - *Molecular Therapy* 2022;30(1):119–129
 - → [원문 보기 (무료 전문)](https://pmc.ncbi.nlm.nih.gov/articles/PMC8753287/) · [DOI](https://doi.org/10.1016/j.ymthe.2021.05.022)
 
@@ -38,7 +36,6 @@ ALD 환자 유래 iPSC에 대한 유전체 교정을 시도한 초기 연구에 
 
 인간 *ABCD1* 유전자를 가진 인간화 마우스 모델에서 **아데닌 염기교정(adenine base editing)**으로 변이를 교정한 연구입니다. 염기교정은 DNA를 자르지 않고 염기 하나를 바꾸는 방식이라, 벡터가 염색체에 삽입되면서 생기는 위험 구조가 다릅니다.
 
-- Gopalappa R, Lee M, Kim G, **Jung ES**, Lee H, Hwang HY, Lee JG, Kim SJ, Yoo HJ, Sung YH, Kim D, Baek IJ, Kim HH
 - *Molecular Therapy* 2024;32(7):2190–2206
 - → [원문 보기](https://doi.org/10.1016/j.ymthe.2024.05.027) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/38796705/)
 
@@ -52,7 +49,6 @@ ALD 환자 유래 iPSC에 대한 유전체 교정을 시도한 초기 연구에 
 
 이 사이트의 의학 정보는 이 종설을 뼈대로 하고, 이후 발표된 연구와 2022년 국제 합의 권고로 갱신한 것입니다.
 
-- 정을식, 고아라, 강훈철
 - *대한소아신경학회지* 2016;24(3):71–83
 - 연구비: 보건복지부 보건의료기술연구개발사업 (HI14C1588, HI15C1601)
 
@@ -62,7 +58,7 @@ ALD 환자 유래 iPSC에 대한 유전체 교정을 시도한 초기 연구에 
 
 - 식이 관련 내용 연구개발 및 집필: **이은주** 영양사
 - 도움: 세브란스병원 영양팀 **이송미** 팀장, **김진수** 파트장
-- 공저: **정을식** / 감수 및 프롤로그: **강훈철** 교수 (연세대 의대 세브란스 어린이병원 소아신경과)
+- 감수 및 프롤로그: **강훈철** 교수 (연세대 의대 세브란스 어린이병원 소아신경과)
 - → [식사요법 페이지 보기](/diet)
 
 ---

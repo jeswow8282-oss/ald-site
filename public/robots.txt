@@ -1,11 +1,4 @@
-# 소수에게만 링크로 공유하는 단계입니다. 검색엔진 수집을 막습니다.
-# 정식 공개할 때 아래 두 줄을 지우고, 그 아래 주석을 해제하세요.
-# (src/layouts/Base.astro 의 NOINDEX 도 false 로 바꿔야 합니다.)
 User-agent: *
-Disallow: /
+Allow: /
 
-# ── 정식 공개용 ──
-# User-agent: *
-# Allow: /
-#
-# Sitemap: https://example.org/sitemap-index.xml
+Sitemap: https://kalds.org/sitemap-index.xml
