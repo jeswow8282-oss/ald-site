@@ -5,7 +5,7 @@
 const NOINDEX = false;
 // ─────────────────────────────────────────────────────────────────
 
-const { frontmatter, title: titleProp, description: descProp, home, headings = [] } = Astro.props;
+const { frontmatter, title: titleProp, description: descProp, home, noindex, headings = [] } = Astro.props;
 const toc = (headings ?? []).filter((h) => h.depth === 2);
 const title = titleProp ?? frontmatter?.title ?? '부신백질이영양증 (ALD)';
 const description =
@@ -103,7 +103,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{home ? T.homeTitle : `${title} — ${T.suffix}`}</title>
   <meta name="description" content={description} />
-  {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
+  {(NOINDEX || noindex) && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={T.siteName} />

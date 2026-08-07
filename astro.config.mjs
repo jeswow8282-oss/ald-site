@@ -31,7 +31,10 @@ export default defineConfig({
   site: SITE,
   base: BASE || '/',
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  integrations: [
+    // 관리자 페이지는 검색엔진에 알리지 않습니다.
+    sitemap({ filter: (page) => !page.includes('/admin') }),
+  ],
   markdown: {
     rehypePlugins: [rehypeBasePrefix],
     shikiConfig: { theme: 'github-light' },
