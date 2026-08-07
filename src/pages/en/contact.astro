@@ -21,6 +21,7 @@ import Base from '../../layouts/Base.astro';
         <li><strong>In an emergency, go to hospital.</strong> Do not wait for a reply here.</li>
         <li>The site is run alongside other work, so <strong>replies may be slow or may not be possible.</strong></li>
         <li>Please <strong>do not include personal information that is not necessary</strong>, such as identification numbers or detailed medical history.</li>
+        <li>If the form will not send, you can leave a comment on the <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">blog</a> (Korean) instead.</li>
       </ul>
     </div>
 
@@ -60,6 +61,7 @@ import Base from '../../layouts/Base.astro';
         <li>Collaboration, data requests and clinical trial enquiries are welcome.</li>
         <li>Please also get in touch if you are looking for data on the Korean ALD patient population.</li>
         <li>Including your affiliation and purpose will speed up a reply.</li>
+        <li>If the form will not send, you can reach us through the <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">blog</a> (Korean) instead.</li>
       </ul>
     </div>
 
@@ -122,6 +124,8 @@ import Base from '../../layouts/Base.astro';
   .notice ul { margin: 0; padding-left: 1.2rem; }
   .notice li { margin-bottom: .45rem; font-size: .96rem; color: var(--ink-2); }
   .notice li:last-child { margin-bottom: 0; }
+  .notice a { color: var(--deep-2); }
+  .result a { color: var(--deep-2); }
 
   .cform { display: grid; gap: 1.7rem; }
   .cform > label { display: grid; gap: .5rem; }
@@ -227,7 +231,7 @@ import Base from '../../layouts/Base.astro';
       } catch (err) {
         console.error(err);
         out.className = 'result err';
-        out.textContent = 'Sending failed. Please try again shortly, or let us know another way if it continues.';
+        out.innerHTML = 'Sending failed. Please try again shortly.<br>If it keeps failing, you can leave a comment on the <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">blog</a> (Korean) instead.';
       } finally {
         btn.disabled = false; btn.textContent = 'Send';
       }
