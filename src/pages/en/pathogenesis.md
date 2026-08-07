@@ -48,6 +48,11 @@ So it is not possible to look at a genetic test result and say that a child will
 
 Cruel as it sounds, this has a practical consequence. **It is precisely why periodic brain MRI surveillance is necessary.** Because the course cannot be predicted, it has to be watched — and watching means the window is not missed.
 
+> **If you have had genetic testing**
+> You can look your variant up in the [ABCD1 Variant Registry](https://adrenoleukodystrophy.info/mutations-and-variants-in-abcd1), which collects *ABCD1* variants reported worldwide and is free and public.
+> It is particularly helpful where a **variant of uncertain significance (VUS)** has been reported. As the registry itself states, however, **the variant does not predict the course in an individual patient.**
+> → [References and Links](/en/links)
+
 ![Natural history — how phenotypes diverge with age, and how adrenal function crosses the threshold](/assets/figures/en/natural-history.svg)
 
 ---

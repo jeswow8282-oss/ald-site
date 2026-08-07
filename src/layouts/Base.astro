@@ -29,7 +29,6 @@ const path = isEN ? (rawPath.replace(/^\/en/, '') || '/') : rawPath;
 const L = isEN ? '/en' : '';
 
 const NAV_KO = [
-  { href: '/about', label: '소개' },
   { href: '/pathogenesis', label: 'ALD 개요' },
   { label: '표현형', children: [
       { href: '/cerebral-ald',          label: '대뇌형 (cALD)' },
@@ -47,9 +46,9 @@ const NAV_KO = [
   { href: '/research', label: '연구' },
   { href: '/clinical-trials', label: '임상연구' },
   { href: '/contact', label: '연락하기' },
+  { href: '/about', label: 'About Us' },
 ];
 const NAV_EN = [
-  { href: '/about', label: 'About Us' },
   { href: '/pathogenesis', label: 'About ALD' },
   { label: 'Phenotypes', children: [
       { href: '/cerebral-ald',          label: 'Cerebral ALD' },
@@ -67,6 +66,7 @@ const NAV_EN = [
   { href: '/research', label: 'Research' },
   { href: '/clinical-trials', label: 'Clinical Trials' },
   { href: '/contact', label: 'Contact' },
+  { href: '/about', label: 'About Us' },
 ];
 const nav = isEN ? NAV_EN : NAV_KO;
 
@@ -81,6 +81,7 @@ const T = isEN ? {
   disclaimer: 'This site provides information about adrenoleukodystrophy. It does not replace medical care. Diagnosis and treatment decisions rest with the treating clinicians.',
   cafe: 'ALD Bridge (Naver Cafe, Korean)',
   blog: 'Related blog (Korean)',
+  links: 'References & Links',
   admin: 'Admin',
   switch: '한국어',
   switchTo: '',
@@ -95,6 +96,7 @@ const T = isEN ? {
   disclaimer: '이 사이트는 부신백질이영양증에 대한 정보를 제공합니다. 진료나 상담을 대신하지 않으며, 개별 환자의 진단과 치료는 담당 의료진의 판단에 따릅니다.',
   cafe: 'ALD 브릿지 (네이버 카페)',
   blog: '관련 블로그',
+  links: '참조 사이트',
   admin: '관리자',
   switch: 'English',
   switchTo: '/en',
@@ -491,7 +493,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
           </div>
         </div>
         <div class="foot-links">
-          {nav.flatMap((n) => n.children ? n.children : [n]).map((n) => <a href={url(n.href)}>{n.label}</a>)}
+          {[...nav.flatMap((n) => n.children ? n.children : [n]), { href: '/links', label: T.links }].map((n) => <a href={url(n.href)}>{n.label}</a>)}
         </div>
       </div>
       <p class="foot-note">

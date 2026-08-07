@@ -83,6 +83,8 @@ New work will be added here marked `Ongoing`.
 Trials running internationally are listed separately.
 → [Clinical Trials](/en/clinical-trials)
 
+International resources — including the *ABCD1* Variant Registry — are collected under [References and Links](/en/links).
+
 For research enquiries, please use the [contact page](/en/contact).
 
 ---

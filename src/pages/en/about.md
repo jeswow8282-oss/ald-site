@@ -4,13 +4,13 @@ title: "About Korea ALD"
 description: "What Korea ALD is, why it exists, and how the content is written and maintained."
 ---
 
-Korea ALD is a **patient- and physician-led initiative supporting people and families affected by adrenoleukodystrophy in South Korea.** We provide evidence-based information in Korean, connect patients and families, and work to strengthen collaboration with clinicians, researchers and ALD organisations worldwide.
+Korea ALD is a **patient-, family- and physician-led initiative supporting people and families affected by adrenoleukodystrophy in South Korea.** We provide evidence-based information in Korean, connect patients and families, and work to strengthen collaboration with clinicians, researchers and ALD organisations worldwide.
 
 ## Why it exists
 
 There was nowhere in Korea where information about ALD had been properly put together.
 
-`ald.or.kr` once existed. It no longer resolves — the domain registration itself has lapsed. It appears that when the person who maintained it died, no one took it on.
+`ald.or.kr` once existed. It no longer resolves — the domain registration itself has lapsed.
 
 In the meantime, searching in Korean returned old posts and fragments. **A parent whose child had just been diagnosed could search at night and find no answer.** That went on for years.
 
@@ -43,6 +43,8 @@ ALD is a disease in which that gap costs a great deal. In cerebral disease, **fo
 
 **We correct what is wrong.** If you find an error, please tell us.
 
+**We say where we looked.** The international resources this site draws on are listed under [References and Links](/en/links), so you can check them directly.
+
 ## Korean and English
 
 The full site is available in **[Korean](/)** and in English. Even the labels in the diagrams have been translated.
@@ -51,9 +53,7 @@ The English version exists so that the situation in Korea can be seen from outsi
 
 ## Who makes it
 
-**A patient and a physician, working together.**
-
-We do not put the individuals forward. The trust this site earns should come not from who wrote it but from **what it was written from** — which is why every page carries its sources and its review date.
+**Patients, family members and clinicians, working together.**
 
 ## How you can help
 

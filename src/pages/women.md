@@ -76,6 +76,8 @@ ABCD1은 X염색체에 있습니다. 여성은 X염색체가 두 개이므로, �
 
 따라서 **ABCD1 유전자 검사가 확진에 필요합니다.** VLCFA가 정상이라는 이유만으로 ALD가 아니라고 판단해서는 안 됩니다.
 
+검사에서 나온 변이는 [ABCD1 변이 등록부](https://adrenoleukodystrophy.info/mutations-and-variants-in-abcd1)에서 찾아보실 수 있습니다.
+
 ---
 
 ## 5. 무엇을 할 수 있나

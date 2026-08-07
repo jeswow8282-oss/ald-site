@@ -68,6 +68,8 @@ The single largest reason for delay is that **the family history is not shared d
 
 ***ABCD1* genetic testing is therefore required for confirmation.** A normal VLCFA result does not exclude ALD in a woman.
 
+A reported variant can be looked up in the [ABCD1 Variant Registry](https://adrenoleukodystrophy.info/mutations-and-variants-in-abcd1).
+
 ## 5. What can be done
 
 There is no treatment that halts progression in women with ALD, as is the case for men with AMN. There is still a good deal to do.
