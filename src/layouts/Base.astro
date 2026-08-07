@@ -61,9 +61,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       --serif: 'Noto Serif KR', serif;
       --sans: 'Pretendard', 'Noto Sans KR', system-ui, -apple-system, sans-serif;
 
-      --read: 52rem;   /* 본문 읽기 폭 */
+      --read: 50rem;   /* 본문 읽기 폭 */
       --wide: 84rem;   /* 헤더·홈·푸터 폭 */
-      --bleed: 13rem;  /* 제목선·표·그림이 오른쪽으로 더 뻗는 양 */
+      --shell: 92rem;  /* 본문 페이지 전체 폭 */
+      --gap: 2.5rem;
+      /* 본문 양옆에 남는 여백 — 화면 폭에 따라 자동 계산 */
+      --gutter: max(0px, (min(var(--shell), 100vw - 2rem) - var(--read) - var(--gap) * 2) / 2);
+      /* 제목선·표·그림이 오른쪽으로 뻗는 양 (여백을 넘지 않게) */
+      --bleed: min(12rem, var(--gutter));
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -139,7 +144,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     /* 넓은 화면: 왼쪽 여백을 목차로 채웁니다 */
     .page-body {
       display: grid; grid-template-columns: 1fr minmax(0, var(--read)) 1fr;
-      max-width: 92rem; margin: 0 auto; padding: 0 1.5rem; column-gap: 3rem;
+      max-width: var(--shell); margin: 0 auto; padding: 0 1rem; column-gap: var(--gap);
     }
     .prose { grid-column: 2; max-width: var(--read); padding: 3.5rem 0 0; }
 
@@ -173,14 +178,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
 
     /* ── 넓은 화면: 폭을 "글줄"이 아니라 "요소"로 채웁니다 ──
        글은 읽기 좋은 폭을 지키고, 제목선·표·그림만 오른쪽으로 더 뻗습니다. */
-    @media (min-width: 1300px) {
+    @media (min-width: 1100px) {
       .prose :global(h2) { width: calc(100% + var(--bleed)); }
       .table-wrap { width: calc(100% + var(--bleed)); }
       .prose :global(p:has(> img)) { width: calc(100% + var(--bleed)); }
       .prose :global(hr) { width: calc(100% + var(--bleed)); }
     }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1099px) {
       .page-body { grid-template-columns: minmax(0, var(--read)); justify-content: center; padding-inline: 1.75rem; }
       .toc { display: none; }
       .prose { grid-column: 1; }
