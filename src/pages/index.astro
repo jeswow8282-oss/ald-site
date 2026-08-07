@@ -5,9 +5,9 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (p) => BASE + p;
 
 const phenotypes = [
-  { href: '/treatment', tag: '소아기 · 급격히', title: '대뇌형 (cALD)',
-    body: '어느 시점에 켜지는 염증으로 빠르게 진행합니다. 조기 조혈모세포이식이 현재 유일하게 확립된 치료이며, 발견 시점이 결과를 좌우합니다.',
-    meta: '이식 · 레리글리타존 · 유전자치료' },
+  { href: '/cerebral-ald', tag: '소아기 · 급격히', title: '대뇌형 (cALD)',
+    body: '어느 시점에 켜지는 염증으로 빠르게 진행합니다. 증상이 나타나기 전에 뇌 MRI로 찾아내야 하며, 발견 시점이 결과를 좌우합니다.',
+    meta: '증상 · 감시 일정 · 치료 시기' },
   { href: '/amn', tag: '성인기 · 서서히', title: '부신척수신경병증 (AMN)',
     body: 'ABCD1 변이를 가진 남성 대부분이 결국 겪는 경과입니다. 척수가 오랜 시간에 걸쳐 손상되며, 대뇌형 전환 감시가 함께 필요합니다.',
     meta: '보행 · 강직 · 감각 · 배뇨' },
@@ -20,14 +20,16 @@ const phenotypes = [
 ];
 
 const others = [
-  { href: '/pathogenesis', n: 'I', title: '왜 이 병이 생기고, 왜 사람마다 다른가',
+  { href: '/treatment', n: 'I', title: '치료',
+    body: '조기 조혈모세포이식, 레리글리타존, 유전자치료(스카이소나), 로렌조오일까지 현재 위치를 정리했습니다.' },
+  { href: '/pathogenesis', n: 'II', title: '왜 이 병이 생기고, 왜 사람마다 다른가',
     body: 'ABCD1과 긴꼬리지방산, 같은 변이에서 다른 병이 되는 이유, 최근 10년간 이해가 달라진 부분.' },
-  { href: '/newborn-screening', n: 'II', title: '신생아 선별검사',
+  { href: '/newborn-screening', n: 'III', title: '신생아 선별검사',
     body: '조기에 발견하면 치료할 수 있고 늦으면 치료할 수 없는 병에서, 발견 시점을 앞당기는 방법. 한국과 다른 나라의 현황.' },
-  { href: '/diet', n: 'III', title: '식사요법',
+  { href: '/diet', n: 'IV', title: '식사요법',
     body: '식품군별 허용·주의·제한 식품, 로렌조오일, 자주 생기는 문제. 국내 첫 ALD 식단 지침서를 바탕으로 정리했습니다.' },
-  { href: '/survey-2016', n: 'IV', title: '2016년 환우회 설문 조사',
-    body: '국내 ALD 환자군의 모습을 수치로 남긴 거의 유일한 자료. 10년 전이라는 한계와 함께 읽어야 합니다.' },
+  { href: '/research', n: 'V', title: '연구와 임상연구',
+    body: '국내에서 수행된 연구와, 전 세계에서 진행 중인 임상연구를 정리했습니다.' },
 ];
 
 const notes = [

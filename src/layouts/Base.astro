@@ -18,17 +18,27 @@ const url = (p) => (p === '/' ? BASE + '/' : BASE + p);
 const path = Astro.url.pathname.replace(/\/$/, '').replace(BASE, '') || '/';
 
 const nav = [
-  { href: '/pathogenesis', label: '어떤 병인가' },
-  { href: '/treatment', label: '대뇌형·치료' },
-  { href: '/amn', label: 'AMN' },
-  { href: '/women', label: '여성 ALD' },
-  { href: '/adrenal-insufficiency', label: '부신기능부전' },
-  { href: '/newborn-screening', label: '선별검사' },
+  { href: '/pathogenesis', label: 'ALD 개요' },
+  { label: '표현형', children: [
+      { href: '/cerebral-ald',          label: '대뇌형 (cALD)' },
+      { href: '/amn',                   label: '부신척수신경병증 (AMN)' },
+      { href: '/women',                 label: '여성 ALD' },
+      { href: '/adrenal-insufficiency', label: '부신기능부전' },
+    ] },
+  { href: '/newborn-screening', label: '신생아 선별검사' },
+  { label: '치료', children: [
+      { href: '/treatment',                    label: '대뇌형 치료' },
+      { href: '/amn#치료와-관리',                label: 'AMN 치료와 관리' },
+      { href: '/adrenal-insufficiency#치료',     label: '부신기능부전 관리' },
+    ] },
   { href: '/diet', label: '식사요법' },
   { href: '/research', label: '연구' },
   { href: '/clinical-trials', label: '임상연구' },
   { href: '/contact', label: '연락하기' },
 ];
+const isOn = (item) =>
+  item.href ? path === item.href.split('#')[0]
+            : (item.children || []).some((c) => path === c.href.split('#')[0]);
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org').href;
 ---
 <!doctype html>
@@ -115,18 +125,41 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     }
     .brand .full { font-size: .95rem; color: var(--muted); letter-spacing: -.01em; white-space: nowrap; }
 
-    nav.main { display: flex; gap: 1.75rem; margin-left: auto; }
-    nav.main a {
-      position: relative; text-decoration: none; color: var(--ink-2);
-      font-size: .96rem; font-weight: 500; padding: 1.6rem 0; white-space: nowrap;
+    nav.main { display: flex; gap: 1.6rem; margin-left: auto; align-items: stretch; }
+    .navgroup { position: relative; display: flex; }
+    .navtop {
+      position: relative; display: inline-flex; align-items: center; gap: .35rem;
+      appearance: none; background: none; border: 0; cursor: pointer; font-family: inherit;
+      text-decoration: none; color: var(--ink-2); font-size: .95rem; font-weight: 500;
+      padding: 1.6rem 0; white-space: nowrap;
     }
-    nav.main a::after {
+    .navtop svg { width: 9px; height: 6px; fill: none; stroke: currentColor; stroke-width: 1.6;
+                  stroke-linecap: round; stroke-linejoin: round; opacity: .55; transition: transform .25s; }
+    .navtop::after {
       content: ''; position: absolute; left: 0; right: 0; bottom: 1.25rem; height: 1px;
-      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.22,1,.36,1);
+      background: var(--ink); transform: scaleX(0); transform-origin: left;
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
     }
-    nav.main a:hover::after { transform: scaleX(1); }
-    nav.main a[aria-current="page"] { color: var(--deep); font-weight: 600; }
-    nav.main a[aria-current="page"]::after { transform: scaleX(1); background: var(--deep); }
+    .navtop:hover { color: var(--ink); }
+    .navtop:hover::after { transform: scaleX(1); }
+    .navtop.on, .navtop[aria-current="page"] { color: var(--deep); font-weight: 600; }
+    .navtop.on::after, .navtop[aria-current="page"]::after { transform: scaleX(1); background: var(--deep); }
+
+    .submenu {
+      position: absolute; top: 100%; left: 50%; transform: translate(-50%, 6px);
+      min-width: 15rem; background: var(--paper); border: 1px solid var(--rule);
+      box-shadow: 0 14px 36px rgba(21,24,28,.10); padding: .5rem 0;
+      opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s; z-index: 60;
+    }
+    .navgroup:hover .submenu,
+    .navgroup:focus-within .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+    .navgroup:hover .navtop svg { transform: rotate(180deg); }
+    .submenu a {
+      display: block; padding: .62rem 1.2rem; text-decoration: none;
+      color: var(--ink-2); font-size: .93rem; white-space: nowrap; border-left: 2px solid transparent;
+    }
+    .submenu a:hover { background: var(--paper-2); color: var(--ink); }
+    .submenu a[aria-current="page"] { color: var(--deep); font-weight: 600; border-left-color: var(--deep); }
 
     .menu-toggle { display: none; margin-left: auto; }
 
@@ -273,10 +306,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       nav.main {
         position: fixed; inset: 62px 0 auto 0; background: var(--paper); flex-direction: column;
         gap: 0; padding: .25rem 1.35rem 1.4rem; border-bottom: 1px solid var(--rule); display: none;
+        max-height: calc(100vh - 62px); overflow-y: auto;
       }
       nav.main.open { display: flex; }
-      nav.main a { padding: .95rem 0; border-bottom: 1px solid var(--rule); font-size: 1.02rem; }
-      nav.main a::after { display: none; }
+      .navgroup { display: block; }
+      .navtop { width: 100%; justify-content: space-between; padding: .95rem 0;
+                border-bottom: 1px solid var(--rule); font-size: 1.02rem; }
+      .navtop::after { display: none; }
+      .submenu {
+        position: static; transform: none; opacity: 1; visibility: visible; display: none;
+        min-width: 0; border: 0; box-shadow: none; background: var(--paper-2); padding: .3rem 0;
+      }
+      .navgroup.open .submenu { display: block; }
+      .navgroup.open .navtop svg { transform: rotate(180deg); }
+      .submenu a { padding: .75rem 1rem; border-bottom: 1px solid var(--rule); font-size: .97rem; }
+      .submenu a:last-child { border-bottom: 0; }
       .menu-toggle {
         display: grid; place-items: center; width: 42px; height: 42px;
         background: none; border: 1px solid var(--rule-2); cursor: pointer;
@@ -304,7 +348,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
       <nav class="main" id="mainnav">
         {nav.map((n) => (
-          <a href={url(n.href)} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+          n.children ? (
+            <div class={`navgroup${isOn(n) ? ' on' : ''}`}>
+              <button type="button" class="navtop" aria-expanded="false">
+                {n.label}<svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+              </button>
+              <div class="submenu">
+                {n.children.map((c) => (
+                  <a href={url(c.href)} aria-current={path === c.href.split('#')[0] ? 'page' : undefined}>{c.label}</a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a class={`navtop${isOn(n) ? ' on' : ''}`} href={url(n.href)}
+               aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+          )
         ))}
       </nav>
     </div>
@@ -358,7 +416,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
           </div>
         </div>
         <div class="foot-links">
-          {nav.map((n) => <a href={url(n.href)}>{n.label}</a>)}
+          {nav.flatMap((n) => n.children ? n.children : [n]).map((n) => <a href={url(n.href)}>{n.label}</a>)}
         </div>
       </div>
       <p class="foot-note">
@@ -380,6 +438,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       const open = nav.classList.toggle('open');
       btn.setAttribute('aria-expanded', String(open));
       btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    });
+    // 모바일에서 하위 메뉴 펼치기 (데스크톱은 hover로 열림)
+    document.querySelectorAll('.navgroup > .navtop').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!window.matchMedia('(max-width: 900px)').matches) return;
+        var g = b.parentElement;
+        var willOpen = !g.classList.contains('open');
+        document.querySelectorAll('.navgroup').forEach(function (x) { x.classList.remove('open'); });
+        g.classList.toggle('open', willOpen);
+        b.setAttribute('aria-expanded', String(willOpen));
+      });
     });
     // 목차: 현재 읽고 있는 절 표시
     (function () {
