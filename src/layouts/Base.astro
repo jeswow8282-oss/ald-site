@@ -61,8 +61,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       --serif: 'Noto Serif KR', serif;
       --sans: 'Pretendard', 'Noto Sans KR', system-ui, -apple-system, sans-serif;
 
-      --read: 47rem;   /* 본문 읽기 폭 */
-      --wide: 80rem;   /* 헤더·홈·푸터 폭 */
+      --read: 52rem;   /* 본문 읽기 폭 */
+      --wide: 84rem;   /* 헤더·홈·푸터 폭 */
+      --bleed: 13rem;  /* 제목선·표·그림이 오른쪽으로 더 뻗는 양 */
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -116,8 +117,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
 
     /* ── 페이지 머리 : 색 밴드 대신 여백과 괘선 ── */
     .page-head { border-bottom: 1px solid var(--rule); }
-    .page-head .container { padding-block: 4.5rem 3rem; max-width: var(--wide); }
-    .page-head .inner { max-width: var(--read); }
+    .page-head .container { padding-block: 4.5rem 3rem; max-width: 92rem; }
+    .page-head .inner { max-width: 62rem; }
+    /* 제목 오른쪽으로 뻗는 선 — 넓은 화면의 빈 공간을 채웁니다 */
+    .page-head .inner h1 { display: flex; align-items: center; gap: 1.75rem; }
+    .page-head .inner h1::after {
+      content: ''; flex: 1; height: 1px; background: var(--rule-2); min-width: 3rem;
+    }
     .page-head .eyebrow {
       display: block; font-size: .8rem; font-weight: 600; letter-spacing: .18em;
       text-transform: uppercase; color: var(--muted); margin-bottom: 1.3rem;
@@ -165,10 +171,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     /* 스티키 헤더에 제목이 가리지 않도록 */
     .prose :global(h2), .prose :global(h3) { scroll-margin-top: 6.5rem; }
 
-    /* 넓은 화면에서는 표와 그림이 글줄보다 넓게 — 오른쪽 여백을 씁니다 */
+    /* ── 넓은 화면: 폭을 "글줄"이 아니라 "요소"로 채웁니다 ──
+       글은 읽기 좋은 폭을 지키고, 제목선·표·그림만 오른쪽으로 더 뻗습니다. */
     @media (min-width: 1300px) {
-      .table-wrap { width: calc(100% + 7rem); }
-      .prose :global(p:has(> img)) { width: calc(100% + 7rem); }
+      .prose :global(h2) { width: calc(100% + var(--bleed)); }
+      .table-wrap { width: calc(100% + var(--bleed)); }
+      .prose :global(p:has(> img)) { width: calc(100% + var(--bleed)); }
+      .prose :global(hr) { width: calc(100% + var(--bleed)); }
     }
 
     @media (max-width: 1180px) {
