@@ -1,0 +1,286 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (p) => BASE + '/en' + p;
+
+const phenotypes = [
+  { href: '/cerebral-ald', tag: 'Childhood · rapid', title: 'Cerebral ALD',
+    body: 'Inflammation that switches on at some point and progresses within months. It must be found on brain MRI before symptoms appear — the timing of detection decides the outcome.',
+    meta: 'Symptoms · surveillance · timing' },
+  { href: '/amn', tag: 'Adulthood · slow', title: 'Adrenomyeloneuropathy',
+    body: 'The course most men carrying an ABCD1 variant eventually follow. The spinal cord is damaged over years, and surveillance for cerebral conversion is needed alongside.',
+    meta: 'Gait · spasticity · sensation · bladder' },
+  { href: '/women', tag: 'Women', title: 'Women with ALD',
+    body: 'Women carrying an ABCD1 variant are patients, not carriers. They develop spinal cord symptoms; cerebral disease essentially does not occur.',
+    meta: 'Symptoms · diagnosis · misdiagnosis' },
+  { href: '/adrenal-insufficiency', tag: 'Adrenal', title: 'Adrenal Insufficiency',
+    body: 'Common in males with ALD, and sometimes the first manifestation — before any neurological sign. The most easily missed and most dangerous part.',
+    meta: 'Symptoms · testing intervals · management' },
+];
+
+const others = [
+  { href: '/treatment', n: 'I', title: 'Treatment',
+    body: "Early haematopoietic stem cell transplantation, leriglitazone, gene therapy (Skysona) and Lorenzo's oil — where each stands today." },
+  { href: '/pathogenesis', n: 'II', title: 'Why it happens, and why it differs between people',
+    body: 'ABCD1 and very long chain fatty acids, why the same variant becomes a different disease, and how understanding has shifted over the past decade.' },
+  { href: '/newborn-screening', n: 'III', title: 'Newborn Screening',
+    body: 'In a disease where early detection decides everything, how detection is brought forward — and where Korea and other countries stand.' },
+  { href: '/diet', n: 'IV', title: 'Diet',
+    body: "Permitted, caution and restricted foods by group, Lorenzo's oil, and common problems. Based on the first ALD dietary guide published in Korea." },
+  { href: '/research', n: 'V', title: 'Research and clinical trials',
+    body: 'Research carried out in Korea, and trials currently running worldwide.' },
+];
+
+const notes = [
+  { h: 'Basis', p: 'Written from published research and the 2022 international consensus recommendations. Sources are indicated within each page.' },
+  { h: 'Review date', p: 'Every page carries a last-reviewed date. Medical information changes, so please read it alongside that date.' },
+  { h: 'Scope', p: 'This site provides information. It does not replace medical care or consultation.' },
+  { h: 'Corrections', p: 'Corrections and suggestions are welcome.' },
+];
+---
+<Base home title="Korea ALD">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">X-linked Adrenoleukodystrophy</p>
+      <h1>What is known,<br /><span>and what is not yet known</span></h1>
+      <div class="hero-body">
+        <p class="lead">
+          ALD is an inherited metabolic disease in which a defect in the ABCD1 gene
+          causes saturated very long chain fatty acids to accumulate, damaging the
+          nervous system and the adrenal glands. The same variant produces entirely
+          different diseases in different people.
+        </p>
+        <p class="sub">
+          There is very little material on this disease available in Korean.
+          This site sets out what is known, drawing on published research and the
+          international consensus recommendations.
+        </p>
+        <div class="actions">
+          <a class="btn" href={url('/pathogenesis')}>Start with the disease</a>
+          <a class="link-btn" href={url('/treatment')}>Treatment today →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 표현형 -->
+  <section class="sec">
+    <div class="container">
+      <header class="sec-head fade-up">
+        <span class="label">Phenotypes</span>
+        <h2>One disease, entirely different forms</h2>
+        <p>What applies to cerebral ALD does not apply to adrenomyeloneuropathy, and the reverse is equally true.</p>
+      </header>
+      <div class="cards">
+        {phenotypes.map((c) => (
+          <a class="card fade-up" href={url(c.href)}>
+            <span class="tag">{c.tag}</span>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+            <span class="meta">{c.meta}</span>
+            <span class="more">Read more <i>→</i></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 그 밖에 -->
+  <section class="sec bordered">
+    <div class="container">
+      <header class="sec-head fade-up">
+        <span class="label">More</span>
+        <h2>Background, policy and data</h2>
+      </header>
+      <ol class="rows">
+        {others.map((c) => (
+          <li class="fade-up">
+            <a class="row" href={url(c.href)}>
+              <span class="num">{c.n}</span>
+              <span class="txt">
+                <strong>{c.title}</strong>
+                <span>{c.body}</span>
+              </span>
+              <span class="arrow">→</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 커뮤니티 : 유일한 짙은 면 -->
+  <section class="community">
+    <div class="container comm-inner">
+      <div class="fade-up">
+        <span class="label light">Community</span>
+        <h2>Where people talk to each other</h2>
+        <p>This site is where information is kept. Conversation between patients
+           and families happens elsewhere — these communities are in Korean.</p>
+      </div>
+      <div class="links fade-up">
+        <a class="link" href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">
+          <span><strong>ALD Bridge</strong>A Naver Cafe community for patients and families, in Korean. Requires a Naver account.</span>
+          <i>↗</i>
+        </a>
+        <a class="link" href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">
+          <span><strong>Related blog</strong>News and materials on ALD, in Korean.</span>
+          <i>↗</i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 안내 -->
+  <section class="sec">
+    <div class="container">
+      <header class="sec-head fade-up"><span class="label">About</span><h2>About this site</h2></header>
+      <div class="notes">
+        {notes.map((n) => (
+          <div class="note fade-up"><h4>{n.h}</h4><p>{n.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── HERO ── */
+  .hero { padding: 6rem 0 5.5rem; border-bottom: 1px solid var(--rule); }
+  .eyebrow {
+    font-size: .8rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 1.8rem;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500; margin: 0 0 3rem;
+    font-size: clamp(2.3rem, 5.4vw, 4.1rem); line-height: 1.28; letter-spacing: -.04em;
+    color: var(--ink); max-width: 22ch;
+  }
+  .hero h1 span { color: var(--deep); }
+  .hero-body {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem 4rem; align-items: start;
+    padding-top: 2.5rem; border-top: 1px solid var(--rule);
+  }
+  .lead { font-size: 1.2rem; line-height: 1.85; color: var(--ink-2); margin: 0; font-family: var(--serif); font-weight: 400; }
+  .sub { font-size: 1rem; line-height: 1.9; color: var(--muted); margin: 0; }
+  .actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem; }
+  .btn {
+    display: inline-block; padding: .95rem 2rem; background: var(--deep); color: var(--paper);
+    text-decoration: none; font-weight: 600; font-size: 1rem; letter-spacing: -.01em;
+    transition: background .25s;
+  }
+  .btn:hover { background: var(--deep-2); }
+  .link-btn { text-decoration: none; color: var(--ink); font-weight: 600; font-size: 1rem; border-bottom: 1px solid var(--rule-2); padding-bottom: .2rem; }
+  .link-btn:hover { border-color: var(--ink); }
+
+  /* ── 섹션 공통 ── */
+  .sec { padding: 6rem 0; }
+  .sec.bordered { border-top: 1px solid var(--rule); }
+  .sec-head { max-width: 38rem; margin-bottom: 3.5rem; }
+  .label {
+    display: block; font-size: .78rem; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem;
+  }
+  .label.light { color: rgba(255,255,255,.55); }
+  .sec-head h2 {
+    font-family: var(--serif); font-weight: 500; color: var(--ink);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.38; letter-spacing: -.032em; margin: 0;
+  }
+  .sec-head p { color: var(--muted); margin: 1.1rem 0 0; font-size: 1.03rem; line-height: 1.85; }
+
+  /* ── 카드 ── */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .card {
+    position: relative; display: flex; flex-direction: column;
+    padding: 2.6rem 2.4rem 2.3rem; text-decoration: none; color: inherit;
+    background: var(--card); border: 1px solid var(--rule);
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .35s;
+  }
+  /* 위쪽에 가느다란 강조선 — 호버하면 채워집니다 */
+  .card::before {
+    content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 2px;
+    background: var(--deep); transform: scaleX(0); transform-origin: left;
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(30, 61, 56, .09);
+    border-color: var(--rule-2);
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .tag { font-size: .78rem; font-weight: 600; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.4rem; }
+  .card h3 { font-family: var(--serif); font-weight: 600; color: var(--ink); font-size: 1.5rem; margin: 0 0 .9rem; letter-spacing: -.025em; }
+  .card p { color: var(--ink-2); font-size: 1rem; line-height: 1.8; margin: 0 0 1.6rem; }
+  .card .meta { font-size: .88rem; color: var(--muted); margin-bottom: 1.6rem; }
+  .card .more { margin-top: auto; font-size: .95rem; font-weight: 600; color: var(--deep); display: flex; gap: .5rem; }
+  .card .more i { font-style: normal; transition: transform .3s cubic-bezier(.22,1,.36,1); }
+  .card:hover .more i { transform: translateX(5px); }
+
+  /* ── 목록 ── */
+  .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .rows li { border-bottom: 1px solid var(--rule); }
+  .row {
+    display: grid; grid-template-columns: 3.5rem 1fr auto; gap: 1.5rem; align-items: baseline;
+    padding: 2.1rem .5rem; text-decoration: none; color: inherit; transition: padding-left .3s cubic-bezier(.22,1,.36,1);
+  }
+  .row:hover { padding-left: 1.3rem; }
+  .num { font-family: var(--serif); font-size: 1rem; color: var(--rule-2); letter-spacing: .08em; }
+  .txt strong { display: block; font-family: var(--serif); font-weight: 600; color: var(--ink); font-size: 1.32rem; margin-bottom: .45rem; letter-spacing: -.025em; }
+  .txt span { color: var(--ink-2); font-size: 1rem; line-height: 1.8; }
+  .arrow { color: var(--rule-2); font-size: 1.15rem; transition: color .3s; }
+  .row:hover .arrow { color: var(--deep); }
+
+  /* ── 커뮤니티 ── */
+  .community { background: var(--deep); color: var(--paper); padding: 6rem 0; }
+  .comm-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; }
+  .community h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.7rem, 3.2vw, 2.3rem); margin: 0 0 1rem; letter-spacing: -.03em; line-height: 1.4; }
+  .comm-inner > div > p { color: rgba(255,255,255,.66); margin: 0; font-size: 1rem; line-height: 1.85; }
+  .links { display: grid; }
+  .link {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.7rem 0; text-decoration: none; color: var(--paper);
+    border-top: 1px solid rgba(255,255,255,.18); transition: padding-left .3s cubic-bezier(.22,1,.36,1);
+  }
+  .link:last-child { border-bottom: 1px solid rgba(255,255,255,.18); }
+  .link:hover { padding-left: 1rem; }
+  .link strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 1.22rem; margin-bottom: .35rem; }
+  .link span { color: rgba(255,255,255,.62); font-size: .95rem; line-height: 1.75; }
+  .link i { font-style: normal; color: rgba(255,255,255,.5); font-size: 1.2rem; }
+  .link:hover i { color: var(--paper); }
+
+  /* ── 안내 ── */
+  .notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule); }
+  .note { padding: 2rem 1.8rem 2rem 0; border-right: 1px solid var(--rule); }
+  .note:last-child { border-right: 0; }
+  .note:not(:first-child) { padding-left: 1.8rem; }
+  .note h4 { font-family: var(--serif); font-weight: 600; color: var(--deep); font-size: 1.05rem; margin: 0 0 .7rem; }
+  .note p { color: var(--ink-2); font-size: .95rem; line-height: 1.8; margin: 0; }
+
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: 1fr; }
+    .notes { grid-template-columns: repeat(2, 1fr); }
+    .note:nth-child(2) { border-right: 0; }
+    .note:nth-child(3) { padding-left: 0; border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .note:nth-child(4) { border-top: 1px solid var(--rule); }
+    .comm-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 900px) {
+    .hero { padding: 3.5rem 0 3.2rem; }
+    .hero h1 { margin-bottom: 2rem; }
+    .hero-body { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.8rem; }
+    .lead { font-size: 1.1rem; }
+    .sec, .community { padding: 3.5rem 0; }
+    .sec-head { margin-bottom: 2rem; }
+    .card { padding: 1.8rem 1.5rem; }
+    .row { grid-template-columns: 2.2rem 1fr; gap: 1rem; padding: 1.6rem .2rem; }
+    .row .arrow { display: none; }
+    .notes { grid-template-columns: 1fr; }
+    .note { padding: 1.6rem 0 !important; border-right: 0 !important; border-top: 1px solid var(--rule); }
+    .note:first-child { border-top: 0; }
+    .actions { flex-direction: column; align-items: stretch; gap: 1.1rem; }
+    .btn { text-align: center; }
+    .link-btn { text-align: center; border-bottom: 0; }
+  }
+</style>
