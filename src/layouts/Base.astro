@@ -55,7 +55,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:locale" content="ko_KR" />
-  <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+  <link rel="icon" href={url('/logo-mark.svg')} type="image/svg+xml" />
+  <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
   <script is:inline>
     if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
   </script>
@@ -118,12 +119,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       display: flex; align-items: center; gap: 2rem;
       min-height: 76px; max-width: var(--wide); margin: 0 auto; padding: 0 2.5rem;
     }
-    .brand { display: flex; align-items: baseline; gap: .55rem; text-decoration: none; color: var(--ink); }
-    .brand .abbr {
-      font-family: var(--serif); font-weight: 600; font-size: 1.35rem;
-      letter-spacing: .04em; color: var(--deep);
-    }
-    .brand .full { font-size: .95rem; color: var(--muted); letter-spacing: -.01em; white-space: nowrap; }
+    .brand { display: flex; align-items: center; text-decoration: none; flex: none; }
+    .brand img { height: 46px; width: auto; display: block; }
 
     nav.main { display: flex; gap: 1.6rem; margin-left: auto; align-items: stretch; }
     .navgroup { position: relative; display: flex; }
@@ -330,7 +327,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
         content: ''; position: absolute; left: 0; width: 18px; height: 1.5px; background: var(--ink);
       }
       .menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
-      .brand .full { display: none; }
+      .brand img { height: 38px; }
       .page-head .container { padding-block: 2.6rem 2rem; }
       .prose { padding-top: 2.4rem; }
       .prose :global(h2) { font-size: 1.42rem; margin-top: 3rem; }
@@ -341,9 +338,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
 <body>
   <header class="site-head">
     <div class="head-inner">
-      <a class="brand" href={url('/')}>
-        <span class="abbr">ALD</span>
-        <span class="full">부신백질이영양증</span>
+      <a class="brand" href={url('/')} aria-label="KOREA ALD 홈으로">
+        <img src={url('/logo.svg')} alt="KOREA ALD" width="150" height="142" />
       </a>
       <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
       <nav class="main" id="mainnav">
