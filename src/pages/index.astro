@@ -1,6 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (p) => BASE + p;
+
 const phenotypes = [
   { href: '/treatment', tag: '소아기 · 급격히', title: '대뇌형 (cALD)',
     body: '어느 시점에 켜지는 염증으로 빠르게 진행합니다. 조기 조혈모세포이식이 현재 유일하게 확립된 치료이며, 발견 시점이 결과를 좌우합니다.',
@@ -51,8 +54,8 @@ const notes = [
           이 사이트는 발표된 연구와 국제 진료 권고를 근거로 그 내용을 정리해 둔 곳입니다.
         </p>
         <div class="actions">
-          <a class="btn" href="/pathogenesis">어떤 병인지부터 보기</a>
-          <a class="link-btn" href="/treatment">치료 현황 →</a>
+          <a class="btn" href={url('/pathogenesis')}>어떤 병인지부터 보기</a>
+          <a class="link-btn" href={url('/treatment')}>치료 현황 →</a>
         </div>
       </div>
     </div>
@@ -68,7 +71,7 @@ const notes = [
       </header>
       <div class="cards">
         {phenotypes.map((c) => (
-          <a class="card fade-up" href={c.href}>
+          <a class="card fade-up" href={url(c.href)}>
             <span class="tag">{c.tag}</span>
             <h3>{c.title}</h3>
             <p>{c.body}</p>
@@ -90,7 +93,7 @@ const notes = [
       <ol class="rows">
         {others.map((c) => (
           <li class="fade-up">
-            <a class="row" href={c.href}>
+            <a class="row" href={url(c.href)}>
               <span class="num">{c.n}</span>
               <span class="txt">
                 <strong>{c.title}</strong>
