@@ -3,10 +3,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // ── 배포 주소 설정 ────────────────────────────────────────────────
-// 지금은 GitHub Pages 기본 주소(하위 경로)로 배포합니다.
-// 도메인을 사면:  site를 그 주소로 바꾸고  base 줄을 지우면 됩니다.
-const SITE = 'https://jeswow8282-oss.github.io';
-const BASE = '/ald-site';
+// 도메인 kalds.org 연결 기준입니다. BASE는 비워둡니다(최상위 경로 배포).
+const SITE = 'https://kalds.org';
+const BASE = '';
 // ─────────────────────────────────────────────────────────────────
 
 /**
@@ -30,7 +29,7 @@ function rehypeBasePrefix() {
 
 export default defineConfig({
   site: SITE,
-  base: BASE,
+  base: BASE || '/',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   markdown: {
