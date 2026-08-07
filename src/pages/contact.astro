@@ -14,16 +14,35 @@ import Base from '../layouts/Base.astro';
 
   <!-- ─────────── 환자·보호자 ─────────── -->
   <section class="pane" data-pane="patient">
-    <div class="notice">
-      <p><strong>먼저 알아두실 것</strong></p>
+    <div class="welcome">
+      <p class="w-lead">혼자 겪고 계신 것이 아닙니다.</p>
+      <p>
+        ALD는 환자 수가 적어서, 진단을 받고 나면 주변에 물어볼 사람이 없는 경우가 많습니다.
+        그래서 국내 환우와 보호자들이 <strong>카카오톡 대화방</strong>에서 서로 소식을 나누고
+        묻고 답하며 지내고 있습니다. 진료받는 병원, 겪고 있는 증상, 아이 학교 문제까지
+        비슷한 일을 겪은 분들끼리 이야기하는 자리입니다.
+      </p>
+      <p>
+        <strong>함께하고 싶으시면 아래로 알려주십시오.</strong> 안내해 드리겠습니다.
+        환우 보호자가 운영하는
+        <a href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">네이버 카페</a>도 있습니다.
+      </p>
+      <p class="w-sub">
+        무엇이든 물어보셔도 됩니다. 답을 못 드리는 것도 있겠지만,
+        찾아보고 아는 만큼은 말씀드리겠습니다.
+      </p>
+    </div>
+
+    <details class="notice-fold">
+      <summary>보내시기 전에 알아두실 것</summary>
       <ul>
-        <li>이곳은 <strong>진료나 상담을 하는 곳이 아닙니다.</strong> 개별 환자의 진단과 치료에 대해서는 답변드릴 수 없습니다.</li>
+        <li>이곳은 <strong>진료나 상담을 하는 곳이 아닙니다.</strong> 개별 환자의 진단과 치료에 대해서는 답변드릴 수 없습니다. 그것은 담당 선생님과 상의하셔야 합니다.</li>
         <li><strong>응급 상황이라면 즉시 병원으로 가십시오.</strong> 이곳의 답변을 기다리지 마십시오.</li>
-        <li>운영자가 생업이 있어 <strong>답변이 늦거나 어려울 수 있습니다.</strong></li>
-        <li>주민등록번호, 상세 병력 등 <strong>꼭 필요하지 않은 개인정보는 적지 말아 주십시오.</strong></li>
+        <li>생업이 있어 <strong>답변이 늦어질 수 있습니다.</strong> 미리 양해 부탁드립니다.</li>
+        <li>주민등록번호나 상세한 병력처럼 <strong>꼭 필요하지 않은 개인정보는 적지 말아 주십시오.</strong></li>
         <li>보내기가 안 될 때는 <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">블로그</a>에 댓글로 남겨주셔도 됩니다.</li>
       </ul>
-    </div>
+    </details>
 
     <form class="cform" data-form="patient" novalidate>
       <label>
@@ -39,7 +58,7 @@ import Base from '../layouts/Base.astro';
       <label>
         <span>문의 내용 <em>필수</em></span>
         <textarea name="message" rows="9" maxlength="5000" required
-          placeholder="예)&#10;· 가족이 ALD 진단을 받았는데 어디서 진료를 받아야 할지 모르겠습니다&#10;· 사이트 내용 중 이해가 안 되는 부분이 있습니다&#10;· 잘못된 내용을 발견했습니다"></textarea>
+          placeholder="예)&#10;· 카카오톡 대화방에 함께하고 싶습니다&#10;· 가족이 ALD 진단을 받았는데 어디서 진료를 받아야 할지 모르겠습니다&#10;· 사이트 내용 중 이해가 안 되는 부분이 있습니다&#10;· 잘못된 내용을 발견했습니다"></textarea>
         <small class="count">0 / 5000</small>
       </label>
       <div class="agree">
@@ -124,6 +143,29 @@ import Base from '../layouts/Base.astro';
   .notice ul { margin: 0; padding-left: 1.2rem; }
   .notice li { margin-bottom: .45rem; font-size: .96rem; color: var(--ink-2); }
   .notice li:last-child { margin-bottom: 0; }
+
+  .welcome {
+    background: var(--tint, #eef2f0); border-left: 3px solid var(--deep);
+    padding: 1.5rem 1.6rem; margin-bottom: 1.4rem;
+  }
+  .welcome p { margin: 0 0 .9rem; font-size: .98rem; line-height: 1.85; color: var(--ink-2); }
+  .welcome p:last-child { margin-bottom: 0; }
+  .welcome .w-lead {
+    font-family: var(--serif); font-size: 1.22rem; font-weight: 600;
+    color: var(--deep); margin-bottom: 1rem; line-height: 1.5;
+  }
+  .welcome .w-sub { color: var(--muted); font-size: .94rem; }
+  .welcome a { color: var(--deep-2); }
+  .welcome strong { color: var(--ink); }
+
+  .notice-fold { margin-bottom: 2.2rem; border-bottom: 1px solid var(--rule); }
+  .notice-fold summary {
+    cursor: pointer; padding: .8rem 0; font-size: .94rem; font-weight: 600; color: var(--muted);
+  }
+  .notice-fold summary:hover { color: var(--ink); }
+  .notice-fold ul { margin: 0 0 1.2rem; padding-left: 1.2rem; }
+  .notice-fold li { margin-bottom: .5rem; font-size: .94rem; color: var(--ink-2); line-height: 1.75; }
+  .notice-fold a { color: var(--deep-2); }
   .notice a { color: var(--deep-2); }
   .result a { color: var(--deep-2); }
 

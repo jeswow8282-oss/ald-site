@@ -14,16 +14,35 @@ import Base from '../../layouts/Base.astro';
 
   <!-- ─────────── 환자·보호자 ─────────── -->
   <section class="pane" data-pane="patient">
-    <div class="notice">
-      <p><strong>Please read first</strong></p>
+    <div class="welcome">
+      <p class="w-lead">You are not going through this alone.</p>
+      <p>
+        ALD affects so few people that, after a diagnosis, there is often no one nearby to ask.
+        Patients and families in Korea keep in touch through a <strong>KakaoTalk group</strong> —
+        sharing news, asking and answering, talking about which hospitals to go to, what symptoms
+        they are living with, how school is going. People who have been through the same things.
+      </p>
+      <p>
+        <strong>If you would like to join, please say so below</strong> and we will help you.
+        There is also a <a href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">Naver Cafe community</a>
+        run by a patient's family member. Both are in Korean.
+      </p>
+      <p class="w-sub">
+        Ask anything. There will be things we cannot answer, but we will look into it
+        and tell you what we can.
+      </p>
+    </div>
+
+    <details class="notice-fold">
+      <summary>Before you write</summary>
       <ul>
-        <li>This is <strong>not a clinical service.</strong> Questions about the diagnosis or treatment of an individual patient cannot be answered here.</li>
+        <li>This is <strong>not a clinical service.</strong> Questions about the diagnosis or treatment of an individual patient are for your treating clinicians.</li>
         <li><strong>In an emergency, go to hospital.</strong> Do not wait for a reply here.</li>
-        <li>The site is run alongside other work, so <strong>replies may be slow or may not be possible.</strong></li>
+        <li>The site is run alongside other work, so <strong>replies may be slow.</strong></li>
         <li>Please <strong>do not include personal information that is not necessary</strong>, such as identification numbers or detailed medical history.</li>
         <li>If the form will not send, you can leave a comment on the <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">blog</a> (Korean) instead.</li>
       </ul>
-    </div>
+    </details>
 
     <form class="cform" data-form="patient" novalidate>
       <label>
@@ -39,7 +58,7 @@ import Base from '../../layouts/Base.astro';
       <label>
         <span>Your message <em>required</em></span>
         <textarea name="message" rows="9" maxlength="5000" required
-          placeholder="For example:&#10;· A family member has been diagnosed and we do not know where to go&#10;· Something on this site is unclear&#10;· I found something that appears to be wrong"></textarea>
+          placeholder="For example:&#10;· I would like to join the KakaoTalk group&#10;· A family member has been diagnosed and we do not know where to go&#10;· Something on this site is unclear&#10;· I found something that appears to be wrong"></textarea>
         <small class="count">0 / 5000</small>
       </label>
       <div class="agree">
@@ -124,6 +143,29 @@ import Base from '../../layouts/Base.astro';
   .notice ul { margin: 0; padding-left: 1.2rem; }
   .notice li { margin-bottom: .45rem; font-size: .96rem; color: var(--ink-2); }
   .notice li:last-child { margin-bottom: 0; }
+
+  .welcome {
+    background: var(--tint, #eef2f0); border-left: 3px solid var(--deep);
+    padding: 1.5rem 1.6rem; margin-bottom: 1.4rem;
+  }
+  .welcome p { margin: 0 0 .9rem; font-size: .98rem; line-height: 1.85; color: var(--ink-2); }
+  .welcome p:last-child { margin-bottom: 0; }
+  .welcome .w-lead {
+    font-family: var(--serif); font-size: 1.22rem; font-weight: 600;
+    color: var(--deep); margin-bottom: 1rem; line-height: 1.5;
+  }
+  .welcome .w-sub { color: var(--muted); font-size: .94rem; }
+  .welcome a { color: var(--deep-2); }
+  .welcome strong { color: var(--ink); }
+
+  .notice-fold { margin-bottom: 2.2rem; border-bottom: 1px solid var(--rule); }
+  .notice-fold summary {
+    cursor: pointer; padding: .8rem 0; font-size: .94rem; font-weight: 600; color: var(--muted);
+  }
+  .notice-fold summary:hover { color: var(--ink); }
+  .notice-fold ul { margin: 0 0 1.2rem; padding-left: 1.2rem; }
+  .notice-fold li { margin-bottom: .5rem; font-size: .94rem; color: var(--ink-2); line-height: 1.75; }
+  .notice-fold a { color: var(--deep-2); }
   .notice a { color: var(--deep-2); }
   .result a { color: var(--deep-2); }
 
