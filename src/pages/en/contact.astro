@@ -22,11 +22,16 @@ import Base from '../../layouts/Base.astro';
         sharing news, asking and answering, talking about which hospitals to go to, what symptoms
         they are living with, how school is going. People who have been through the same things.
       </p>
-      <p>
-        <strong>If you would like to join, please say so below</strong> and we will help you.
-        There is also a <a href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">Naver Cafe community</a>
-        run by a patient's family member. Both are in Korean.
-      </p>
+      <div class="rooms">
+        <a class="room" href="https://open.kakao.com/o/gHadHNhe" target="_blank" rel="noopener">
+          <span class="r-name">KakaoTalk group for patients and families <i>↗</i></span>
+          <span class="r-note">A password is needed to join. Ask below and we will send it. In Korean.</span>
+        </a>
+        <a class="room" href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">
+          <span class="r-name">ALD Bridge (Naver Cafe) <i>↗</i></span>
+          <span class="r-note">Run by a patient's family member. A Naver account is required. In Korean.</span>
+        </a>
+      </div>
       <p class="w-sub">
         Ask anything. There will be things we cannot answer, but we will look into it
         and tell you what we can.
@@ -43,6 +48,12 @@ import Base from '../../layouts/Base.astro';
         <li>If the form will not send, you can leave a comment on the <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">blog</a> (Korean) instead.</li>
       </ul>
     </details>
+
+    <p class="joincue">
+      <strong>To join the KakaoTalk group, please write to us below.</strong>
+      We will send you the password to enter.
+      Writing <em>“I would like to join the group”</em> is enough.
+    </p>
 
     <form class="cform" data-form="patient" novalidate>
       <label>
@@ -158,6 +169,16 @@ import Base from '../../layouts/Base.astro';
   .welcome a { color: var(--deep-2); }
   .welcome strong { color: var(--ink); }
 
+  .rooms { display: grid; gap: .6rem; margin: 0 0 .9rem; }
+  .room {
+    display: block; background: #fff; border: 1px solid var(--rule);
+    padding: .95rem 1.1rem; text-decoration: none; transition: border-color .2s;
+  }
+  .room:hover { border-color: var(--deep); }
+  .r-name { display: block; font-weight: 700; color: var(--deep); font-size: 1rem; margin-bottom: .25rem; }
+  .r-name i { font-style: normal; font-size: .9rem; opacity: .6; }
+  .r-note { display: block; color: var(--muted); font-size: .89rem; line-height: 1.6; }
+
   .notice-fold { margin-bottom: 2.2rem; border-bottom: 1px solid var(--rule); }
   .notice-fold summary {
     cursor: pointer; padding: .8rem 0; font-size: .94rem; font-weight: 600; color: var(--muted);
@@ -168,6 +189,14 @@ import Base from '../../layouts/Base.astro';
   .notice-fold a { color: var(--deep-2); }
   .notice a { color: var(--deep-2); }
   .result a { color: var(--deep-2); }
+
+  .joincue {
+    background: var(--paper-2); border-left: 3px solid var(--deep-2);
+    padding: 1rem 1.2rem; margin: 0 0 2rem;
+    font-size: .97rem; line-height: 1.8; color: var(--ink-2);
+  }
+  .joincue strong { color: var(--deep); }
+  .joincue em { font-style: normal; color: var(--muted); }
 
   .cform { display: grid; gap: 1.7rem; }
   .cform > label { display: grid; gap: .5rem; }
