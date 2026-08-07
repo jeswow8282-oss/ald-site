@@ -27,6 +27,7 @@ const nav = [
   { href: '/diet', label: '식사요법' },
   { href: '/research', label: '연구' },
   { href: '/clinical-trials', label: '임상연구' },
+  { href: '/contact', label: '연락하기' },
 ];
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org').href;
 ---
@@ -255,6 +256,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     }
     .foot-ext a:hover { border-color: var(--deep); }
     .foot-ext i { font-style: normal; color: var(--muted); font-size: .9rem; }
+    .foot-ext .admin-link {
+      color: var(--muted); font-weight: 400; font-size: .85rem;
+      border-bottom-color: transparent; margin-top: .4rem;
+    }
+    .foot-ext .admin-link:hover { color: var(--ink); border-bottom-color: var(--rule-2); }
     .foot-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem 2rem; }
     .foot-links a { color: var(--ink-2); text-decoration: none; font-size: .95rem; }
     .foot-links a:hover { color: var(--deep); text-decoration: underline; }
@@ -348,6 +354,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
             <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">
               관련 블로그 <i>↗</i>
             </a>
+            <a class="admin-link" href={url('/admin')}>관리자</a>
           </div>
         </div>
         <div class="foot-links">

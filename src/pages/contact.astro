@@ -1,0 +1,236 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="연락하기" description="ALD 관련 연구 문의, 그리고 환자·보호자 문의를 받습니다.">
+  <p>
+    ALD와 관련한 문의를 받습니다. 아래 두 가지 중 해당하는 쪽을 선택해 주십시오.
+    보내주신 내용은 <strong>운영자만 볼 수 있습니다.</strong>
+  </p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab is-on" data-type="patient" role="tab" aria-selected="true">환자 · 보호자 문의</button>
+    <button class="tab" data-type="research" role="tab" aria-selected="false">연구 문의</button>
+  </div>
+
+  <!-- ─────────── 환자·보호자 ─────────── -->
+  <section class="pane" data-pane="patient">
+    <div class="notice">
+      <p><strong>먼저 알아두실 것</strong></p>
+      <ul>
+        <li>이곳은 <strong>진료나 상담을 하는 곳이 아닙니다.</strong> 개별 환자의 진단과 치료에 대해서는 답변드릴 수 없습니다.</li>
+        <li><strong>응급 상황이라면 즉시 병원으로 가십시오.</strong> 이곳의 답변을 기다리지 마십시오.</li>
+        <li>운영자가 생업이 있어 <strong>답변이 늦거나 어려울 수 있습니다.</strong></li>
+        <li>주민등록번호, 상세 병력 등 <strong>꼭 필요하지 않은 개인정보는 적지 말아 주십시오.</strong></li>
+      </ul>
+    </div>
+
+    <form class="cform" data-form="patient" novalidate>
+      <label>
+        <span>어떻게 불러드릴까요? <em>필수</em></span>
+        <input name="name" type="text" maxlength="100" required placeholder="성함 또는 별칭" />
+        <small>실명이 아니어도 됩니다.</small>
+      </label>
+      <label>
+        <span>답장받을 곳 <em>필수</em></span>
+        <input name="contact" type="text" maxlength="200" required placeholder="이메일 주소" />
+        <small>이메일을 권합니다. 전화번호는 남기지 않으셔도 됩니다.</small>
+      </label>
+      <label>
+        <span>문의 내용 <em>필수</em></span>
+        <textarea name="message" rows="9" maxlength="5000" required
+          placeholder="예)&#10;· 가족이 ALD 진단을 받았는데 어디서 진료를 받아야 할지 모르겠습니다&#10;· 사이트 내용 중 이해가 안 되는 부분이 있습니다&#10;· 잘못된 내용을 발견했습니다"></textarea>
+        <small class="count">0 / 5000</small>
+      </label>
+      <div class="agree">
+        <label class="chk">
+          <input type="checkbox" name="agree" required />
+          <span>위 안내를 확인했으며, 문의 처리를 위해 입력한 내용이 저장되는 데 동의합니다.</span>
+        </label>
+      </div>
+      <button class="submit" type="submit">보내기</button>
+      <p class="result" role="status"></p>
+    </form>
+  </section>
+
+  <!-- ─────────── 연구 ─────────── -->
+  <section class="pane" data-pane="research" hidden>
+    <div class="notice">
+      <p><strong>연구 문의</strong></p>
+      <ul>
+        <li>공동연구, 자료 요청, 임상연구 관련 문의를 받습니다.</li>
+        <li>국내 ALD 환자 현황 자료를 찾고 계신 경우에도 연락 주십시오.</li>
+        <li>소속과 목적을 함께 적어주시면 회신이 빠릅니다.</li>
+      </ul>
+    </div>
+
+    <form class="cform" data-form="research" novalidate>
+      <label>
+        <span>성함 · 소속 <em>필수</em></span>
+        <input name="name" type="text" maxlength="100" required placeholder="예) 홍길동 / OO대학교 신경과" />
+      </label>
+      <label>
+        <span>회신받을 이메일 <em>필수</em></span>
+        <input name="contact" type="email" maxlength="200" required placeholder="name@example.org" />
+        <small>기관 이메일을 권합니다.</small>
+      </label>
+      <label>
+        <span>문의 내용 <em>필수</em></span>
+        <textarea name="message" rows="9" maxlength="5000" required
+          placeholder="연구 주제, 협력을 원하시는 부분, 필요한 자료 등을 적어주십시오."></textarea>
+        <small class="count">0 / 5000</small>
+      </label>
+      <div class="agree">
+        <label class="chk">
+          <input type="checkbox" name="agree" required />
+          <span>문의 처리를 위해 입력한 내용이 저장되는 데 동의합니다.</span>
+        </label>
+      </div>
+      <button class="submit" type="submit">보내기</button>
+      <p class="result" role="status"></p>
+    </form>
+  </section>
+
+  <hr />
+
+  <h2>보내주신 내용은 어떻게 다루나요</h2>
+  <ul>
+    <li>문의 내용은 <strong>운영자만 열람할 수 있습니다.</strong> 다른 방문자는 물론, 보내신 분도 이후에 다시 볼 수 없습니다.</li>
+    <li>문의 처리 외의 목적으로 사용하지 않으며, 제3자에게 제공하지 않습니다.</li>
+    <li>답변이 끝난 문의는 정기적으로 삭제합니다.</li>
+    <li>수집하는 항목은 <strong>호칭, 연락처, 문의 내용</strong>뿐입니다.</li>
+  </ul>
+</Base>
+
+<style>
+  .tabs { display: flex; gap: 0; margin: 2.5rem 0 0; border-bottom: 1px solid var(--rule); }
+  .tab {
+    appearance: none; background: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 1rem; font-weight: 600; color: var(--muted);
+    padding: .9rem 1.4rem; border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color .2s, border-color .2s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.is-on { color: var(--deep); border-bottom-color: var(--deep); }
+
+  .pane { padding-top: 2.2rem; }
+
+  .notice {
+    background: var(--paper-2); border-left: 3px solid var(--deep);
+    padding: 1.2rem 1.4rem; margin-bottom: 2.2rem;
+  }
+  .notice p { margin: 0 0 .6rem; }
+  .notice ul { margin: 0; padding-left: 1.2rem; }
+  .notice li { margin-bottom: .45rem; font-size: .96rem; color: var(--ink-2); }
+  .notice li:last-child { margin-bottom: 0; }
+
+  .cform { display: grid; gap: 1.7rem; }
+  .cform > label { display: grid; gap: .5rem; }
+  .cform > label > span { font-weight: 600; font-size: .98rem; }
+  .cform em { font-style: normal; color: var(--deep-2); font-size: .82rem; margin-left: .4rem; font-weight: 500; }
+  .cform input, .cform textarea {
+    font-family: inherit; font-size: 1rem; line-height: 1.7; color: var(--ink);
+    background: #fff; border: 1px solid var(--rule-2); padding: .8rem .9rem;
+    width: 100%; border-radius: 0;
+  }
+  .cform input:focus, .cform textarea:focus {
+    outline: none; border-color: var(--deep); box-shadow: 0 0 0 3px rgba(30,61,56,.09);
+  }
+  .cform textarea { resize: vertical; }
+  .cform small { color: var(--muted); font-size: .86rem; }
+  .count { justify-self: end; font-variant-numeric: tabular-nums; }
+
+  .agree { background: var(--paper-2); padding: 1rem 1.1rem; }
+  .chk { display: flex; gap: .7rem; align-items: flex-start; cursor: pointer; }
+  .chk input { width: auto; margin-top: .35rem; flex: none; }
+  .chk span { font-size: .93rem; color: var(--ink-2); line-height: 1.65; }
+
+  .submit {
+    justify-self: start; appearance: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 1rem; font-weight: 600;
+    background: var(--deep); color: var(--paper); padding: .9rem 2.4rem;
+    transition: background .25s;
+  }
+  .submit:hover:not(:disabled) { background: var(--deep-2); }
+  .submit:disabled { opacity: .5; cursor: default; }
+
+  .result { margin: 0; font-size: .95rem; min-height: 1.4em; }
+  .result.ok { color: var(--deep); font-weight: 600; }
+  .result.err { color: #9a3412; }
+
+  @media (max-width: 560px) {
+    .tab { padding: .8rem .9rem; font-size: .93rem; }
+    .submit { width: 100%; text-align: center; }
+  }
+</style>
+
+<script>
+  import { auth, db } from '../lib/firebase.js';
+  import { signInAnonymously } from 'firebase/auth';
+  import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+  // 탭 전환
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab');
+  const panes = document.querySelectorAll<HTMLElement>('.pane');
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => {
+      const type = t.dataset.type;
+      tabs.forEach((x) => {
+        const on = x === t;
+        x.classList.toggle('is-on', on);
+        x.setAttribute('aria-selected', String(on));
+      });
+      panes.forEach((p) => { p.hidden = p.dataset.pane !== type; });
+    });
+  });
+
+  // 글자 수 표시
+  document.querySelectorAll<HTMLTextAreaElement>('textarea[name="message"]').forEach((ta) => {
+    const count = ta.parentElement?.querySelector('.count');
+    const upd = () => { if (count) count.textContent = `${ta.value.length} / 5000`; };
+    ta.addEventListener('input', upd); upd();
+  });
+
+  // 제출
+  document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
+    const btn = form.querySelector<HTMLButtonElement>('.submit')!;
+    const out = form.querySelector<HTMLParagraphElement>('.result')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      out.className = 'result'; out.textContent = '';
+
+      const fd = new FormData(form);
+      const name = String(fd.get('name') || '').trim();
+      const contact = String(fd.get('contact') || '').trim();
+      const message = String(fd.get('message') || '').trim();
+
+      if (!name || !contact || !message) {
+        out.className = 'result err'; out.textContent = '필수 항목을 모두 입력해 주십시오.'; return;
+      }
+      if (!fd.get('agree')) {
+        out.className = 'result err'; out.textContent = '저장 동의에 체크해 주십시오.'; return;
+      }
+
+      btn.disabled = true; btn.textContent = '보내는 중…';
+      try {
+        if (!auth.currentUser) await signInAnonymously(auth);
+        await addDoc(collection(db, 'submissions'), {
+          type: form.dataset.form,
+          name, contact, message,
+          createdAt: serverTimestamp(),
+          status: 'new',
+        });
+        form.reset();
+        form.querySelectorAll('.count').forEach((c) => { c.textContent = '0 / 5000'; });
+        out.className = 'result ok';
+        out.textContent = '보내주셔서 감사합니다. 확인 후 답장드리겠습니다.';
+      } catch (err) {
+        console.error(err);
+        out.className = 'result err';
+        out.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주시거나, 계속 안 되면 다른 경로로 알려주십시오.';
+      } finally {
+        btn.disabled = false; btn.textContent = '보내기';
+      }
+    });
+  });
+</script>
