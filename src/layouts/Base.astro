@@ -3,6 +3,13 @@
 // true  = 검색엔진에 노출하지 않음
 // false = 정식 공개 (현재). public/robots.txt 와 함께 관리합니다.
 const NOINDEX = false;
+
+// ── 검색엔진 소유확인 코드 ───────────────────────────────────────
+// 네이버 서치어드바이저 / 구글 서치콘솔에서 발급받은 값만 넣으면 됩니다.
+// (HTML 태그 전체가 아니라 content="..." 안의 값만)
+const NAVER_VERIFY = '';
+const GOOGLE_VERIFY = '';
+// ─────────────────────────────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────
 
 const { frontmatter, title: titleProp, description: descProp, home, noindex, headings = [] } = Astro.props;
@@ -104,6 +111,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
   <title>{home ? T.homeTitle : `${title} — ${T.suffix}`}</title>
   <meta name="description" content={description} />
   {(NOINDEX || noindex) && <meta name="robots" content="noindex, nofollow" />}
+  {NAVER_VERIFY && <meta name="naver-site-verification" content={NAVER_VERIFY} />}
+  {GOOGLE_VERIFY && <meta name="google-site-verification" content={GOOGLE_VERIFY} />}
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={T.siteName} />
