@@ -29,6 +29,7 @@ const path = isEN ? (rawPath.replace(/^\/en/, '') || '/') : rawPath;
 const L = isEN ? '/en' : '';
 
 const NAV_KO = [
+  { href: '/about', label: '소개' },
   { href: '/pathogenesis', label: 'ALD 개요' },
   { label: '표현형', children: [
       { href: '/cerebral-ald',          label: '대뇌형 (cALD)' },
@@ -48,6 +49,7 @@ const NAV_KO = [
   { href: '/contact', label: '연락하기' },
 ];
 const NAV_EN = [
+  { href: '/about', label: 'About Us' },
   { href: '/pathogenesis', label: 'About ALD' },
   { label: 'Phenotypes', children: [
       { href: '/cerebral-ald',          label: 'Cerebral ALD' },
