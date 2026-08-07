@@ -1,0 +1,302 @@
+---
+const { frontmatter, title: titleProp, description: descProp, home } = Astro.props;
+const title = titleProp ?? frontmatter?.title ?? '부신백질이영양증 (ALD)';
+const description =
+  descProp ?? frontmatter?.description ??
+  '부신백질이영양증(ALD)에 대한 한국어 정보. 대뇌형·부신척수신경병증·여성 ALD·부신기능부전·신생아 선별검사·식사요법.';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const nav = [
+  { href: '/pathogenesis', label: '어떤 병인가' },
+  { href: '/treatment', label: '대뇌형·치료' },
+  { href: '/amn', label: 'AMN' },
+  { href: '/women', label: '여성 ALD' },
+  { href: '/adrenal-insufficiency', label: '부신기능부전' },
+  { href: '/newborn-screening', label: '선별검사' },
+  { href: '/diet', label: '식사요법' },
+  { href: '/survey-2016', label: '설문 조사' },
+];
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org').href;
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{home ? '부신백질이영양증(ALD) — 한국어 정보' : `${title} — 부신백질이영양증(ALD)`}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="부신백질이영양증(ALD) 정보" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:locale" content="ko_KR" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script is:inline>
+    if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap" />
+  <style>
+    :root {
+      /* 종이 · 잉크 · 절제된 포인트 하나 */
+      --paper:   #fbf9f6;
+      --paper-2: #f4f0ea;
+      --card:    #ffffff;
+      --ink:     #15181c;
+      --ink-2:   #3d4650;
+      --muted:   #6b7580;
+      --rule:    #e0dad1;
+      --rule-2:  #cfc7bb;
+      --deep:    #1e3d38;   /* 짙은 청록 — 강조 하나만 */
+      --deep-2:  #2c5a52;
+      --tint:    #eef2f0;
+
+      --serif: 'Noto Serif KR', serif;
+      --sans: 'Pretendard', 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+
+      --read: 40rem;
+      --wide: 72rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: var(--sans); font-size: 18px; line-height: 1.85;
+      word-break: keep-all; overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a { color: var(--deep-2); text-underline-offset: 4px; }
+    :global(.container) { max-width: var(--wide); margin: 0 auto; padding: 0 2.5rem; }
+
+    :global(html.js .fade-up) {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    :global(html.js .fade-up.in) { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { :global(html.js .fade-up) { opacity: 1; transform: none; transition: none; } }
+
+    /* ── 헤더 : 얇은 괘선, 색 없음 ── */
+    .site-head {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251,249,246,.92); backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .head-inner {
+      display: flex; align-items: center; gap: 2rem;
+      min-height: 76px; max-width: var(--wide); margin: 0 auto; padding: 0 2.5rem;
+    }
+    .brand { display: flex; align-items: baseline; gap: .55rem; text-decoration: none; color: var(--ink); }
+    .brand .abbr {
+      font-family: var(--serif); font-weight: 600; font-size: 1.35rem;
+      letter-spacing: .04em; color: var(--deep);
+    }
+    .brand .full { font-size: .95rem; color: var(--muted); letter-spacing: -.01em; white-space: nowrap; }
+
+    nav.main { display: flex; gap: 1.75rem; margin-left: auto; }
+    nav.main a {
+      position: relative; text-decoration: none; color: var(--ink-2);
+      font-size: .96rem; font-weight: 500; padding: 1.6rem 0; white-space: nowrap;
+    }
+    nav.main a::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 1.25rem; height: 1px;
+      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.22,1,.36,1);
+    }
+    nav.main a:hover::after { transform: scaleX(1); }
+    nav.main a[aria-current="page"] { color: var(--deep); font-weight: 600; }
+    nav.main a[aria-current="page"]::after { transform: scaleX(1); background: var(--deep); }
+
+    .menu-toggle { display: none; margin-left: auto; }
+
+    /* ── 페이지 머리 : 색 밴드 대신 여백과 괘선 ── */
+    .page-head { border-bottom: 1px solid var(--rule); }
+    .page-head .container { padding-block: 4.5rem 3rem; max-width: var(--wide); }
+    .page-head .inner { max-width: var(--read); }
+    .page-head .eyebrow {
+      display: block; font-size: .8rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1.3rem;
+    }
+    .page-head h1 {
+      font-family: var(--serif); font-weight: 500; color: var(--ink);
+      font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.35; letter-spacing: -.03em; margin: 0;
+    }
+
+    /* ── 본문 ── */
+    main { padding-bottom: 6rem; }
+    .prose { max-width: var(--read); margin: 0 auto; padding: 3.5rem 1.75rem 0; }
+    .prose > :global(p:first-of-type) { font-size: 1.16rem; line-height: 1.8; color: var(--ink-2); }
+
+    .prose :global(h2) {
+      font-family: var(--serif); font-weight: 500; color: var(--ink);
+      font-size: 1.72rem; line-height: 1.45; letter-spacing: -.028em;
+      margin: 4rem 0 1.3rem; padding-top: 2.2rem; border-top: 1px solid var(--rule);
+    }
+    .prose :global(h3) {
+      font-family: var(--serif); font-weight: 600; color: var(--deep);
+      font-size: 1.22rem; margin: 2.6rem 0 .7rem; letter-spacing: -.02em;
+    }
+    .prose :global(p) { margin: 0 0 1.35rem; }
+    .prose :global(ul), .prose :global(ol) { padding-left: 1.3rem; margin: 0 0 1.5rem; }
+    .prose :global(li) { margin-bottom: .6rem; }
+    .prose :global(li)::marker { color: var(--rule-2); }
+    .prose :global(strong) { font-weight: 700; color: var(--ink); }
+    .prose :global(hr) { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+
+    .prose :global(blockquote) {
+      margin: 2rem 0; padding: .35rem 0 .35rem 1.6rem;
+      border-left: 2px solid var(--deep); font-family: var(--serif);
+      font-size: 1.06rem; line-height: 1.85; color: var(--ink-2);
+    }
+    .prose :global(blockquote > :last-child) { margin-bottom: 0; }
+    .prose :global(blockquote strong) { color: var(--deep); }
+
+    .table-wrap { overflow-x: auto; margin: 2rem 0; }
+    .prose :global(table) { border-collapse: collapse; width: 100%; font-size: .97rem; }
+    .prose :global(th), .prose :global(td) { padding: .8rem .9rem; text-align: left; vertical-align: top; }
+    .prose :global(thead th) {
+      font-family: var(--serif); font-weight: 600; color: var(--ink);
+      border-bottom: 2px solid var(--ink); white-space: nowrap;
+    }
+    .prose :global(tbody tr) { border-bottom: 1px solid var(--rule); }
+
+    .prose :global(img) {
+      display: block; margin: 3rem auto; max-width: 100%; height: auto;
+      padding: 1.6rem; background: var(--card); border: 1px solid var(--rule);
+    }
+    .prose :global(code) { background: var(--paper-2); padding: .12em .4em; border-radius: 3px; font-size: .9em; }
+    .prose :global(em) { color: var(--muted); font-style: normal; font-size: .93em; }
+
+    /* ── 푸터 ── */
+    footer { border-top: 1px solid var(--rule); background: var(--paper-2); }
+    footer .container { padding-block: 3.5rem 4rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.1fr 1.9fr; gap: 3rem; }
+    .foot-brand { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--ink); margin: 0 0 .5rem; letter-spacing: -.02em; }
+    .foot-sub { color: var(--muted); font-size: .93rem; margin: 0; }
+    .foot-ext { display: flex; flex-direction: column; gap: .55rem; margin-top: 1.6rem; }
+    .foot-ext a {
+      display: inline-flex; align-items: center; gap: .45rem; align-self: flex-start;
+      color: var(--deep); text-decoration: none; font-size: .95rem; font-weight: 600;
+      border-bottom: 1px solid var(--rule-2); padding-bottom: .2rem;
+    }
+    .foot-ext a:hover { border-color: var(--deep); }
+    .foot-ext i { font-style: normal; color: var(--muted); font-size: .9rem; }
+    .foot-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem 2rem; }
+    .foot-links a { color: var(--ink-2); text-decoration: none; font-size: .95rem; }
+    .foot-links a:hover { color: var(--deep); text-decoration: underline; }
+    .foot-note { margin: 3rem 0 0; padding-top: 1.8rem; border-top: 1px solid var(--rule-2); color: var(--muted); font-size: .9rem; line-height: 1.8; max-width: 46rem; }
+
+    @media (max-width: 900px) {
+      :global(.container), .head-inner { padding-inline: 1.35rem; }
+      body { font-size: 17px; }
+      .head-inner { min-height: 62px; }
+      nav.main {
+        position: fixed; inset: 62px 0 auto 0; background: var(--paper); flex-direction: column;
+        gap: 0; padding: .25rem 1.35rem 1.4rem; border-bottom: 1px solid var(--rule); display: none;
+      }
+      nav.main.open { display: flex; }
+      nav.main a { padding: .95rem 0; border-bottom: 1px solid var(--rule); font-size: 1.02rem; }
+      nav.main a::after { display: none; }
+      .menu-toggle {
+        display: grid; place-items: center; width: 42px; height: 42px;
+        background: none; border: 1px solid var(--rule-2); cursor: pointer;
+      }
+      .menu-toggle span { display: block; width: 18px; height: 1.5px; background: var(--ink); position: relative; }
+      .menu-toggle span::before, .menu-toggle span::after {
+        content: ''; position: absolute; left: 0; width: 18px; height: 1.5px; background: var(--ink);
+      }
+      .menu-toggle span::before { top: -6px; } .menu-toggle span::after { top: 6px; }
+      .brand .full { display: none; }
+      .page-head .container { padding-block: 2.6rem 2rem; }
+      .prose { padding-top: 2.4rem; }
+      .prose :global(h2) { font-size: 1.42rem; margin-top: 3rem; }
+      .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-head">
+    <div class="head-inner">
+      <a class="brand" href="/">
+        <span class="abbr">ALD</span>
+        <span class="full">부신백질이영양증</span>
+      </a>
+      <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
+      <nav class="main" id="mainnav">
+        {nav.map((n) => (
+          <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  {!home && (
+    <div class="page-head">
+      <div class="container">
+        <div class="inner">
+          <span class="eyebrow">부신백질이영양증</span>
+          <h1>{title}</h1>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <main>
+    {home ? <slot /> : <div class="prose"><slot /></div>}
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div>
+          <p class="foot-brand">부신백질이영양증</p>
+          <p class="foot-sub">Adrenoleukodystrophy · 한국어 정보</p>
+          <div class="foot-ext">
+            <a href="https://cafe.naver.com/aldbridge" target="_blank" rel="noopener">
+              ALD 브릿지 (네이버 카페) <i>↗</i>
+            </a>
+            <a href="https://blog.naver.com/jeswow" target="_blank" rel="noopener">
+              관련 블로그 <i>↗</i>
+            </a>
+          </div>
+        </div>
+        <div class="foot-links">
+          {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        </div>
+      </div>
+      <p class="foot-note">
+        이 사이트는 부신백질이영양증에 대한 정보를 제공합니다.
+        진료나 상담을 대신하지 않으며, 개별 환자의 진단과 치료는 담당 의료진의 판단에 따릅니다.
+      </p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    document.querySelectorAll('.prose table').forEach((t) => {
+      if (t.parentElement?.classList.contains('table-wrap')) return;
+      const w = document.createElement('div'); w.className = 'table-wrap';
+      t.replaceWith(w); w.appendChild(t);
+    });
+    const btn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('mainnav');
+    btn?.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    });
+    (function () {
+      var items = document.querySelectorAll('.fade-up');
+      if (!items.length) return;
+      var revealed = 0;
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); revealed++; io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
+      items.forEach(function (el) { io.observe(el); });
+      setTimeout(function () { if (revealed === 0) document.documentElement.classList.remove('js'); }, 2500);
+    })();
+  </script>
+</body>
+</html>

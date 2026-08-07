@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 640" role="img"
+     aria-labelledby="mh-title mh-desc" font-family="'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <title id="mh-title">같은 유전자 변이에서 다른 병이 되는 과정</title>
+  <desc id="mh-desc">ABCD1 유전자 변이라는 같은 출발점에서, 부신척수신경병증은 축삭이 서서히 변성되는 경로로, 대뇌형은 신경염증이 켜지는 경로로 갈라집니다. 어느 쪽으로 갈지는 유전적·후성유전적·환경적·확률적 요인이 겹쳐 결정되는 것으로 보입니다.</desc>
+
+  <style>
+    .t   { fill: currentColor; font-size: 15px; text-anchor: middle; }
+    .tb  { fill: currentColor; font-size: 16px; font-weight: 700; text-anchor: middle; }
+    .hd  { fill: currentColor; font-size: 17px; font-weight: 700; text-anchor: middle; }
+    .sm  { fill: currentColor; font-size: 12.5px; text-anchor: middle; opacity: .72; }
+    .ln  { stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .dot { stroke: currentColor; stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; }
+    .rule{ stroke: currentColor; stroke-width: 1.2; opacity: .45; }
+    .hit { fill: none; stroke: currentColor; stroke-width: 1.6; opacity: .85; }
+    .key { fill: none; stroke: currentColor; stroke-width: 2.6; }
+  </style>
+  <defs>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- 출발점 -->
+  <text class="hd" x="420" y="30">ABCD1 유전자 변이</text>
+  <path class="ln" d="M420,42 L420,64 M180,64 L660,64"/>
+  <path class="ln" marker-end="url(#m)" d="M180,64 L180,92"/>
+  <path class="ln" marker-end="url(#m)" d="M660,64 L660,92"/>
+  <line class="rule" x1="420" y1="80" x2="420" y2="600"/>
+
+  <!-- 좌: AMN -->
+  <text class="hd" x="180" y="112">부신척수신경병증 (AMN)</text>
+  <text class="sm" x="180" y="132">대개 성인기 · 서서히</text>
+
+  <text class="t"  x="180" y="176">긴꼬리지방산 축적</text>
+  <path class="ln" marker-end="url(#m)" d="M180,188 L180,216"/>
+  <text class="t"  x="180" y="238">산화 스트레스 · 미토콘드리아 기능 이상</text>
+  <path class="ln" marker-end="url(#m)" d="M180,250 L180,284"/>
+  <text class="t"  x="180" y="306">희소돌기아교세포의</text>
+  <text class="t"  x="180" y="326">축삭 지지 기능 저하</text>
+  <path class="ln" marker-end="url(#m)" d="M180,338 L180,372"/>
+  <text class="tb" x="180" y="394">축삭이 서서히 변성</text>
+  <path class="ln" marker-end="url(#m)" d="M180,406 L180,440"/>
+  <rect class="key" x="52" y="442" width="256" height="52" rx="4"/>
+  <text class="tb" x="180" y="468">척수 증상 (보행·배뇨)</text>
+  <text class="sm" x="180" y="487">수년~수십 년에 걸쳐 진행</text>
+
+  <!-- 우: 대뇌형 -->
+  <text class="hd" x="660" y="112">대뇌형 (cALD)</text>
+  <text class="sm" x="660" y="132">대개 소아기 · 빠르게</text>
+
+  <text class="t"  x="660" y="176">긴꼬리지방산 축적</text>
+  <path class="ln" marker-end="url(#m)" d="M660,188 L660,216"/>
+  <text class="t"  x="660" y="238">과산화소체 기능 이상</text>
+  <path class="ln" marker-end="url(#m)" d="M660,250 L660,284"/>
+
+  <rect class="key" x="524" y="286" width="272" height="70" rx="4"/>
+  <text class="tb" x="660" y="312">신경염증이 켜집니다</text>
+  <text class="sm" x="660" y="332">미세아교세포 · 별아교세포 · 대식세포</text>
+  <text class="sm" x="660" y="349">한번 켜지면 스스로 굴러갑니다</text>
+
+  <path class="ln" marker-end="url(#m)" d="M660,358 L660,392"/>
+  <text class="tb" x="660" y="414">급격한 탈수초화와 세포 소실</text>
+  <path class="ln" marker-end="url(#m)" d="M660,426 L660,440"/>
+  <rect class="key" x="532" y="442" width="256" height="52" rx="4"/>
+  <text class="tb" x="660" y="468">대뇌 증상 · 빠른 진행</text>
+  <text class="sm" x="660" y="487">이 단계 전에 잡아야 합니다</text>
+
+  <!-- 가운데: 자극 -->
+  <g class="hit">
+    <circle cx="420" cy="196" r="34"/>
+    <circle cx="420" cy="300" r="34"/>
+    <circle cx="420" cy="404" r="34"/>
+  </g>
+  <text class="t" x="420" y="192" font-size="13">첫 번째</text>
+  <text class="t" x="420" y="208" font-size="13">자극</text>
+  <text class="t" x="420" y="296" font-size="13">두 번째</text>
+  <text class="t" x="420" y="312" font-size="13">자극</text>
+  <text class="t" x="420" y="400" font-size="13">세 번째</text>
+  <text class="t" x="420" y="416" font-size="13">자극</text>
+
+  <path class="dot" marker-end="url(#m)" d="M386,196 L300,196"/>
+  <path class="dot" marker-end="url(#m)" d="M454,196 L540,196"/>
+  <path class="dot" marker-end="url(#m)" d="M454,300 L520,300"/>
+  <path class="dot" marker-end="url(#m)" d="M454,404 L560,404"/>
+
+  <!-- 악화요인 -->
+  <rect class="key" x="252" y="528" width="336" height="76" rx="4" opacity=".9"/>
+  <text class="tb" x="420" y="553">무엇이 자극이 되는지는</text>
+  <text class="tb" x="420" y="573">아직 밝혀지지 않았습니다</text>
+  <text class="sm" x="420" y="594">유전적 · 후성유전적 · 환경적 · 확률적 요인</text>
+  <path class="dot" d="M420,438 L420,526"/>
+
+  <text class="sm" x="420" y="628" opacity=".6">정을식·고아라·강훈철, 대한소아신경학회지 2016 게재 그림을 바탕으로 갱신</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" role="img"
+     aria-labelledby="px-title px-desc" font-family="'Pretendard','Noto Sans KR',system-ui,sans-serif">
+  <title id="px-title">과산화소체와 긴꼬리지방산의 처리</title>
+  <desc id="px-desc">세포질에서 만들어진 포화 긴꼬리지방산은 ALDP(ABCD1) 운반체를 통해 과산화소체 안으로 들어가 베타 산화로 분해됩니다. ALD에서는 이 운반체가 고장 나 지방산이 들어가지 못하고 세포질에 쌓입니다.</desc>
+
+  <style>
+    .t   { fill: currentColor; font-size: 15px; text-anchor: middle; }
+    .tb  { fill: currentColor; font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .sm  { fill: currentColor; font-size: 12.5px; text-anchor: middle; opacity: .72; }
+    .it  { fill: currentColor; font-size: 13px; font-style: italic; text-anchor: middle; opacity: .8; }
+    .ln  { stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .mem { stroke: currentColor; stroke-width: 2.2; fill: none; }
+    .port{ stroke: currentColor; stroke-width: 1.8; fill: none; }
+    .blk { fill: currentColor; }
+  </style>
+  <defs>
+    <marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <text class="sm" x="762" y="34" font-size="14">세포질</text>
+
+  <!-- 상단 경로 -->
+  <text class="t"  x="96" y="82">포화 지방산</text>
+  <text class="t"  x="96" y="102">CoA</text>
+  <path class="ln" marker-end="url(#p)" d="M170,94 L268,94"/>
+  <text class="it" x="219" y="82">ELOVL1</text>
+
+  <text class="tb" x="372" y="82">포화 긴꼬리지방산</text>
+  <text class="tb" x="372" y="102">CoA</text>
+
+  <path class="ln" marker-end="url(#p)" d="M478,94 L596,94"/>
+  <text class="it" x="537" y="82">ω 산화</text>
+  <text class="t"  x="726" y="82">디카르복실</text>
+  <text class="t"  x="726" y="102">긴꼬리지방산</text>
+  <text class="sm" x="726" y="122">넘치는 양이 흘러가는 우회로</text>
+
+  <!-- 과산화소체 -->
+  <ellipse class="mem" cx="420" cy="330" rx="330" ry="168"/>
+  <ellipse class="mem" cx="420" cy="330" rx="322" ry="160"/>
+  <text class="tb" x="150" y="336">과산화소체</text>
+
+  <!-- ALDP 운반체 -->
+  <ellipse class="blk" cx="392" cy="170" rx="15" ry="21"/>
+  <ellipse class="blk" cx="428" cy="170" rx="15" ry="21"/>
+  <path class="ln" d="M410,116 L410,246"/>
+  <text class="tb" x="410" y="216">ALDP (ABCD1)</text>
+  <text class="sm" x="410" y="236">ALD에서 고장 나는 문</text>
+
+  <!-- 베타 산화 -->
+  <path class="ln" marker-end="url(#p)" d="M410,262 L410,368"/>
+  <text class="tb" x="410" y="300">β 산화</text>
+  <text class="sm" x="410" y="320">지방산을 잘라 짧게 만듭니다</text>
+  <text class="t"  x="410" y="396">포화 중간사슬 지방산</text>
+
+  <!-- 다른 운반체 -->
+  <g class="port">
+    <rect x="676" y="238" width="46" height="22" rx="10" transform="rotate(38 699 249)"/>
+    <rect x="700" y="292" width="46" height="22" rx="10" transform="rotate(20 723 303)"/>
+    <rect x="706" y="352" width="46" height="22" rx="10" transform="rotate(-8 729 363)"/>
+  </g>
+  <text class="sm" x="800" y="236">ALDRP (ABCD2)</text>
+  <text class="sm" x="800" y="292">PMP70 (ABCD3)</text>
+  <text class="sm" x="800" y="352">PMP69 (ABCD4)</text>
+
+  <!-- 막힘 표시 -->
+  <g class="ln" opacity=".9">
+    <path d="M470,150 L512,124"/>
+    <path d="M470,124 L512,150"/>
+  </g>
+  <text class="sm" x="562" y="142" text-anchor="start">ALD에서는 여기가 막힙니다</text>
+  <text class="sm" x="562" y="160" text-anchor="start">→ 지방산이 세포질에 쌓입니다</text>
+
+  <text class="sm" x="430" y="548" opacity=".6">정을식·고아라·강훈철, 대한소아신경학회지 2016 게재 그림을 바탕으로 작성</text>
+</svg>
