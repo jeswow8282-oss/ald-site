@@ -1,4 +1,11 @@
 ---
+// ── 검색 노출 스위치 ─────────────────────────────────────────────
+// true  = 검색엔진에 노출하지 않음 (소수에게만 링크로 공유하는 단계)
+// false = 정식 공개. 도메인 연결하고 내용 확정된 뒤에 false로 바꾸세요.
+//         public/robots.txt 도 함께 바꿔야 합니다.
+const NOINDEX = true;
+// ─────────────────────────────────────────────────────────────────
+
 const { frontmatter, title: titleProp, description: descProp, home, headings = [] } = Astro.props;
 const toc = (headings ?? []).filter((h) => h.depth === 2);
 const title = titleProp ?? frontmatter?.title ?? '부신백질이영양증 (ALD)';
@@ -29,6 +36,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{home ? '부신백질이영양증(ALD) — 한국어 정보' : `${title} — 부신백질이영양증(ALD)`}</title>
   <meta name="description" content={description} />
+  {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="부신백질이영양증(ALD) 정보" />
