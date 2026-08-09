@@ -1,5 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { lastUpdated } from '../../lib/updated.js';
+
+const updated = lastUpdated('en');
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (p) => BASE + '/en' + p;
@@ -34,7 +37,7 @@ const others = [
 
 const notes = [
   { h: 'Basis', p: 'Written from published research and the 2022 international consensus recommendations. Sources are indicated within each page.' },
-  { h: 'Review date', p: 'Every page carries a last-reviewed date. Medical information changes, so please read it alongside that date.' },
+  { h: 'Review date', p: 'Every page carries its own last-reviewed date; the date at the top of this page is the most recent of them. A page is revised and its date updated when something changes that bears on it.' },
   { h: 'Scope', p: 'This site provides information. It does not replace medical care or consultation.' },
   { h: 'Corrections', p: 'Corrections and suggestions are welcome.' },
 ];
@@ -43,7 +46,12 @@ const notes = [
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <p class="eyebrow">X-linked Adrenoleukodystrophy</p>
+      <div class="hero-top">
+        <p class="eyebrow">X-linked Adrenoleukodystrophy</p>
+        {updated && (
+          <p class="updated">Last reviewed <time datetime={updated.iso}>{updated.label}</time></p>
+        )}
+      </div>
       <h1>What is known,<br /><span>and what is not yet known</span></h1>
       <div class="hero-body">
         <p class="lead">
@@ -153,9 +161,22 @@ const notes = [
 <style>
   /* ── HERO ── */
   .hero { padding: 6rem 0 5.5rem; border-bottom: 1px solid var(--rule); }
+  .hero-top {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem 2rem; flex-wrap: wrap; margin: 0 0 1.8rem;
+  }
   .eyebrow {
     font-size: .8rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--muted); margin: 0 0 1.8rem;
+    color: var(--muted); margin: 0;
+  }
+  .updated {
+    margin: 0; font-size: .8rem; color: var(--muted); letter-spacing: .02em;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .updated time { color: var(--ink-2); font-weight: 500; }
+  @media (max-width: 700px) {
+    .hero-top { gap: .5rem; }
+    .updated { font-size: .78rem; }
   }
   .hero h1 {
     font-family: var(--serif); font-weight: 500; margin: 0 0 3rem;

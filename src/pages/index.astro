@@ -1,5 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { lastUpdated } from '../lib/updated.js';
+
+const updated = lastUpdated('ko');
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (p) => BASE + p;
@@ -34,7 +37,7 @@ const others = [
 
 const notes = [
   { h: '근거', p: '발표된 연구와 2022년 국제 합의 진료 권고를 바탕으로 작성했으며, 근거는 각 페이지 본문에 표시했습니다.' },
-  { h: '검토일', p: '각 페이지 하단에 최종 검토일이 있습니다. 의학 정보는 시간이 지나면 달라지므로 함께 확인하시면 됩니다.' },
+  { h: '검토일', p: '각 페이지 하단에 그 페이지의 최종 검토일이 있습니다. 첫 화면 위쪽의 날짜는 그중 가장 최근 것입니다. 내용이 달라질 만한 일이 있을 때 해당 페이지를 고치고 그 날짜를 갱신합니다.' },
   { h: '범위', p: '이 사이트는 정보를 제공하는 곳이며, 진료나 상담을 대신하지 않습니다.' },
   { h: '정정', p: '잘못된 내용이나 보완이 필요한 부분에 대한 지적을 환영합니다.' },
 ];
@@ -43,7 +46,12 @@ const notes = [
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <p class="eyebrow">X 연관 부신백질이영양증 · Adrenoleukodystrophy</p>
+      <div class="hero-top">
+        <p class="eyebrow">X 연관 부신백질이영양증 · Adrenoleukodystrophy</p>
+        {updated && (
+          <p class="updated">최종 검토 <time datetime={updated.iso}>{updated.label}</time></p>
+        )}
+      </div>
       <h1>지금까지 밝혀진 것과<br /><span>아직 밝혀지지 않은 것</span></h1>
       <div class="hero-body">
         <p class="lead">
@@ -151,9 +159,22 @@ const notes = [
 <style>
   /* ── HERO ── */
   .hero { padding: 6rem 0 5.5rem; border-bottom: 1px solid var(--rule); }
+  .hero-top {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem 2rem; flex-wrap: wrap; margin: 0 0 1.8rem;
+  }
   .eyebrow {
     font-size: .8rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--muted); margin: 0 0 1.8rem;
+    color: var(--muted); margin: 0;
+  }
+  .updated {
+    margin: 0; font-size: .8rem; color: var(--muted); letter-spacing: .02em;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .updated time { color: var(--ink-2); font-weight: 500; }
+  @media (max-width: 700px) {
+    .hero-top { gap: .5rem; }
+    .updated { font-size: .78rem; }
   }
   .hero h1 {
     font-family: var(--serif); font-weight: 500; margin: 0 0 3rem;
