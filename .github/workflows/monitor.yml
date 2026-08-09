@@ -23,6 +23,15 @@ jobs:
         with:
           python-version: '3.12'
 
+      # 라벨이 없으면 이슈 생성이 실패한다. 없을 때만 만든다.
+      - name: 라벨 확인
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create ald-monitor --color 0E8A16 \
+            --description "자동 점검이 남긴 확인 요망 항목" 2>/dev/null \
+            || echo "라벨이 이미 있습니다"
+
       - name: 점검 실행
         id: check
         run: |
