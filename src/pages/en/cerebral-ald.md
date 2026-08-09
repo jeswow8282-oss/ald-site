@@ -165,6 +165,6 @@ ALD Connect sets out the standard of care in cerebral ALD in detail.
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 8 August 2026*
+*Last reviewed: 10 August 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

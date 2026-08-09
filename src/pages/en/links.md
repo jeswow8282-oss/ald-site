@@ -113,4 +113,4 @@ The baseline for the medical content on this site.
 
 ---
 
-*Last reviewed: 8 August 2026*
+*Last reviewed: 10 August 2026*

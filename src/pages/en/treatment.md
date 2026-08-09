@@ -253,6 +253,6 @@ Statements about the evidence for Lorenzo's oil follow the 2022 international co
 
 ---
 
-*Last reviewed: 8 August 2026*
+*Last reviewed: 10 August 2026*
 
 *This page provides general medical information and does not replace care for an individual patient. Treatment decisions should be made with your treating clinicians.*
