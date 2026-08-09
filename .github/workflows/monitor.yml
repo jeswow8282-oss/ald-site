@@ -1,0 +1,70 @@
+name: 임상연구 등록부 점검
+
+# 매월 1일에 ClinicalTrials.gov 와 사이트 표기를 대조합니다.
+# 확인할 것이 있을 때만 이슈를 남기고, 없으면 조용히 끝납니다.
+# AI 를 쓰지 않습니다. 문자열 비교뿐이라 비용도 들지 않습니다.
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'      # 매월 1일 00:00 UTC (한국시간 오전 9시)
+  workflow_dispatch:          # Actions 탭에서 수동 실행
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 점검 실행
+        id: check
+        run: |
+          set +e
+          python tools/check_trials.py -o report.md
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: 결과를 요약에 남기기
+        if: always()
+        run: cat report.md >> "$GITHUB_STEP_SUMMARY" || echo "보고서 파일이 없습니다" >> "$GITHUB_STEP_SUMMARY"
+
+      # 점검 자체가 실패한 경우 — '이상 없음'과 구분해서 알린다
+      - name: 점검 실패 이슈
+        if: steps.check.outputs.exit == '2'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="ALD 점검 실패 ($(date -u +%Y-%m))"
+          EXISTING=$(gh issue list --label ald-monitor --state open \
+                       --search "$TITLE in:title" --json number -q '.[0].number')
+          BODY=$(cat report.md 2>/dev/null || echo "보고서를 만들지 못했습니다.")
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label ald-monitor
+          fi
+
+      # 확인할 것이 있는 경우
+      - name: 확인 요망 이슈
+        if: steps.check.outputs.exit == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="ALD 임상연구 점검 — 확인 요망 ($(date -u +%Y-%m))"
+          EXISTING=$(gh issue list --label ald-monitor --state open \
+                       --search "$TITLE in:title" --json number -q '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file report.md
+          else
+            gh issue create --title "$TITLE" --body-file report.md --label ald-monitor
+          fi
+
+      - name: 이상 없음
+        if: steps.check.outputs.exit == '0'
+        run: echo "확인이 필요한 항목이 없습니다. 이슈를 만들지 않습니다."
