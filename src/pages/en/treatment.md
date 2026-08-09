@@ -145,6 +145,13 @@ The compound is **elivaldogene autotemcel (eli-cel)**, developed by bluebird bio
 
 The indication itself makes the position clear: **where allogeneic transplantation is possible, that comes first.** This is an option for patients without a donor.
 
+### It does not apply to adult men with cerebral disease
+
+Because the licence covers **boys aged 4–17**, **gene therapy is not a treatment option for men with cerebral ALD.**
+
+A man with AMN who converts to cerebral disease **may be eligible for allogeneic transplantation**, depending on a number of factors. Since timing decides the outcome, this is a conversation to have with the treating team without delay. Separately, the **CALYX trial** of leriglitazone is running in adult men with cerebral ALD.
+→ [Clinical Trials](/en/clinical-trials)
+
 ### Where the international recommendations place it
 
 > Gene therapy **should be considered (if available) in boys if allogeneic donor options are poor** (recommendation 17)
@@ -246,6 +253,6 @@ Statements about the evidence for Lorenzo's oil follow the 2022 international co
 
 ---
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 8 August 2026*
 
 *This page provides general medical information and does not replace care for an individual patient. Treatment decisions should be made with your treating clinicians.*

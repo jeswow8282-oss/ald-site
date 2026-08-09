@@ -107,7 +107,7 @@ ALD 신생아 선별검사의 국제 현황을 정리한 문헌들도 미국·�
 
 **① Very-long-chain acyl-CoA dehydrogenase 결핍 (VLCAD)**
 
-지방산 대사이상 13종 중 하나로 목록에 있습니다. 이름에 **"very-long-chain"**이 들어 있어 ALD에서 쌓이는 **초장쇄지방산(very long chain fatty acid, VLCFA)**과 혼동되기 쉽습니다.
+지방산 대사이상 13종 중 하나로 목록에 있습니다. 이름에 **"very-long-chain"이** 들어 있어 ALD에서 쌓이는 **초장쇄지방산(very long chain fatty acid, VLCFA)과** 혼동되기 쉽습니다.
 
 **그러나 전혀 다른 질환입니다.**
 

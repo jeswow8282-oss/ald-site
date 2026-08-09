@@ -72,6 +72,9 @@ A patient-centred research network in the United States, bringing together patie
 - **Resources** — financial assistance, mental health, a **peer mentor programme**, webinars
 - **Get Involved** — annual meeting, family weekend, community calls
 
+**Its account of the standard of care in cerebral ALD is unusually detailed** — MRI surveillance intervals, transplantation, gene therapy and the options open to adult patients, all on one page.
+→ [Cerebral ALD — Standard of Care](https://aldconnect.org/what-is-ald/cerebral-ald/)
+
 **Its support programmes for patients and families are particularly well developed** — the peer mentor programme, which connects people in similar circumstances, and its mental health material.
 
 The structure of this site owes a good deal to ALD Connect.
