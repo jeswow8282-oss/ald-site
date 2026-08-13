@@ -214,15 +214,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     .navtop.on, .navtop[aria-current="page"] { color: var(--deep); font-weight: 600; }
     .navtop.on::after, .navtop[aria-current="page"]::after { transform: scaleX(1); background: var(--deep); }
 
-    .submenu {
-      position: absolute; top: 100%; left: 50%; transform: translate(-50%, 6px);
-      min-width: 15rem; background: var(--paper); border: 1px solid var(--rule);
-      box-shadow: 0 14px 36px rgba(21,24,28,.10); padding: .5rem 0;
-      opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s; z-index: 60;
+    @media (min-width: 1240px) {
+      .submenu {
+        position: absolute; top: 100%; left: 50%; transform: translate(-50%, 6px);
+        min-width: 15rem; background: var(--paper); border: 1px solid var(--rule);
+        box-shadow: 0 14px 36px rgba(21,24,28,.10); padding: .5rem 0;
+        opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s; z-index: 60;
+      }
+      .navgroup:hover .submenu,
+      .navgroup:focus-within .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+      .navgroup:hover .navtop svg { transform: rotate(180deg); }
     }
-    .navgroup:hover .submenu,
-    .navgroup:focus-within .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-    .navgroup:hover .navtop svg { transform: rotate(180deg); }
     .submenu a {
       display: block; padding: .62rem 1.2rem; text-decoration: none;
       color: var(--ink-2); font-size: .93rem; white-space: nowrap; border-left: 2px solid transparent;
@@ -395,6 +397,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       }
       .navgroup.open .submenu { display: block; }
       .navgroup.open .navtop svg { transform: rotate(180deg); }
+      /* 탭하면 :focus-within 이 걸린다. 가로 메뉴용 이동값이 되살아나지 않게 한다 */
+      .navgroup:hover .submenu,
+      .navgroup:focus-within .submenu { position: static; transform: none; }
       .submenu a { padding: .75rem 1rem; border-bottom: 1px solid var(--rule); font-size: .97rem; }
       .submenu a:last-child { border-bottom: 0; }
       .langswitch { margin-left: auto; margin-right: .7rem; }
