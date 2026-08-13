@@ -380,7 +380,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       nav.main {
         position: fixed; inset: var(--headh) 0 auto 0; background: var(--paper); flex-direction: column;
         gap: 0; padding: .25rem 1.35rem 1.4rem; border-bottom: 1px solid var(--rule); display: none;
-        max-height: calc(100vh - var(--headh)); overflow-y: auto; z-index: 90;
+        max-height: calc(100vh - var(--headh));
+        max-height: calc(100dvh - var(--headh));   /* 주소창을 감안한 실제 높이 */
+        overflow-y: auto; overscroll-behavior: contain; z-index: 90;
       }
       nav.main.open { display: flex; }
       .navgroup { display: block; }
@@ -521,15 +523,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       btn.setAttribute('aria-expanded', String(open));
       btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
     });
-    // 모바일에서 하위 메뉴 펼치기 (데스크톱은 hover로 열림)
+    // 접힌 메뉴에서 하위 메뉴 펼치기 (가로 메뉴는 hover로 열림)
+    // 기준 폭을 여기에 또 적으면 CSS와 어긋난다. 햄버거가 보이는지로 판단한다.
+    var isCollapsed = function () { return btn && getComputedStyle(btn).display !== 'none'; };
     document.querySelectorAll('.navgroup > .navtop').forEach(function (b) {
       b.addEventListener('click', function () {
-        if (!window.matchMedia('(max-width: 900px)').matches) return;
+        if (!isCollapsed()) return;
         var g = b.parentElement;
         var willOpen = !g.classList.contains('open');
         document.querySelectorAll('.navgroup').forEach(function (x) { x.classList.remove('open'); });
         g.classList.toggle('open', willOpen);
         b.setAttribute('aria-expanded', String(willOpen));
+        if (willOpen) {
+          // 펼친 항목이 접힌 메뉴 패널 아래로 밀려 안 보이는 경우가 있다
+          requestAnimationFrame(function () {
+            var last = g.querySelector('.submenu a:last-child');
+            if (last && last.getBoundingClientRect().bottom > nav.getBoundingClientRect().bottom) {
+              last.scrollIntoView({ block: 'nearest' });
+            }
+          });
+        }
       });
     });
     // 목차: 현재 읽고 있는 절 표시
