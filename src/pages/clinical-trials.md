@@ -51,8 +51,8 @@ Massachusetts General Hospital · 2023년 4월 시작
 
 척수강 내(intrathecal)와 정맥으로 렌티바이러스 유전자치료를 투여하는 연구입니다.
 
-`RECRUITING` — 참여자 모집 중
-Shenzhen Geno-Immune Medical Institute (중국) · 2025년 8월 시작
+`NOT_YET_RECRUITING` — 아직 모집을 시작하지 않았습니다
+Shenzhen Geno-Immune Medical Institute (중국) · 시작 예정 2027년 6월 (2026년 9월 1일 등록부 갱신에서 연기)
 → [NCT03727555](https://clinicaltrials.gov/study/NCT03727555)
 
 ---
@@ -139,4 +139,4 @@ AMN 환자의 하지 기능 저하에 **경막외 척수자극술**을 적용하
 
 *이 페이지의 내용은 ClinicalTrials.gov 등록 정보를 바탕으로 하며, 2026년 8월 7일 기준입니다. 연구의 상태와 조건은 수시로 변경됩니다.*
 
-*최종 검토일: 2026년 8월 7일*
+*최종 검토일: 2026년 9월 10일*

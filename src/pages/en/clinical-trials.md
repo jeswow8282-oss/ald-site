@@ -51,8 +51,8 @@ Massachusetts General Hospital · Started April 2023
 
 Lentiviral gene therapy delivered both intrathecally and intravenously.
 
-`RECRUITING`
-Shenzhen Geno-Immune Medical Institute (China) · Started August 2025
+`NOT_YET_RECRUITING` — recruitment has not opened
+Shenzhen Geno-Immune Medical Institute (China) · Expected to start June 2027 (pushed back in the registry update of 1 September 2026)
 → [NCT03727555](https://clinicaltrials.gov/study/NCT03727555)
 
 ---
@@ -137,4 +137,4 @@ Filtering by `RECRUITING` shows only studies currently open to enrolment.
 
 *Compiled from ClinicalTrials.gov registrations as of 7 August 2026. Trial status and eligibility change frequently.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 10 September 2026*

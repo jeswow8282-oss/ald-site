@@ -46,6 +46,13 @@ NCT_RE = re.compile(r"NCT\d{8}")
 # 모집 중인데 우리 페이지에 없으면 새로 생긴 시험일 수 있다.
 OPEN_STATUSES = {"RECRUITING", "NOT_YET_RECRUITING", "ENROLLING_BY_INVITATION"}
 
+# 사람이 보고 "싣지 않는다"고 판단한 시험. 다음 달부터 다시 올리지 않는다.
+# 숨기는 게 아니라 판단을 기록해 두는 것이므로 이유와 날짜를 반드시 남긴다.
+# 보고서 끝에 제외 건수를 항상 표시해서, 조용히 사라지지 않게 한다.
+EXCLUDED = {
+    "NCT04528355": "ALD 전용이 아니라 비악성 질환 이식 환자 전반을 모으는 관찰 연구 (2026-09-10 판단)",
+}
+
 
 class CheckFailed(Exception):
     """점검을 수행할 수 없었다. '이상 없음'과 절대 섞지 않는다."""
@@ -181,7 +188,7 @@ def main():
 
     # 2) 모집 중인데 페이지에 없는 시험
     missing = [(n, v) for n, v in reg.items()
-               if v["status"] in OPEN_STATUSES and n not in listed]
+               if v["status"] in OPEN_STATUSES and n not in listed and n not in EXCLUDED]
     if missing:
         findings += len(missing)
         lines += ["## 페이지에 없는 모집 중 시험", "",
@@ -217,6 +224,16 @@ def main():
         lines += ["확인이 필요한 항목이 없습니다.", "",
                   f"- 대조한 시험: {len(listed)}건 · 모두 등록부와 일치",
                   f"- 가장 최근 검토일: {newest.isoformat() if newest else '?'}"]
+
+    # 제외 중인 시험은 결과와 무관하게 늘 밝힌다
+    still = [(n, why) for n, why in EXCLUDED.items() if n in reg]
+    if still:
+        lines += ["", "<details><summary>싣지 않기로 한 시험 "
+                  f"{len(still)}건</summary>", ""]
+        for n, why in sorted(still):
+            lines.append(f"- [{n}](https://clinicaltrials.gov/study/{n}) — {why}")
+        lines += ["", "다시 올리려면 `tools/check_trials.py` 의 `EXCLUDED` 에서 지우면 됩니다.",
+                  "", "</details>"]
     else:
         lines += ["---", "",
                   "*이 점검은 문자열 비교만 합니다. 무엇을 고칠지는 사람이 정합니다.*"]
