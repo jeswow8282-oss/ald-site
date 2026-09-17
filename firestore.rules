@@ -33,8 +33,15 @@ service cloud.firestore {
       return hasEmail()
         && exists(/databases/$(database)/documents/allowedUsers/$(emailKey()));
     }
+    // 이메일/비밀번호 가입은 주소 소유를 증명하지 않는다. 화이트리스트가
+    // 이메일 기준이므로, 아직 가입하지 않은 관리자 주소를 남이 먼저
+    // 차지할 수 있다. 인증된 주소만 관리자로 인정해 그 경로를 막는다.
+    //
+    // ⚠ 적용 순서 — 기존 관리자가 모두 /admin 에서 이메일 인증을 마친 뒤에
+    //    이 규칙을 게시할 것. 먼저 게시하면 문의함을 읽지 못한다.
     function isAdmin() {
       return isWhitelisted()
+        && request.auth.token.email_verified == true
         && get(/databases/$(database)/documents/allowedUsers/$(emailKey())).data.role == 'admin';
     }
     function isServerTime(ts) {
@@ -47,6 +54,10 @@ service cloud.firestore {
     match /submissions/{id} {
 
       allow create: if signedIn()
+        // 문서 ID 는 SDK 가 자동 생성한 영숫자 20자만 허용한다.
+        // 우리 폼은 addDoc 을 쓰므로 항상 이 형식이다. 직접 API 를 불러
+        // ID 에 따옴표나 태그를 심는 경로를 여기서 막는다.
+        && id.matches('^[A-Za-z0-9]{20}$')
         && request.resource.data.keys().hasOnly(
              ['type', 'name', 'contact', 'message', 'createdAt', 'status'])
         && request.resource.data.keys().hasAll(

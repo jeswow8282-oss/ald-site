@@ -44,6 +44,13 @@ import Base from '../layouts/Base.astro';
       <button id="logout" class="ghost">로그아웃</button>
     </div>
 
+    <div id="verifyBanner" class="notice" hidden>
+      <p><strong>이메일 인증이 아직 되어 있지 않습니다.</strong>
+         받은 편지함에서 인증 링크를 눌러 주십시오. 인증이 확인되면 이 안내는 사라집니다.</p>
+      <button id="resendVerify" class="ghost">인증 메일 다시 보내기</button>
+      <span id="verifyMsg" class="muted"></span>
+    </div>
+
     <div class="filters">
       <button class="fbtn is-on" data-f="all">전체</button>
       <button class="fbtn" data-f="patient">환자 · 보호자</button>
@@ -133,13 +140,22 @@ import Base from '../layouts/Base.astro';
   }
   .iact button:hover { color: var(--ink); border-color: var(--ink); }
   .iact button.danger:hover { color: #9a3412; border-color: #9a3412; }
+  .notice {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .8rem;
+    margin: 0 0 1.4rem; padding: .95rem 1.1rem;
+    background: #fdf6e6; border: 1px solid #e6d6a8; border-radius: 2px;
+  }
+  .notice p { margin: 0; flex: 1 1 22rem; font-size: .95rem; line-height: 1.7; }
+  .notice button { flex: none; }
+  .tag.other { background: #eceae6; color: #6b7580; }
 </style>
 
 <script>
   import { auth, db } from '../lib/firebase.js';
   import {
     signInWithEmailAndPassword, createUserWithEmailAndPassword,
-    sendPasswordResetEmail, deleteUser, signOut, onAuthStateChanged,
+    sendPasswordResetEmail, sendEmailVerification, deleteUser, signOut,
+    onAuthStateChanged,
   } from 'firebase/auth';
   import {
     collection, query, orderBy, getDocs, doc, getDoc, updateDoc, deleteDoc,
@@ -165,18 +181,30 @@ import Base from '../layouts/Base.astro';
     String(s).replace(/[&<>"']/g, (c) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 
+  // 문의 종류는 Firestore 값을 그대로 쓰지 않고 정해진 표기로만 바꾼다.
+  // 규칙에서 type 을 검증하지만, 화면에 넣는 값은 여기서 한 번 더 좁힌다.
+  const TYPES: Record<string, { cls: string; label: string }> = {
+    research: { cls: 'research', label: '연구' },
+    patient:  { cls: 'patient',  label: '환자·보호자' },
+  };
+
+  // 화면에 그려진 순서대로의 목록. 클릭 처리에서 인덱스로 되찾는다.
+  let shownRows: any[] = [];
+
   function render() {
     const shown = rows.filter((r) =>
       filter === 'all' ? true : filter === 'new' ? r.status !== 'done' : r.type === filter);
+    shownRows = shown;
 
     $('#stat').textContent = `전체 ${rows.length}건 · 미확인 ${rows.filter((r) => r.status !== 'done').length}건`;
 
     if (!shown.length) { listEl.innerHTML = '<p class="muted">해당하는 문의가 없습니다.</p>'; return; }
 
-    listEl.innerHTML = shown.map((r) => `
-      <article class="item ${r.status === 'done' ? 'done' : ''}" data-id="${r.id}">
+    listEl.innerHTML = shown.map((r, i) => `
+      <article class="item ${r.status === 'done' ? 'done' : ''}" data-idx="${i}">
         <div class="ihead">
-          <span class="tag ${r.type}">${r.type === 'research' ? '연구' : '환자·보호자'}</span>
+          <span class="tag ${(TYPES[r.type] || { cls: 'other' }).cls}">${
+            (TYPES[r.type] || { label: '기타' }).label}</span>
           <span class="iname">${esc(r.name)}</span>
           <span class="idate">${fmt(r.createdAt)}</span>
         </div>
@@ -201,7 +229,9 @@ import Base from '../layouts/Base.astro';
       render();
     } catch (e) {
       console.error(e);
-      listEl.innerHTML = '<p class="result err">문의를 불러오지 못했습니다. 관리자로 등록된 계정인지 확인해 주십시오.</p>';
+      listEl.innerHTML =
+        '<p class="result err">문의를 불러오지 못했습니다. ' +
+        '관리자로 등록된 계정인지, 그리고 이메일 인증을 마쳤는지 확인해 주십시오.</p>';
     }
   }
 
@@ -216,8 +246,16 @@ import Base from '../layouts/Base.astro';
   listEl.addEventListener('click', async (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-act]');
     if (!btn) return;
-    const id = btn.closest<HTMLElement>('.item')!.dataset.id!;
-    const row = rows.find((r) => r.id === id);
+    const idx = Number(btn.closest<HTMLElement>('.item')!.dataset.idx);
+    const row = shownRows[idx];
+    if (!row) return;
+    const id: string = row.id;
+    // 자동 생성 ID(영숫자 20자)가 아니면 손대지 않는다.
+    // 규칙을 우회해 직접 만든 문서일 수 있다.
+    if (!/^[A-Za-z0-9]{20}$/.test(id)) {
+      alert('문서 식별자 형식이 올바르지 않습니다. 이 문의는 화면에서 처리할 수 없습니다.');
+      return;
+    }
     try {
       if (btn.dataset.act === 'toggle') {
         const next = row.status === 'done' ? 'new' : 'done';
@@ -294,6 +332,9 @@ import Base from '../layouts/Base.astro';
           try { await deleteUser(cred.user); } catch { await signOut(auth); }
           out.className = 'result err';
           out.textContent = '관리자 명단에 없는 이메일입니다. 기존 관리자에게 등록을 요청해 주십시오.';
+        } else {
+          // 화이트리스트에 있는 계정만 인증 메일을 보낸다
+          try { await sendEmailVerification(cred.user); } catch (e) { console.warn(e); }
         }
       } else {
         await signInWithEmailAndPassword(auth, email, pw);
@@ -314,6 +355,20 @@ import Base from '../layouts/Base.astro';
   });
 
   $('#logout').addEventListener('click', () => signOut(auth));
+
+  $('#resendVerify').addEventListener('click', async () => {
+    const msg = $('#verifyMsg') as HTMLElement;
+    const u = auth.currentUser;
+    if (!u) return;
+    msg.textContent = '보내는 중…';
+    try {
+      await sendEmailVerification(u);
+      msg.textContent = '보냈습니다. 받은 편지함을 확인해 주십시오.';
+    } catch (e) {
+      console.error(e);
+      msg.textContent = '보내지 못했습니다. 잠시 뒤 다시 시도해 주십시오.';
+    }
+  });
 
   onAuthStateChanged(auth, async (user) => {
     // 익명 사용자(문의 제출자)는 관리자가 아니다
@@ -336,6 +391,13 @@ import Base from '../layouts/Base.astro';
     }
     $('#who').textContent = user.email;
     loginSec.hidden = true; inboxSec.hidden = false;
+
+    // 이메일 인증 여부를 알린다. 지금은 막지 않는다 —
+    // 실제 차단은 Firestore 규칙에서 하며, 규칙을 올리기 전에
+    // 기존 관리자가 인증을 마칠 시간을 준다.
+    try { await user.reload(); } catch { /* 무시 */ }
+    ($('#verifyBanner') as HTMLElement).hidden = !!auth.currentUser?.emailVerified;
+
     load();
   });
 </script>
