@@ -49,7 +49,7 @@ import Base from '../layouts/Base.astro';
          받은 편지함에서 인증 링크를 눌러 주십시오. 인증이 확인되면 이 안내는 사라집니다.</p>
       <button id="recheckVerify" class="ghost">인증을 마쳤습니다 · 다시 확인</button>
       <button id="resendVerify" class="ghost">인증 메일 다시 보내기</button>
-      <span id="verifyMsg" class="muted"></span>
+      <p id="verifyMsg" class="vmsg"></p>
     </div>
 
     <div class="filters">
@@ -148,6 +148,9 @@ import Base from '../layouts/Base.astro';
   }
   .notice p { margin: 0; flex: 1 1 22rem; font-size: .95rem; line-height: 1.7; }
   .notice button { flex: none; }
+  .notice .vmsg {
+    flex: 1 0 100%; margin: .2rem 0 0; font-size: .9rem; color: #6b7580; line-height: 1.6;
+  }
   .tag.other { background: #eceae6; color: #6b7580; }
   .want {
     display: inline-block; margin-left: .5rem; padding: .1rem .5rem;
@@ -493,32 +496,39 @@ ${row.message}
   // 그대로 들고 있다. 그래서 getIdToken(true) 로 토큰까지 새로 받아야
   // 인증이 실제로 반영된다. 이걸 빠뜨리면 인증을 마쳤는데도 배너가
   // 남아 있고, 규칙을 게시한 뒤에는 문의함이 열리지 않는다.
-  async function refreshVerified(): Promise<boolean | null> {
+  async function refreshVerified(
+    report = false,
+  ): Promise<boolean | null> {
     const u = auth.currentUser;
     const banner = $('#verifyBanner') as HTMLElement;
+    const msg = $('#verifyMsg') as HTMLElement;
     if (!u) { banner.hidden = true; return null; }
     try {
       await u.reload();
-      await u.getIdToken(true);
-      const ok = !!auth.currentUser?.emailVerified;
+      // 규칙이 보는 것은 ID 토큰 안의 email_verified 다.
+      // 계정 정보(emailVerified)와 어긋날 수 있으므로 토큰 쪽을 기준으로 삼는다.
+      const res = await u.getIdTokenResult(true);
+      const inToken = res.claims.email_verified === true;
+      const inProfile = !!auth.currentUser?.emailVerified;
+      const ok = inToken || inProfile;
       banner.hidden = ok;
+      if (report) {
+        msg.textContent = ok
+          ? '인증이 확인되었습니다.'
+          : `아직 인증되지 않은 것으로 나옵니다. (계정: ${inProfile ? '완료' : '미완료'} · 토큰: ${inToken ? '완료' : '미완료'}) 메일의 링크를 다시 눌러 주십시오.`;
+      }
       return ok;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       banner.hidden = false;
+      if (report) msg.textContent = `확인하지 못했습니다 — ${e?.code || e?.message || e}`;
       return null;
     }
   }
 
   $('#recheckVerify').addEventListener('click', async () => {
-    const msg = $('#verifyMsg') as HTMLElement;
-    msg.textContent = '확인 중…';
-    const ok = await refreshVerified();
-    msg.textContent =
-      ok === true  ? '인증이 확인되었습니다.'
-    : ok === false ? '아직 인증되지 않은 것으로 나옵니다. 메일의 링크를 다시 눌러 주십시오.'
-    :                '확인하지 못했습니다. 잠시 뒤 다시 시도해 주십시오.';
-    if (ok) load();
+    ($('#verifyMsg') as HTMLElement).textContent = '확인 중…';
+    if (await refreshVerified(true)) load();
   });
 
   $('#logout').addEventListener('click', () => signOut(auth));

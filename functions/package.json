@@ -1,0 +1,12 @@
+{
+  "name": "kalds-functions",
+  "description": "새 문의가 들어오면 관리자에게 알림 메일을 보낸다",
+  "type": "module",
+  "engines": { "node": "20" },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.1.0"
+  },
+  "private": true
+}

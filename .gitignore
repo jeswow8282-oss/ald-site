@@ -5,3 +5,5 @@ dist/
 *.pdf
 _work/
 reports/
+functions/node_modules/
+functions/package-lock.json

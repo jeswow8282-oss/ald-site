@@ -136,6 +136,15 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // ── 알림 받을 주소 ──────────────────────────────────────────────────
+    // config/notify = { to: ["주소", ...] }
+    // 새 문의 알림을 어디로 보낼지 적어두는 곳이다. 공개 저장소에 주소를
+    // 적지 않으려고 여기에 둔다. 함수는 서버 권한으로 읽으므로 이 규칙과
+    // 무관하고, 클라이언트에서는 아무도 읽거나 쓰지 못한다.
+    match /config/{doc} {
+      allow read, write: if false;
+    }
+
     // ── 그 외 전부 차단 ─────────────────────────────────────────────────
     match /{document=**} {
       allow read, write: if false;
