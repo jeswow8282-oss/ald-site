@@ -47,6 +47,7 @@ import Base from '../layouts/Base.astro';
     <div id="verifyBanner" class="notice" hidden>
       <p><strong>이메일 인증이 아직 되어 있지 않습니다.</strong>
          받은 편지함에서 인증 링크를 눌러 주십시오. 인증이 확인되면 이 안내는 사라집니다.</p>
+      <button id="recheckVerify" class="ghost">인증을 마쳤습니다 · 다시 확인</button>
       <button id="resendVerify" class="ghost">인증 메일 다시 보내기</button>
       <span id="verifyMsg" class="muted"></span>
     </div>
@@ -485,6 +486,41 @@ ${row.message}
     }
   });
 
+  // 인증 상태를 서버에서 다시 읽는다.
+  //
+  // reload() 는 계정 정보만 새로 받아온다. Firestore 규칙이 보는 것은
+  // ID 토큰 안의 email_verified 인데, 토큰은 최대 한 시간 동안 예전 값을
+  // 그대로 들고 있다. 그래서 getIdToken(true) 로 토큰까지 새로 받아야
+  // 인증이 실제로 반영된다. 이걸 빠뜨리면 인증을 마쳤는데도 배너가
+  // 남아 있고, 규칙을 게시한 뒤에는 문의함이 열리지 않는다.
+  async function refreshVerified(): Promise<boolean | null> {
+    const u = auth.currentUser;
+    const banner = $('#verifyBanner') as HTMLElement;
+    if (!u) { banner.hidden = true; return null; }
+    try {
+      await u.reload();
+      await u.getIdToken(true);
+      const ok = !!auth.currentUser?.emailVerified;
+      banner.hidden = ok;
+      return ok;
+    } catch (e) {
+      console.error(e);
+      banner.hidden = false;
+      return null;
+    }
+  }
+
+  $('#recheckVerify').addEventListener('click', async () => {
+    const msg = $('#verifyMsg') as HTMLElement;
+    msg.textContent = '확인 중…';
+    const ok = await refreshVerified();
+    msg.textContent =
+      ok === true  ? '인증이 확인되었습니다.'
+    : ok === false ? '아직 인증되지 않은 것으로 나옵니다. 메일의 링크를 다시 눌러 주십시오.'
+    :                '확인하지 못했습니다. 잠시 뒤 다시 시도해 주십시오.';
+    if (ok) load();
+  });
+
   $('#logout').addEventListener('click', () => signOut(auth));
 
   $('#resendVerify').addEventListener('click', async () => {
@@ -526,8 +562,7 @@ ${row.message}
     // 이메일 인증 여부를 알린다. 지금은 막지 않는다 —
     // 실제 차단은 Firestore 규칙에서 하며, 규칙을 올리기 전에
     // 기존 관리자가 인증을 마칠 시간을 준다.
-    try { await user.reload(); } catch { /* 무시 */ }
-    ($('#verifyBanner') as HTMLElement).hidden = !!auth.currentUser?.emailVerified;
+    await refreshVerified();
 
     load();
   });
