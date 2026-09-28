@@ -148,6 +148,29 @@ import Base from '../layouts/Base.astro';
   .notice p { margin: 0; flex: 1 1 22rem; font-size: .95rem; line-height: 1.7; }
   .notice button { flex: none; }
   .tag.other { background: #eceae6; color: #6b7580; }
+  .want {
+    display: inline-block; margin-left: .5rem; padding: .1rem .5rem;
+    font-size: .78rem; border-radius: 2px; vertical-align: middle;
+  }
+  .want.email { background: var(--tint, #eef2f0); color: #1e3d38; }
+  .want.phone { background: #fdf0e3; color: #8a5a17; font-weight: 600; }
+  .ireply {
+    margin: .9rem 0 0; padding: .85rem 1rem;
+    background: #f2f6f4; border-left: 3px solid #1e3d38; border-radius: 2px;
+    font-size: .95rem; line-height: 1.75; white-space: pre-wrap;
+  }
+  .ireply .rlabel {
+    display: block; margin-bottom: .35rem;
+    font-size: .8rem; color: #6b7580; white-space: normal;
+  }
+  .rbox { margin-top: .9rem; }
+  .rbox textarea {
+    width: 100%; padding: .7rem .85rem; font: inherit; font-size: .95rem; line-height: 1.7;
+    border: 1px solid #cfc7bb; border-radius: 2px; background: #fff; resize: vertical;
+  }
+  .rbox textarea:focus { outline: 2px solid #1e3d38; outline-offset: -1px; }
+  .rmsg { margin: .5rem 0 0; font-size: .88rem; color: #6b7580; min-height: 1.2em; }
+  .rmsg.err { color: #9a3412; }
 </style>
 
 <script>
@@ -159,6 +182,7 @@ import Base from '../layouts/Base.astro';
   } from 'firebase/auth';
   import {
     collection, query, orderBy, getDocs, doc, getDoc, updateDoc, deleteDoc,
+    addDoc, serverTimestamp,
   } from 'firebase/firestore';
 
   const $ = <T extends Element>(s: string) => document.querySelector<T>(s)!;
@@ -191,6 +215,30 @@ import Base from '../layouts/Base.astro';
   // 화면에 그려진 순서대로의 목록. 클릭 처리에서 인덱스로 되찾는다.
   let shownRows: any[] = [];
 
+  // 예전 문의는 contact 한 칸만 있고, 새 문의는 email/phone/prefer 로 나뉜다.
+  const mailOf = (r: any): string => {
+    const v = r.email || (/^[^@\s]+@[^@\s]+$/.test(r.contact || '') ? r.contact : '');
+    return /^[^@\s]+@[^@\s]+$/.test(v) ? v : '';
+  };
+  const telOf = (r: any): string =>
+    r.phone || (!mailOf(r) && r.contact ? r.contact : '');
+
+  function contactLine(r: any) {
+    const m = mailOf(r), tel = telOf(r);
+    const want = r.prefer === 'phone' ? '전화 희망' : r.prefer === 'email' ? '이메일 희망' : '';
+    const bits: string[] = [];
+    if (m) bits.push(`<a href="mailto:${esc(m)}">${esc(m)}</a>`);
+    if (tel) bits.push(`<a href="tel:${esc(tel.replace(/[^0-9+]/g, ''))}">${esc(tel)}</a>`);
+    if (!bits.length) bits.push('<span class="muted">연락처 없음</span>');
+    return bits.join(' · ')
+      + (want ? ` <span class="want ${r.prefer}">${want}</span>` : '');
+  }
+
+  const replyHint = (r: any) =>
+    r.prefer === 'phone'
+      ? '전화로 연락드리기로 한 문의입니다. 통화 내용을 기록해 두시면 됩니다.'
+      : '답변을 적으시면 적어주신 이메일로 발송됩니다.';
+
   function render() {
     const shown = rows.filter((r) =>
       filter === 'all' ? true : filter === 'new' ? r.status !== 'done' : r.type === filter);
@@ -208,15 +256,26 @@ import Base from '../layouts/Base.astro';
           <span class="iname">${esc(r.name)}</span>
           <span class="idate">${fmt(r.createdAt)}</span>
         </div>
-        <p class="icontact">${
-          /^[^@\s]+@[^@\s]+$/.test(r.contact)
-            ? `<a href="mailto:${esc(r.contact)}">${esc(r.contact)}</a>`
-            : esc(r.contact)
-        }</p>
+        <p class="icontact">${contactLine(r)}</p>
         <div class="imsg">${esc(r.message)}</div>
-        <div class="iact">
-          <button data-act="toggle">${r.status === 'done' ? '미확인으로' : '처리 완료'}</button>
-          <button data-act="delete" class="danger">삭제</button>
+        ${r.reply ? `
+        <div class="ireply">
+          <span class="rlabel">보낸 답변${r.repliedAt ? ` · ${fmt(r.repliedAt)}` : ''}${
+            r.notified === 'sent' ? ' · 메일 발송됨'
+            : r.notified === 'manual' ? ' · 직접 연락'
+            : ''}</span>
+          <div>${esc(r.reply)}</div>
+        </div>` : ''}
+        <div class="rbox">
+          <textarea data-reply rows="4" maxlength="5000"
+            placeholder="${replyHint(r)}">${esc(r.reply || '')}</textarea>
+          <div class="iact">
+            <button data-act="reply">${r.reply ? '답변 다시 보내기' : '답변 보내기'}</button>
+            <button data-act="save">저장만</button>
+            <button data-act="toggle">${r.status === 'done' ? '미확인으로' : '처리 완료'}</button>
+            <button data-act="delete" class="danger">삭제</button>
+          </div>
+          <p class="rmsg" role="status"></p>
         </div>
       </article>`).join('');
   }
@@ -256,7 +315,79 @@ import Base from '../layouts/Base.astro';
       alert('문서 식별자 형식이 올바르지 않습니다. 이 문의는 화면에서 처리할 수 없습니다.');
       return;
     }
+    const card = btn.closest<HTMLElement>('.item')!;
+    const ta = card.querySelector<HTMLTextAreaElement>('[data-reply]');
+    const msg = card.querySelector<HTMLElement>('.rmsg');
+    const say = (s: string, err = false) => {
+      if (!msg) return;
+      msg.textContent = s;
+      msg.className = 'rmsg' + (err ? ' err' : '');
+    };
+
     try {
+      if (btn.dataset.act === 'reply' || btn.dataset.act === 'save') {
+        const text = (ta?.value || '').trim();
+        if (!text) { say('답변 내용을 적어주십시오.', true); return; }
+
+        const onlySave = btn.dataset.act === 'save';
+        const to = mailOf(row);
+        // 전화 희망이거나 이메일이 없으면 메일을 보내지 않는다
+        const canMail = !onlySave && row.prefer !== 'phone' && !!to;
+
+        btn.disabled = true;
+        say(onlySave ? '저장 중…' : canMail ? '보내는 중…' : '저장 중…');
+
+        if (canMail) {
+          // 발송은 Firebase 'Trigger Email' 확장이 맡는다.
+          // 여기서는 큐에 넣기만 한다.
+          await addDoc(collection(db, 'mail'), {
+            to: [to],
+            message: {
+              subject: '[부신백질이영양증 정보] 문의에 대한 답변입니다',
+              text:
+                `${row.name} 님께
+
+` +
+                `kalds.org 로 보내주신 문의에 답변드립니다.
+
+` +
+                `──────────
+${text}
+──────────
+
+` +
+                `보내주셨던 내용
+${row.message}
+
+` +
+                `이 주소로는 답장을 받지 못합니다.
+` +
+                `추가로 궁금한 점이 있으시면 https://kalds.org/contact 에서 다시 남겨주십시오.
+
+` +
+                `부신백질이영양증(ALD) 정보 · https://kalds.org
+` +
+                `이 답변은 일반적인 정보 제공이며 진료를 대신하지 않습니다.`,
+            },
+          });
+        }
+
+        const patch: any = { reply: text, repliedAt: serverTimestamp() };
+        if (!onlySave) patch.notified = canMail ? 'sent' : 'manual';
+        await updateDoc(doc(db, 'submissions', id), patch);
+
+        row.reply = text;
+        row.repliedAt = { toDate: () => new Date() };
+        if (!onlySave) row.notified = canMail ? 'sent' : 'manual';
+
+        btn.disabled = false;
+        say(onlySave ? '저장했습니다.'
+            : canMail ? `${to} 로 발송을 요청했습니다.`
+            : '저장했습니다. 이 문의는 전화 연락을 원하셨으니 직접 연락해 주십시오.');
+        setTimeout(render, 1200);
+        return;
+      }
+
       if (btn.dataset.act === 'toggle') {
         const next = row.status === 'done' ? 'new' : 'done';
         await updateDoc(doc(db, 'submissions', id), { status: next });

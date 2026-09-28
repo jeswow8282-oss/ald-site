@@ -29,7 +29,7 @@ service cloud.firestore {
     function emailKey() {
       return request.auth.token.email.lower();
     }
-    function isWhitelisted() {
+    function isWhitelisterequest.resource.data {
       return hasEmail()
         && exists(/databases/$(database)/documents/allowedUsers/$(emailKey()));
     }
@@ -40,7 +40,7 @@ service cloud.firestore {
     // ⚠ 적용 순서 — 기존 관리자가 모두 /admin 에서 이메일 인증을 마친 뒤에
     //    이 규칙을 게시할 것. 먼저 게시하면 문의함을 읽지 못한다.
     function isAdmin() {
-      return isWhitelisted()
+      return isWhitelisterequest.resource.data
         && request.auth.token.email_verified == true
         && get(/databases/$(database)/documents/allowedUsers/$(emailKey())).data.role == 'admin';
     }
@@ -53,38 +53,79 @@ service cloud.firestore {
     // read   : 관리자만. 제출자 본인도 되읽을 수 없다.
     match /submissions/{id} {
 
+      // 연락처는 두 가지 형식을 모두 받는다.
+      //  새 형식 : prefer(email|phone) + 그 방법에 맞는 연락처
+      //  예전 형식: contact 한 칸
+      // 규칙을 게시하는 시점과 페이지가 갱신되는 시점이 어긋날 수 있어,
+      // 캐시된 예전 페이지에서 온 문의도 잃지 않도록 둘 다 허용한다.
+      function newShape() {
+        return 'prefer' in request.resource.data.keys()
+          && request.resource.data.prefer in ['email', 'phone']
+          && request.resource.data.email is string && request.resource.data.email.size() <= 200
+          && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
+          && (request.resource.data.prefer != 'email'
+              || request.resource.data.email.matches('^[^@\s]+@[^@\s]+[.][^@\s]+$'))
+          && (request.resource.data.prefer != 'phone'
+              || (request.resource.data.phone.size() >= 9 && request.resource.data.phone.matches('^[0-9+()\- ]+$')));
+      }
+      function legacyShape() {
+        return 'contact' in request.resource.data.keys()
+          && request.resource.data.contact is string
+          && request.resource.data.contact.size() > 0
+          && request.resource.data.contact.size() <= 200;
+      }
+
       allow create: if signedIn()
         // 문서 ID 는 SDK 가 자동 생성한 영숫자 20자만 허용한다.
         // 우리 폼은 addDoc 을 쓰므로 항상 이 형식이다. 직접 API 를 불러
         // ID 에 따옴표나 태그를 심는 경로를 여기서 막는다.
         && id.matches('^[A-Za-z0-9]{20}$')
         && request.resource.data.keys().hasOnly(
-             ['type', 'name', 'contact', 'message', 'createdAt', 'status'])
-        && request.resource.data.keys().hasAll(
-             ['type', 'name', 'contact', 'message', 'createdAt'])
+             ['type', 'name', 'email', 'phone', 'prefer', 'contact',
+              'message', 'createdAt', 'status'])
+        && request.resource.data.keys().hasAll(['type', 'name', 'message', 'createdAt'])
         && request.resource.data.type in ['research', 'patient']
         && request.resource.data.name is string
         && request.resource.data.name.size() > 0
         && request.resource.data.name.size() <= 100
-        && request.resource.data.contact is string
-        && request.resource.data.contact.size() > 0
-        && request.resource.data.contact.size() <= 200
+        && (newShape() || legacyShape())
         && request.resource.data.message is string
         && request.resource.data.message.size() > 0
         && request.resource.data.message.size() <= 5000
         && isServerTime(request.resource.data.createdAt)
-        && (!('status' in request.resource.data.keys())
-            || request.resource.data.status == 'new');
+        && (!('status' in request.resource.data.keys()) || request.resource.data.status == 'new');
 
       allow read: if isAdmin();
 
       // 관리자는 처리 상태만 바꿀 수 있다. 내용 위변조는 불가.
+      // 관리자는 처리 상태와 답글만 쓸 수 있다. 문의 내용 자체는 못 고친다.
       allow update: if isAdmin()
         && request.resource.data.diff(resource.data).affectedKeys()
-             .hasOnly(['status', 'note'])
-        && request.resource.data.status in ['new', 'reading', 'done'];
+             .hasOnly(['status', 'note', 'reply', 'repliedAt', 'notified'])
+        && request.resource.data.status in ['new', 'reading', 'done']
+        && (!('reply' in request.resource.data.keys())
+            || (request.resource.data.reply is string
+                && request.resource.data.reply.size() <= 5000))
+        && (!('notified' in request.resource.data.keys())
+            || request.resource.data.notified in ['sent', 'manual', 'none']);
 
       allow delete: if isAdmin();
+    }
+
+    // ── 답변 메일 발송 큐 ───────────────────────────────────────────────
+    // Firebase 'Trigger Email' 확장이 이 컬렉션을 보고 메일을 보낸다.
+    // 확장은 서버 권한으로 돌기 때문에 이 규칙의 영향을 받지 않는다.
+    // 클라이언트 쪽에서는 관리자만 넣을 수 있고, 아무도 읽지 못한다.
+    match /mail/{id} {
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['to', 'message'])
+        && request.resource.data.to is list
+        && request.resource.data.to.size() == 1
+        && request.resource.data.message.subject is string
+        && request.resource.data.message.subject.size() <= 200
+        && request.resource.data.message.text is string
+        && request.resource.data.message.text.size() <= 20000;
+      allow read, update, delete: if false;
     }
 
     // ── 관리자 목록 ─────────────────────────────────────────────────────

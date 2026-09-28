@@ -61,10 +61,26 @@ import Base from '../../layouts/Base.astro';
         <input name="name" type="text" maxlength="100" required placeholder="Name or a nickname" />
         <small>It does not have to be your real name.</small>
       </label>
-      <label>
-        <span>Where to reply <em>required</em></span>
-        <input name="contact" type="text" maxlength="200" required placeholder="Email address" />
-        <small>Email is preferred. A phone number is not needed.</small>
+      <fieldset class="reply-how">
+        <legend>How would you like to be answered? <em>required</em></legend>
+        <label class="radio">
+          <input type="radio" name="prefer" value="email" checked />
+          <span>By email</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="prefer" value="phone" />
+          <span>By telephone</span>
+        </label>
+      </fieldset>
+      <label data-need="email">
+        <span>Email address <em class="req-mark">required</em></span>
+        <input name="email" type="email" maxlength="200" placeholder="name@example.com" />
+        <small>Replies are sent from <strong>answer@kalds.org</strong>. Please check your spam folder.</small>
+      </label>
+      <label data-need="phone">
+        <span>Telephone <em class="req-mark">optional</em></span>
+        <input name="phone" type="tel" maxlength="30" placeholder="+82 10 0000 0000" />
+        <small>Only needed if you would rather be telephoned.</small>
       </label>
       <label>
         <span>Your message <em>required</em></span>
@@ -100,13 +116,28 @@ import Base from '../../layouts/Base.astro';
         <span>Name and affiliation <em>required</em></span>
         <input name="name" type="text" maxlength="100" required placeholder="e.g. Jane Doe / Department of Neurology, X University" />
       </label>
-      <label>
-        <span>Email for reply <em>required</em></span>
-        <input name="contact" type="email" maxlength="200" required placeholder="name@example.org" />
-        <small>An institutional address is preferred.</small>
+      <fieldset class="reply-how">
+        <legend>How would you like to be answered? <em>required</em></legend>
+        <label class="radio">
+          <input type="radio" name="prefer" value="email" checked />
+          <span>By email</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="prefer" value="phone" />
+          <span>By telephone</span>
+        </label>
+      </fieldset>
+      <label data-need="email">
+        <span>Email for reply <em class="req-mark">required</em></span>
+        <input name="email" type="email" maxlength="200" placeholder="name@example.org" />
+        <small>An institutional address is preferred. Replies come from <strong>answer@kalds.org</strong>.</small>
+      </label>
+      <label data-need="phone">
+        <span>Telephone <em class="req-mark">optional</em></span>
+        <input name="phone" type="tel" maxlength="30" placeholder="+82 10 0000 0000" />
       </label>
       <label>
-        <span>문의 내용 <em>필수</em></span>
+        <span>Your message <em>required</em></span>
         <textarea name="message" rows="9" maxlength="5000" required
           placeholder="Research topic, the collaboration you have in mind, or the data you need."></textarea>
         <small class="count">0 / 5000</small>
@@ -114,10 +145,11 @@ import Base from '../../layouts/Base.astro';
       <div class="agree">
         <label class="chk">
           <input type="checkbox" name="agree" required />
-          <span>I agree that what I enter will be stored so that my enquiry can be handled.</span>
+          <span>I agree that what I enter will be stored so that my enquiry can be answered.
+          It is deleted once the enquiry is closed and is not used for anything else.</span>
         </label>
       </div>
-      <button class="submit" type="submit">보내기</button>
+      <button class="submit" type="submit">Send</button>
       <p class="result" role="status"></p>
     </form>
   </section>
@@ -236,6 +268,24 @@ import Base from '../../layouts/Base.astro';
     .tab { padding: .8rem .9rem; font-size: .93rem; }
     .submit { width: 100%; text-align: center; }
   }
+  .reply-how {
+    margin: 0 0 1.4rem; padding: 1rem 1.1rem;
+    border: 1px solid var(--rule); border-radius: 2px; background: var(--paper-2);
+  }
+  .reply-how legend {
+    padding: 0 .4rem; font-weight: 600; font-size: .95rem; color: var(--ink);
+  }
+  .reply-how legend em { font-style: normal; color: var(--deep); font-size: .82rem; margin-left: .3rem; }
+  .reply-how .radio {
+    display: flex; align-items: center; gap: .5rem; margin: .35rem 0; cursor: pointer;
+    font-size: .97rem; color: var(--ink-2);
+  }
+  .reply-how .radio input { width: 1.05rem; height: 1.05rem; accent-color: var(--deep); flex: none; }
+  /* 고르지 않은 쪽은 남겨두되 눈에 덜 띄게 한다 */
+  .cform [data-need] { opacity: .55; transition: opacity .2s; }
+  .cform [data-need].is-needed { opacity: 1; }
+  .cform [data-need] .req-mark { font-style: normal; color: var(--muted); font-size: .82rem; }
+  .cform [data-need].is-needed .req-mark { color: var(--deep); }
 </style>
 
 <script>
@@ -265,6 +315,21 @@ import Base from '../../layouts/Base.astro';
     ta.addEventListener('input', upd); upd();
   });
 
+  // Show whichever contact field the chosen reply method needs
+  document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
+    const sync = () => {
+      const pref = (form.querySelector<HTMLInputElement>('[name="prefer"]:checked')?.value) || 'email';
+      form.querySelectorAll<HTMLElement>('[data-need]').forEach((el) => {
+        const needed = el.dataset.need === pref;
+        el.classList.toggle('is-needed', needed);
+        const mark = el.querySelector('.req-mark');
+        if (mark) mark.textContent = needed ? 'required' : 'optional';
+      });
+    };
+    form.querySelectorAll('[name="prefer"]').forEach((r) => r.addEventListener('change', sync));
+    sync();
+  });
+
   // 제출
   document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
     const btn = form.querySelector<HTMLButtonElement>('.submit')!;
@@ -276,11 +341,21 @@ import Base from '../../layouts/Base.astro';
 
       const fd = new FormData(form);
       const name = String(fd.get('name') || '').trim();
-      const contact = String(fd.get('contact') || '').trim();
+      const email = String(fd.get('email') || '').trim();
+      const phone = String(fd.get('phone') || '').trim();
+      const prefer = String(fd.get('prefer') || 'email');
       const message = String(fd.get('message') || '').trim();
 
-      if (!name || !contact || !message) {
+      if (!name || !message) {
         out.className = 'result err'; out.textContent = 'Please complete all required fields.'; return;
+      }
+      if (prefer === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        out.className = 'result err';
+        out.textContent = 'To be answered by email, please enter a valid email address.'; return;
+      }
+      if (prefer === 'phone' && phone.replace(/[^0-9]/g, '').length < 9) {
+        out.className = 'result err';
+        out.textContent = 'To be answered by telephone, please enter a phone number.'; return;
       }
       if (!fd.get('agree')) {
         out.className = 'result err'; out.textContent = 'Please tick the consent box.'; return;
@@ -289,16 +364,37 @@ import Base from '../../layouts/Base.astro';
       btn.disabled = true; btn.textContent = 'Sending…';
       try {
         if (!auth.currentUser) await signInAnonymously(auth);
-        await addDoc(collection(db, 'submissions'), {
-          type: form.dataset.form,
-          name, contact, message,
-          createdAt: serverTimestamp(),
-          status: 'new',
-        });
+        // Before the updated rules are published the new fields are rejected.
+        // Fall back to the old shape rather than lose the enquiry.
+        try {
+          await addDoc(collection(db, 'submissions'), {
+            type: form.dataset.form,
+            name, message, prefer,
+            email: prefer === 'email' ? email : (email || ''),
+            phone: prefer === 'phone' ? phone : (phone || ''),
+            createdAt: serverTimestamp(),
+            status: 'new',
+          });
+        } catch (e: any) {
+          if (e?.code !== 'permission-denied') throw e;
+          const legacy = prefer === 'phone'
+            ? `${phone} (prefers a telephone reply)`
+            : email + (phone ? ` / ${phone}` : '');
+          await addDoc(collection(db, 'submissions'), {
+            type: form.dataset.form,
+            name, message,
+            contact: legacy.slice(0, 200),
+            createdAt: serverTimestamp(),
+            status: 'new',
+          });
+        }
         form.reset();
         form.querySelectorAll('.count').forEach((c) => { c.textContent = '0 / 5000'; });
         out.className = 'result ok';
-        out.textContent = 'Thank you. We will look at this and reply.';
+        out.textContent = prefer === 'phone'
+          ? 'Thank you. We will look at this and telephone you on the number you gave.'
+          : 'Thank you. We will look at this and reply to the address you gave. '
+            + 'Replies come from answer@kalds.org, so please check your spam folder.';
       } catch (err) {
         console.error(err);
         out.className = 'result err';

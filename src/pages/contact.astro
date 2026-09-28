@@ -61,10 +61,26 @@ import Base from '../layouts/Base.astro';
         <input name="name" type="text" maxlength="100" required placeholder="성함 또는 별칭" />
         <small>실명이 아니어도 됩니다.</small>
       </label>
-      <label>
-        <span>답장받을 곳 <em>필수</em></span>
-        <input name="contact" type="text" maxlength="200" required placeholder="이메일 주소" />
-        <small>이메일을 권합니다. 전화번호는 남기지 않으셔도 됩니다.</small>
+      <fieldset class="reply-how">
+        <legend>답변을 어떻게 받으시겠습니까? <em>필수</em></legend>
+        <label class="radio">
+          <input type="radio" name="prefer" value="email" checked />
+          <span>이메일로 받겠습니다</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="prefer" value="phone" />
+          <span>전화로 받겠습니다</span>
+        </label>
+      </fieldset>
+      <label data-need="email">
+        <span>이메일 주소 <em class="req-mark">필수</em></span>
+        <input name="email" type="email" maxlength="200" placeholder="name@example.com" />
+        <small>답변은 <strong>answer@kalds.org</strong> 에서 발송됩니다. 스팸함도 확인해 주십시오.</small>
+      </label>
+      <label data-need="phone">
+        <span>전화번호 <em class="req-mark">선택</em></span>
+        <input name="phone" type="tel" maxlength="30" placeholder="010-0000-0000" />
+        <small>전화 연락을 원하실 때만 적어주시면 됩니다.</small>
       </label>
       <label>
         <span>문의 내용 <em>필수</em></span>
@@ -75,7 +91,8 @@ import Base from '../layouts/Base.astro';
       <div class="agree">
         <label class="chk">
           <input type="checkbox" name="agree" required />
-          <span>위 안내를 확인했으며, 문의 처리를 위해 입력한 내용이 저장되는 데 동의합니다.</span>
+          <span>위 안내를 확인했으며, 문의 처리와 답변을 위해 입력한 내용이 저장되는 데 동의합니다.
+          답변이 끝나면 삭제하며, 다른 목적으로 쓰지 않습니다.</span>
         </label>
       </div>
       <button class="submit" type="submit">보내기</button>
@@ -100,10 +117,25 @@ import Base from '../layouts/Base.astro';
         <span>성함 · 소속 <em>필수</em></span>
         <input name="name" type="text" maxlength="100" required placeholder="예) 홍길동 / OO대학교 신경과" />
       </label>
-      <label>
-        <span>회신받을 이메일 <em>필수</em></span>
-        <input name="contact" type="email" maxlength="200" required placeholder="name@example.org" />
-        <small>기관 이메일을 권합니다.</small>
+      <fieldset class="reply-how">
+        <legend>답변을 어떻게 받으시겠습니까? <em>필수</em></legend>
+        <label class="radio">
+          <input type="radio" name="prefer" value="email" checked />
+          <span>이메일로 받겠습니다</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="prefer" value="phone" />
+          <span>전화로 받겠습니다</span>
+        </label>
+      </fieldset>
+      <label data-need="email">
+        <span>회신받을 이메일 <em class="req-mark">필수</em></span>
+        <input name="email" type="email" maxlength="200" placeholder="name@example.org" />
+        <small>기관 이메일을 권합니다. 답변은 <strong>answer@kalds.org</strong> 에서 발송됩니다.</small>
+      </label>
+      <label data-need="phone">
+        <span>전화번호 <em class="req-mark">선택</em></span>
+        <input name="phone" type="tel" maxlength="30" placeholder="010-0000-0000" />
       </label>
       <label>
         <span>문의 내용 <em>필수</em></span>
@@ -236,6 +268,24 @@ import Base from '../layouts/Base.astro';
     .tab { padding: .8rem .9rem; font-size: .93rem; }
     .submit { width: 100%; text-align: center; }
   }
+  .reply-how {
+    margin: 0 0 1.4rem; padding: 1rem 1.1rem;
+    border: 1px solid var(--rule); border-radius: 2px; background: var(--paper-2);
+  }
+  .reply-how legend {
+    padding: 0 .4rem; font-weight: 600; font-size: .95rem; color: var(--ink);
+  }
+  .reply-how legend em { font-style: normal; color: var(--deep); font-size: .82rem; margin-left: .3rem; }
+  .reply-how .radio {
+    display: flex; align-items: center; gap: .5rem; margin: .35rem 0; cursor: pointer;
+    font-size: .97rem; color: var(--ink-2);
+  }
+  .reply-how .radio input { width: 1.05rem; height: 1.05rem; accent-color: var(--deep); flex: none; }
+  /* 고르지 않은 쪽은 남겨두되 눈에 덜 띄게 한다 */
+  .cform [data-need] { opacity: .55; transition: opacity .2s; }
+  .cform [data-need].is-needed { opacity: 1; }
+  .cform [data-need] .req-mark { font-style: normal; color: var(--muted); font-size: .82rem; }
+  .cform [data-need].is-needed .req-mark { color: var(--deep); }
 </style>
 
 <script>
@@ -265,6 +315,21 @@ import Base from '../layouts/Base.astro';
     ta.addEventListener('input', upd); upd();
   });
 
+  // 답변 받을 방법에 따라 필요한 칸을 표시한다
+  document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
+    const sync = () => {
+      const pref = (form.querySelector<HTMLInputElement>('[name="prefer"]:checked')?.value) || 'email';
+      form.querySelectorAll<HTMLElement>('[data-need]').forEach((el) => {
+        const needed = el.dataset.need === pref;
+        el.classList.toggle('is-needed', needed);
+        const mark = el.querySelector('.req-mark');
+        if (mark) mark.textContent = needed ? '필수' : '선택';
+      });
+    };
+    form.querySelectorAll('[name="prefer"]').forEach((r) => r.addEventListener('change', sync));
+    sync();
+  });
+
   // 제출
   document.querySelectorAll<HTMLFormElement>('.cform').forEach((form) => {
     const btn = form.querySelector<HTMLButtonElement>('.submit')!;
@@ -276,11 +341,21 @@ import Base from '../layouts/Base.astro';
 
       const fd = new FormData(form);
       const name = String(fd.get('name') || '').trim();
-      const contact = String(fd.get('contact') || '').trim();
+      const email = String(fd.get('email') || '').trim();
+      const phone = String(fd.get('phone') || '').trim();
+      const prefer = String(fd.get('prefer') || 'email');
       const message = String(fd.get('message') || '').trim();
 
-      if (!name || !contact || !message) {
+      if (!name || !message) {
         out.className = 'result err'; out.textContent = '필수 항목을 모두 입력해 주십시오.'; return;
+      }
+      if (prefer === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        out.className = 'result err';
+        out.textContent = '이메일로 답변을 받으시려면 이메일 주소를 정확히 적어주십시오.'; return;
+      }
+      if (prefer === 'phone' && phone.replace(/[^0-9]/g, '').length < 9) {
+        out.className = 'result err';
+        out.textContent = '전화로 답변을 받으시려면 전화번호를 적어주십시오.'; return;
       }
       if (!fd.get('agree')) {
         out.className = 'result err'; out.textContent = '저장 동의에 체크해 주십시오.'; return;
@@ -289,16 +364,37 @@ import Base from '../layouts/Base.astro';
       btn.disabled = true; btn.textContent = '보내는 중…';
       try {
         if (!auth.currentUser) await signInAnonymously(auth);
-        await addDoc(collection(db, 'submissions'), {
-          type: form.dataset.form,
-          name, contact, message,
-          createdAt: serverTimestamp(),
-          status: 'new',
-        });
+        // 새 규칙이 아직 게시되기 전이면 새 필드가 거부된다.
+        // 그때는 예전 형식으로 한 번 더 시도한다 — 문의를 잃는 것보다 낫다.
+        try {
+          await addDoc(collection(db, 'submissions'), {
+            type: form.dataset.form,
+            name, message, prefer,
+            email: prefer === 'email' ? email : (email || ''),
+            phone: prefer === 'phone' ? phone : (phone || ''),
+            createdAt: serverTimestamp(),
+            status: 'new',
+          });
+        } catch (e: any) {
+          if (e?.code !== 'permission-denied') throw e;
+          const legacy = prefer === 'phone'
+            ? `${phone} (전화 연락 희망)`
+            : email + (phone ? ` / ${phone}` : '');
+          await addDoc(collection(db, 'submissions'), {
+            type: form.dataset.form,
+            name, message,
+            contact: legacy.slice(0, 200),
+            createdAt: serverTimestamp(),
+            status: 'new',
+          });
+        }
         form.reset();
         form.querySelectorAll('.count').forEach((c) => { c.textContent = '0 / 5000'; });
         out.className = 'result ok';
-        out.textContent = '보내주셔서 감사합니다. 확인 후 답장드리겠습니다.';
+        out.textContent = prefer === 'phone'
+          ? '보내주셔서 감사합니다. 확인 후 적어주신 번호로 연락드리겠습니다.'
+          : '보내주셔서 감사합니다. 확인 후 적어주신 이메일로 답변드리겠습니다. '
+            + 'answer@kalds.org 에서 발송되니 스팸함도 확인해 주십시오.';
       } catch (err) {
         console.error(err);
         out.className = 'result err';
