@@ -71,3 +71,6 @@ export const notifyNewSubmission = onDocumentCreated(
     logger.info(`알림을 큐에 넣었습니다 (${snap.id}, 수신 ${to.length}명)`);
   },
 );
+
+// 메일 발송 함수 (mail 컬렉션 → 실제 발송)
+export * from './sendmail.js';
