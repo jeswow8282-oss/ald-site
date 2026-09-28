@@ -102,7 +102,10 @@ service cloud.firestore {
       allow update: if isAdmin()
         && request.resource.data.diff(resource.data).affectedKeys()
              .hasOnly(['status', 'note', 'reply', 'repliedAt', 'notified'])
-        && request.resource.data.status in ['new', 'reading', 'done']
+        // 실제로 쓰는 값은 두 개뿐이다. 'reading' 같은 중간값을 열어두면
+        // 집계 기준이 갈린다 — 개발부 현황판은 status != 'done' 으로,
+        // 관리자 화면도 같은 기준으로 센다. 값을 둘로 못박아 어긋날 여지를 없앤다.
+        && request.resource.data.status in ['new', 'done']
         && (!('reply' in request.resource.data.keys())
             || (request.resource.data.reply is string
                 && request.resource.data.reply.size() <= 5000))
