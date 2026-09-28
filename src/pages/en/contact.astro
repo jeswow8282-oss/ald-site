@@ -166,6 +166,11 @@ import Base from '../../layouts/Base.astro';
 </Base>
 
 <style>
+  /* display 를 지정한 요소에는 브라우저 기본 [hidden] 규칙이 먹지 않는다.
+     (.notice 의 display:flex 가 이겨서 hidden=true 인데도 계속 보였다)
+     hidden 은 '숨긴다'는 뜻이므로 어떤 경우에도 숨게 못박아 둔다. */
+  [hidden] { display: none !important; }
+
   .tabs { display: flex; gap: 0; margin: 2.5rem 0 0; border-bottom: 1px solid var(--rule); }
   .tab {
     appearance: none; background: none; border: 0; cursor: pointer;
