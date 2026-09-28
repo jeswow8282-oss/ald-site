@@ -503,27 +503,42 @@ ${row.message}
     const banner = $('#verifyBanner') as HTMLElement;
     const msg = $('#verifyMsg') as HTMLElement;
     if (!u) { banner.hidden = true; return null; }
+    // 계정 정보와 토큰 클레임을 따로 확인한다.
+    // 하나가 실패해도 다른 하나로 판단할 수 있어야 하고,
+    // 실패했으면 왜인지 화면에 남아야 한다.
+    let inProfile: boolean | null = null;
+    let inToken: boolean | null = null;
+    let err = '';
+
     try {
       await u.reload();
-      // 규칙이 보는 것은 ID 토큰 안의 email_verified 다.
-      // 계정 정보(emailVerified)와 어긋날 수 있으므로 토큰 쪽을 기준으로 삼는다.
-      const res = await u.getIdTokenResult(true);
-      const inToken = res.claims.email_verified === true;
-      const inProfile = !!auth.currentUser?.emailVerified;
-      const ok = inToken || inProfile;
-      banner.hidden = ok;
-      if (report) {
-        msg.textContent = ok
-          ? '인증이 확인되었습니다.'
-          : `아직 인증되지 않은 것으로 나옵니다. (계정: ${inProfile ? '완료' : '미완료'} · 토큰: ${inToken ? '완료' : '미완료'}) 메일의 링크를 다시 눌러 주십시오.`;
-      }
-      return ok;
+      inProfile = !!auth.currentUser?.emailVerified;
     } catch (e: any) {
-      console.error(e);
-      banner.hidden = false;
-      if (report) msg.textContent = `확인하지 못했습니다 — ${e?.code || e?.message || e}`;
-      return null;
+      console.error('reload 실패', e);
+      err = e?.code || e?.message || String(e);
     }
+    try {
+      // 규칙이 실제로 보는 값은 ID 토큰 안의 email_verified 다.
+      const res = await u.getIdTokenResult(true);
+      inToken = res.claims.email_verified === true;
+    } catch (e: any) {
+      console.error('토큰 갱신 실패', e);
+      err = err || e?.code || e?.message || String(e);
+    }
+
+    const ok = inProfile === true || inToken === true;
+    banner.hidden = ok;
+
+    const mark = (v: boolean | null) =>
+      v === true ? '완료' : v === false ? '미완료' : '확인실패';
+    if (report) {
+      msg.textContent = ok
+        ? '인증이 확인되었습니다.'
+        : `아직 인증되지 않은 것으로 나옵니다. `
+          + `(계정 ${mark(inProfile)} · 토큰 ${mark(inToken)}${err ? ` · ${err}` : ''}) `
+          + `메일의 링크를 다시 눌러 주십시오.`;
+    }
+    return (inProfile === null && inToken === null) ? null : ok;
   }
 
   $('#recheckVerify').addEventListener('click', async () => {
@@ -572,7 +587,7 @@ ${row.message}
     // 이메일 인증 여부를 알린다. 지금은 막지 않는다 —
     // 실제 차단은 Firestore 규칙에서 하며, 규칙을 올리기 전에
     // 기존 관리자가 인증을 마칠 시간을 준다.
-    await refreshVerified();
+    await refreshVerified(true);
 
     load();
   });
