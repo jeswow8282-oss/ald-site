@@ -96,7 +96,7 @@ Several secondary observations were reported:
 - Favourable trends in EDSS, SSPROM and quality of life
 - **Cerebral ALD occurred only in the placebo group**
 
-That last finding led to the paediatric cerebral programme and, in 2026, to a positive regulatory opinion in Europe. **The recommended indication is limited to boys aged 2–12 with cerebral disease; adult AMN is not included.**
+That last finding led to the paediatric cerebral programme and, in September 2026, to approval in Europe. **The approved indication is limited to boys aged 2–12 with cerebral disease; adult AMN is not included.**
 
 A separate phase 3 trial, **CALYX**, is running in adults with cerebral disease.
 → [Treatment](/en/treatment)
@@ -117,6 +117,6 @@ One further point: severe head trauma has been reported as a possible trigger fo
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 1 October 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

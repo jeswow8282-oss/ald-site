@@ -115,9 +115,13 @@ Twenty-two patients with arrested disease, followed for a median of 2.4 years:
 
 The clearest division in the study:
 
-> **Not one patient who never showed gadolinium enhancement converted to a progressive phenotype.**
+> **Among these 22 people with arrested lesions, not one patient who never showed gadolinium enhancement converted to a progressive phenotype.**
 
 Conversely, the appearance of enhancement was strongly associated with progression. This is why the preceding section treats enhancement as it does.
+
+This finding, however, **applies to people whose lesions had arrested.** The absence of enhancement does not in itself mean a lesion will not progress. A multicentre study of 338 MRI scans from 48 adult men with cerebral ALD (Leipzig, Amsterdam and Boston) found **lesions that grew without contrast enhancement.** They grew much more slowly than enhancing lesions (about 0.9% versus 3.4% per month), and the rate of growth varied widely between individuals.
+
+> Source: Ponleitner M et al., *Analysis of Interindividual Lesion Progression Variability in Adult Cerebral Adrenoleukodystrophy.* **Neurology** 2026 · [DOI: 10.1212/WNL.0000000000218407](https://doi.org/10.1212/WNL.0000000000218407)
 
 ### Age
 
@@ -135,7 +139,7 @@ Arrested lesions were first detected at a **median age of 23.3 years** (range 8.
 
 **Early haematopoietic stem cell transplantation is the only established treatment.** It can halt progression but cannot reverse damage already done.
 
-Leriglitazone has reached the point of a positive regulatory opinion in Europe, and gene therapy is a conditional option.
+Leriglitazone was approved in Europe in September 2026 (boys aged 2–12 with non-enhancing lesions), and gene therapy is a conditional option.
 
 → Set out in full on the [Treatment](/en/treatment) page.
 
@@ -165,6 +169,6 @@ ALD Connect sets out the standard of care in cerebral ALD in detail.
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 10 August 2026*
+*Last reviewed: 1 October 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

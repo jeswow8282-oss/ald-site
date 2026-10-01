@@ -131,6 +131,7 @@ AMN typically begins in adult life. A child identified at birth may never develo
 
 **Variants of uncertain significance will appear.**
 International recommendations address how to handle newborn screening positives with variants of unknown or benign significance. A confirmatory pathway has to exist alongside the screen.
+In some US states, VUS have been reported in up to half of screen-positive cases. A US multicentre study following these children (a preprint, not yet peer reviewed) found adrenal insufficiency and cerebral disease less often in the VUS group than in those with pathogenic variants — less often, but not never. → [About ALD](/en/pathogenesis)
 
 **Girls will be identified too.**
 Girls carrying an *ABCD1* variant are at essentially no risk of cerebral disease but may develop myelopathy as adults. How they are counselled needs to be decided in advance. International recommendations classify them as patients rather than carriers.
@@ -147,6 +148,6 @@ Girls carrying an *ABCD1* variant are at essentially no risk of cerebral disease
 
 *Based on the 2022 international consensus recommendations (*Neurology*), the Korean Ministry of Health and Welfare's 2026 Maternal and Child Health Programme Guide, and published research. Sources are indicated in the text.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 1 October 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

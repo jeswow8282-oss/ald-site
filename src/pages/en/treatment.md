@@ -84,13 +84,13 @@ Adrenal function testing and neurological follow-up continue after transplantati
 
 <!-- 갱신블록 -->
 
-Leriglitazone (**NEZGLYAL**) is a brain-penetrant selective PPARγ agonist — **the first oral drug in ALD to reach regulatory approval.**
+Leriglitazone (**NEZGLYAL**) is a brain-penetrant selective PPARγ agonist — **the first drug approved in Europe for the treatment of cerebral ALD.**
 
-### Current status (August 2026)
+### Current status (October 2026)
 
-**On 23 July 2026 the CHMP of the European Medicines Agency issued a positive opinion.** A decision by the European Commission is expected **by the end of September 2026**.
+**On 21 September 2026 the European Commission granted marketing authorisation** (under exceptional circumstances), following a positive opinion from the CHMP of the European Medicines Agency on 23 July 2026. The authorisation is valid in all 27 EU member states and in Norway, Iceland and Liechtenstein.
 
-**Recommended indication**
+**Approved indication**
 
 | | |
 |---|---|
@@ -99,7 +99,9 @@ Leriglitazone (**NEZGLYAL**) is a brain-penetrant selective PPARγ agonist — *
 | Brain MRI | **Non-gadolinium-enhancing lesions** |
 | Neurological function | **Preserved** |
 
-In other words, **early disease in which active inflammation is not yet evident and function is retained.**
+In other words, **early disease in which active inflammation is not yet evident and function is retained.** The EMA wording defines neurological function as a Neurological Function Score (NFS) of 0 or 1.
+
+> Source: [European Medicines Agency — NEZGLYAL](https://www.ema.europa.eu/en/medicines/human/EPAR/nezglyal)
 
 ### What "approval under exceptional circumstances" means
 
@@ -113,7 +115,7 @@ This route is used where comprehensive data cannot be obtained by conventional m
 
 ### Development and supply
 
-Leriglitazone was developed by **Minoryx Therapeutics** (Spain). **Neuraxpharm** holds the exclusive European licence and will supply it after approval.
+Leriglitazone was developed by **Minoryx Therapeutics** (Spain). **Neuraxpharm** holds the exclusive European licence. The first launch is planned in Germany by the end of 2026; other countries follow national reimbursement negotiations.
 
 ### Does it apply to adults with AMN
 
@@ -121,7 +123,7 @@ Leriglitazone was developed by **Minoryx Therapeutics** (Spain). **Neuraxpharm**
 
 Secondary observations included clinically relevant differences in body sway, favourable trends in EDSS, SSPROM and quality of life, and — notably — **cerebral disease occurring only in the placebo group.**
 
-A separate phase 3 trial, **CALYX**, is running in adults with cerebral disease.
+A separate phase 3 trial, **CALYX**, is running in adults with cerebral disease. Enrolment is complete, and top-line results are expected in early 2028.
 
 **Availability in Korea is a separate question and has not been decided.**
 
@@ -175,6 +177,20 @@ The US FDA issued a safety communication in November 2024 and subsequently requi
 The problem arises from **insertional mutagenesis — the lentiviral vector integrating semi-randomly into the genome.** It is a property of that platform, not of gene correction in general.
 
 Approaches that correct the gene in the body without inserting a vector — base editing, for instance — do not carry the same risk structure. **In ALD, however, these are not yet at a stage where they can be used in people.**
+
+### Comparing effect with allogeneic transplantation
+
+Separately from safety, the two treatments have also been compared on effect. A single US centre compared 21 boys treated with gene therapy and 35 boys who received allogeneic haematopoietic stem cell transplantation, **up to 12 months after treatment.**
+
+- Plasma C26:0-LPC fell by about half (48%) after allogeneic transplantation, but by only around 7% after gene therapy
+- Plasma neurofilament light chain (NfL), a marker of neuronal injury, fell after allogeneic transplantation and rose after gene therapy
+- Progression of brain MRI lesions over the first year was also greater after gene therapy
+
+The authors attribute the difference to the proportion of corrected cells: after allogeneic transplantation the blood and immune cells are replaced by donor cells, whereas after gene therapy only a fraction of cells carry the corrected gene. They also note **existing data showing that disease ultimately arrests in many boys treated with gene therapy.**
+
+The study has clear limits — a single centre, small numbers, a non-randomised comparison and marker changes over 12 months. It does not describe long-term outcomes.
+
+> Source: Lund TC et al., *Biomarker changes in cerebral adrenoleukodystrophy after gene therapy or allogeneic hematopoietic cell transplant.* **Molecular Therapy Advances** 2026 · [DOI: 10.1016/j.omta.2026.201821](https://doi.org/10.1016/j.omta.2026.201821)
 
 ---
 
@@ -253,6 +269,6 @@ Statements about the evidence for Lorenzo's oil follow the 2022 international co
 
 ---
 
-*Last reviewed: 10 August 2026*
+*Last reviewed: 1 October 2026*
 
 *This page provides general medical information and does not replace care for an individual patient. Treatment decisions should be made with your treating clinicians.*

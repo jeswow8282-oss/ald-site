@@ -51,6 +51,9 @@ Cruel as it sounds, this has a practical consequence. **It is precisely why peri
 > **If you have had genetic testing**
 > You can look your variant up in the [ABCD1 Variant Registry](https://adrenoleukodystrophy.info/mutations-and-variants-in-abcd1), which collects *ABCD1* variants reported worldwide and is free and public.
 > It is particularly helpful where a **variant of uncertain significance (VUS)** has been reported. As the registry itself states, however, **the variant does not predict the course in an individual patient.**
+>
+> A VUS is a somewhat different matter. The question is not how disease-causing variants differ from one another, but **whether the variant causes disease at all.** In a study of 201 boys identified by newborn screening at six US centres, adrenal insufficiency developed less often in boys with a VUS than in those with a pathogenic variant (about 11% versus 54%). Cerebral disease was also less frequent in the VUS group (4.5% versus 11%) but **did occur.** Higher plasma C26:0-LPC levels were associated with a greater risk of adrenal insufficiency. The study is a preprint that has not yet been peer reviewed, and follow-up is short (median age at last follow-up 4.2 years).
+> Source: Videbaek CS et al., *Disease Outcomes in Boys with ABCD1 Variants Identified by Newborn Screening for X-ALD.* **medRxiv** 2026 (preprint) · [DOI: 10.64898/2026.06.30.26356979](https://doi.org/10.64898/2026.06.30.26356979)
 > → [References and Links](/en/links)
 
 ![Natural history — how phenotypes diverge with age, and how adrenal function crosses the threshold](/assets/figures/en/natural-history.svg)
@@ -160,6 +163,6 @@ This is not about wording. **Being called a carrier removes a person from clinic
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 1 October 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

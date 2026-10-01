@@ -25,7 +25,7 @@ This is more than an inconvenience. It means Korean patients will reach new trea
 
 ### Leriglitazone in adult cerebral ALD (CALYX)
 
-A **phase 3** trial of the efficacy and safety of leriglitazone in adult men with cerebral disease. In paediatric cerebral ALD the drug has reached a positive regulatory opinion in Europe; this trial addresses adults.
+A **phase 3** trial of the efficacy and safety of leriglitazone in adult men with cerebral disease. In paediatric cerebral ALD the drug was approved in Europe in September 2026; this trial addresses adults. Enrolment is complete, and top-line results are expected in early 2028.
 
 `ACTIVE_NOT_RECRUITING` — running, not currently enrolling
 Sponsor: Minoryx Therapeutics · Started July 2023
@@ -137,4 +137,4 @@ Filtering by `RECRUITING` shows only studies currently open to enrolment.
 
 *Compiled from ClinicalTrials.gov registrations as of 7 August 2026. Trial status and eligibility change frequently.*
 
-*Last reviewed: 10 September 2026*
+*Last reviewed: 1 October 2026*
