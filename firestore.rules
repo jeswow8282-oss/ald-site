@@ -29,7 +29,7 @@ service cloud.firestore {
     function emailKey() {
       return request.auth.token.email.lower();
     }
-    function isWhitelisterequest.resource.data {
+    function isWhitelisted() {
       return hasEmail()
         && exists(/databases/$(database)/documents/allowedUsers/$(emailKey()));
     }
@@ -40,8 +40,11 @@ service cloud.firestore {
     // ⚠ 적용 순서 — 기존 관리자가 모두 /admin 에서 이메일 인증을 마친 뒤에
     //    이 규칙을 게시할 것. 먼저 게시하면 문의함을 읽지 못한다.
     function isAdmin() {
-      return isWhitelisterequest.resource.data
-        && request.auth.token.email_verified == true
+      return isWhitelisted()
+        // ⚠ 아래 한 줄은 관리자 전원이 이메일 인증을 마친 뒤에 켤 것.
+        //    먼저 켜면 미인증 관리자가 문의함을 아예 열지 못한다.
+        //    2026-10-02 기준 — jeswow82 인증 완료 / hcy924 미완료
+        // && request.auth.token.email_verified == true
         && get(/databases/$(database)/documents/allowedUsers/$(emailKey())).data.role == 'admin';
     }
     function isServerTime(ts) {
@@ -64,9 +67,10 @@ service cloud.firestore {
           && request.resource.data.email is string && request.resource.data.email.size() <= 200
           && request.resource.data.phone is string && request.resource.data.phone.size() <= 30
           && (request.resource.data.prefer != 'email'
-              || request.resource.data.email.matches('^[^@\s]+@[^@\s]+[.][^@\s]+$'))
+              || request.resource.data.email.matches('^[^@ ]+@[^@ ]+[.][^@ ]+$'))
           && (request.resource.data.prefer != 'phone'
-              || (request.resource.data.phone.size() >= 9 && request.resource.data.phone.matches('^[0-9+()\- ]+$')));
+              || (request.resource.data.phone.size() >= 9
+                  && request.resource.data.phone.matches('^[0-9+() -]+$')));
       }
       function legacyShape() {
         return 'contact' in request.resource.data.keys()
