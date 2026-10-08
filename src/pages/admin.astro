@@ -390,10 +390,13 @@ ${row.message}
         if (!onlySave) row.notified = canMail ? 'sent' : 'manual';
 
         btn.disabled = false;
-        say(onlySave ? '저장했습니다.'
-            : canMail ? `${to} 로 발송을 요청했습니다.`
-            : '저장했습니다. 이 문의는 전화 연락을 원하셨으니 직접 연락해 주십시오.');
-        setTimeout(render, 1200);
+        const done = row.status === 'done';
+        const nudge = done ? '' : ' 이 건을 마무리하시려면 [처리 완료]를 눌러주세요.';
+        say((onlySave ? '저장했습니다.'
+             : canMail ? `${to} 로 발송을 요청했습니다.`
+             : '저장했습니다. 이 문의는 전화 연락을 원하셨으니 직접 연락해 주십시오.')
+            + nudge);
+        setTimeout(render, 2500);
         return;
       }
 
