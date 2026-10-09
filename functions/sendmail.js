@@ -23,9 +23,10 @@ const SMTP_HOST = 'smtp-relay.brevo.com';
 const SMTP_PORT = 587;
 const SMTP_USER = 'bb7fe3001@smtp-brevo.com';
 
-// 도메인 인증이 끝나면 config/notify 의 from 필드만 바꾸면 된다.
-// 코드를 다시 배포할 필요가 없다.
-const FALLBACK_FROM = '부신백질이영양증 정보 <jeswow82@gmail.com>';
+// 실제 발신 주소는 config/notify 의 from 필드에서 읽는다.
+// 2026-10-09 도메인 인증 완료 후 answer@kalds.org 로 전환함.
+// 아래 값은 그 문서를 못 읽었을 때만 쓰는 최후 수단이다.
+const FALLBACK_FROM = '부신백질이영양증(ALD) 정보 <answer@kalds.org>';
 
 const REGION = 'asia-northeast3';
 
