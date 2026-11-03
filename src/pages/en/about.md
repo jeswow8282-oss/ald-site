@@ -49,7 +49,7 @@ ALD is a disease in which that gap costs a great deal. In cerebral disease, **fo
 
 The full site is available in **[Korean](/)** and in English. Even the labels in the diagrams have been translated.
 
-The English version exists so that the situation in Korea can be seen from outside. That **no one knows how many people in Korea have ALD or what condition they are in**; that **ALD is not in the national newborn screening panel**; that **not one ALD clinical trial has a site in Korea** — these are facts that need to be visible elsewhere before they change.
+The English version exists so that the situation in Korea can be seen from outside. That **138 people are registered with ALD in Korea, and no one knows what condition they are in**; that **ALD is not in the national newborn screening panel**; that **not one ALD clinical trial has a site in Korea** — these are facts that need to be visible elsewhere before they change.
 
 ## Who makes it
 
@@ -66,4 +66,4 @@ The English version exists so that the situation in Korea can be seen from outsi
 
 ---
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 3 November 2026*

@@ -70,6 +70,7 @@ A survey of Korean ALD patients and caregivers covering phenotype distribution, 
 Because the data are from 2016, only aggregate counts that cannot identify individuals are published.
 
 - 49 responses in total, almost all collected in 2016
+- The same page also carries the **number registered with ALD under national health insurance** (138 as of 1 September 2026).
 - → [Survey results](/en/survey-2016)
 
 ---

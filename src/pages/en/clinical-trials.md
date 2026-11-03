@@ -17,7 +17,7 @@ Clinical trials in ALD that are recruiting or otherwise active, compiled from re
 
 Of the 74 ALD-related studies registered on ClinicalTrials.gov, **not one has a study site in Korea.**
 
-This is more than an inconvenience. It means Korean patients will reach new treatments **last**. For a sponsor to consider Korea as a trial location, there has to be **data on how many patients there are and what condition they are in** — and at present that does not exist.
+This is more than an inconvenience. It means Korean patients will reach new treatments **last**. For a sponsor to consider Korea as a trial location, there has to be **data on how many patients there are and what condition they are in**. The number registered under national health insurance [can be established — 138](/en/survey-2016#registered-ald-patients-in-korea) — but there are no data on what condition those people are in or what treatment they are receiving.
 
 ---
 
@@ -137,4 +137,4 @@ Filtering by `RECRUITING` shows only studies currently open to enrolment.
 
 *Compiled from ClinicalTrials.gov registrations as of 7 August 2026. Trial status and eligibility change frequently.*
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 3 November 2026*

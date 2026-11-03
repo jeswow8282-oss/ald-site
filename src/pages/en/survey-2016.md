@@ -104,14 +104,39 @@ Lorenzo's oil lowers plasma very long chain fatty acid levels, but current inter
 
 ---
 
+## Registered ALD patients in Korea
+
+Separately from the survey above, one figure *is* available: the number of people **registered as having ALD under Korea's special co-payment programme for rare diseases**, part of the national health insurance system.
+
+| | Count |
+|---|---|
+| Active registrations | **138** |
+| Male | 117 |
+| Female | 21 |
+
+As of 1 September 2026.
+
+### How to read this number
+
+**It is a registration count, not a patient count.** Registration is applied for by the patient or family. People who have been diagnosed but never registered, and those whose registration lapsed without renewal, are not in this figure. The true number of patients is higher.
+
+**It says nothing about condition.** Whether a person has cerebral ALD or AMN, and how far it has progressed, cannot be read from this. The count counts people.
+
+**The figure of 21 women is almost certainly an undercount.** *ABCD1* is on the X chromosome, so there is no reason for women carrying a variant to be fewer than men. That registrations stand at one sixth of the male figure most likely reflects that symptoms in women begin slowly after middle age and are frequently attributed to something else — so many are **never diagnosed at all**.
+→ [Women with ALD](/en/women)
+
+**It still matters.** Until now there has been no figure at all for the size of the Korean ALD population. When the question "are there patients in Korea?" comes up — in attracting a clinical trial, or in arguing for newborn screening — there is now a number to answer with.
+
+---
+
 ## Why this needs to be done again
 
 These data are from 2016. Since then the international consensus recommendations have been revised, the treatment landscape has changed, and the patient population itself will have changed.
 
-**No one currently knows how many people in Korea have ALD, or what condition they are in.** Without that, it is difficult to argue for policy change, to attract clinical trials, or to make a case for the support patients need.
+The registration count above gives a figure for how many. But **no one knows what condition those 138 people are in.** Without that, it is difficult to argue for policy change, to attract clinical trials, or to make a case for the support patients need.
 
 ---
 
 *This page summarises survey results and is not suitable as a basis for clinical decisions.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 3 November 2026*
