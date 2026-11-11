@@ -12,7 +12,8 @@ const GOOGLE_VERIFY = 'NNjp8z8QSdyJeCVYYesHfLBy8Xp5KdcHWHZH6Zn2Oz4';
 // ─────────────────────────────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────
 
-const { frontmatter, title: titleProp, description: descProp, home, noindex, headings = [] } = Astro.props;
+// nolang = 번역본이 없는 페이지(관리자 화면 등). 언어 전환 버튼을 숨깁니다.
+const { frontmatter, title: titleProp, description: descProp, home, noindex, nolang, headings = [] } = Astro.props;
 const toc = (headings ?? []).filter((h) => h.depth === 2);
 const title = titleProp ?? frontmatter?.title ?? '부신백질이영양증 (ALD)';
 const description =
@@ -433,8 +434,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
       <a class="brand" href={url('/')} aria-label="KOREA ALD 홈으로">
         <img src={abs('/logo.svg')} alt="KOREA ALD" width="150" height="142" />
       </a>
-      <a class="langswitch" href={abs(isEN ? (path === '/' ? '/' : path) : '/en' + (path === '/' ? '/' : path))}
-         hreflang={isEN ? 'ko' : 'en'} aria-label={isEN ? '한국어로 보기' : 'View in English'}>{T.switch}</a>
+      {!nolang && (
+        <a class="langswitch" href={abs(isEN ? (path === '/' ? '/' : path) : '/en' + (path === '/' ? '/' : path))}
+           hreflang={isEN ? 'ko' : 'en'} aria-label={isEN ? '한국어로 보기' : 'View in English'}>{T.switch}</a>
+      )}
       <button class="menu-toggle" aria-label={isEN ? 'Open menu' : '메뉴 열기'} aria-expanded="false"><span></span></button>
       <nav class="main" id="mainnav">
         {nav.map((n) => (
