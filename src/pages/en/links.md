@@ -55,6 +55,15 @@ Newly identified variants can be submitted, so that the next person who encounte
 
 This is stated by the registry itself. **Knowing the variant does not tell you whether cerebral disease will develop, or when symptoms will come.** That is why ongoing surveillance is necessary.
 
+### Reclassifying the uncertain ones
+
+The **Grey Zone Project**, published in 2026, re-sorts variants of uncertain significance into three bands of childhood-onset risk, using the C26:0-LPC measurement from newborn screening. It introduces a middle band, "lower-risk", that the traditional scheme had no place for.
+
+The paper names the *ABCD1* Variant Registry as **a key resource** for that work — more than 1,250 variants held together with their classifications and the biochemical evidence behind them.
+→ [Newborn screening](/en/newborn-screening)
+
+> Lund TC, et al. *The Grey Zone Project: Risk-Based Classification of ABCD1 Variants in X-Linked Adrenoleukodystrophy.* **J Inherit Metab Dis** 2026;49(2):e70157 · [DOI: 10.1002/jimd.70157](https://doi.org/10.1002/jimd.70157)
+
 → [Why it happens, and why it differs between people](/en/pathogenesis)
 
 ---
@@ -113,4 +122,4 @@ The baseline for the medical content on this site.
 
 ---
 
-*Last reviewed: 10 August 2026*
+*Last reviewed: 11 November 2026*

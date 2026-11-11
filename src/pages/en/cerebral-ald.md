@@ -24,6 +24,8 @@ In numbers: **about 35% of boys with ALD develop cerebral disease in childhood**
 
 It is not confined to children. **Adult men can develop cerebral disease**, and men with AMN can convert to it. Adults therefore need continued surveillance.
 
+In a 2026 German cohort following 140 adult men prospectively, **25 (17.9%) developed adult-onset cerebral disease during follow-up.** Onset clustered **in the thirties** — median age 34, range 22 to 67. Reaching adulthood does not put it behind you.
+
 **It essentially does not occur in females.** Girls and women are not subject to routine cerebral surveillance.
 → [Women with ALD](/en/women)
 
@@ -169,6 +171,6 @@ ALD Connect sets out the standard of care in cerebral ALD in detail.
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

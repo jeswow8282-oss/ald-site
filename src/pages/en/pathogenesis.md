@@ -46,6 +46,8 @@ Identical twins share their genetic information. That one may progress to cerebr
 
 So it is not possible to look at a genetic test result and say that a child will, or will not, develop cerebral disease. **No one can.** Any source offering that prediction is worth checking carefully.
 
+**The blood test does not predict it either.** In a 2026 German cohort of 364 adult patients, mean plasma C26:0 in untreated patients bore no relation to the age at which symptoms began (men ρ = 0.013, women ρ = −0.179; neither statistically significant). Patients in the highest range did show a tendency to progress somewhat faster, but the effect was small and the variation between individuals large, and the authors concluded that **VLCFA levels are of limited prognostic use for an individual patient.**
+
 Cruel as it sounds, this has a practical consequence. **It is precisely why periodic brain MRI surveillance is necessary.** Because the course cannot be predicted, it has to be watched — and watching means the window is not missed.
 
 > **If you have had genetic testing**
@@ -163,6 +165,6 @@ This is not about wording. **Being called a carrier removes a person from clinic
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

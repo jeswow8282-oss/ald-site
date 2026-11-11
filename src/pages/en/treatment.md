@@ -206,6 +206,31 @@ The accompanying text explains why. Lorenzo's oil (oleic acid C18:1 and erucic a
 
 A number improving and a disease improving are not the same thing.
 
+### How far does the number actually fall
+
+A natural history study of the Leipzig adult cohort was published in 2026: 364 adult patients, followed for up to 25 years, one of the larger adult ALD cohorts reported to date.
+
+Mean plasma C26:0 in the male patients. The reference cut-off is 1.08 μmol/L.
+
+| | Mean C26:0 (μmol/L) |
+|---|---|
+| No intervention | 2.80 ± 1.17 |
+| Diet alone | 2.42 ± 0.91 |
+| Lorenzo's oil | **1.78 ± 1.11** |
+
+Lorenzo's oil lowered the level clearly, both against no intervention and against diet alone (p < 0.001 for each). Diet alone did not reach statistical significance against no intervention in this cohort (p = 0.106).
+
+**Sustained normalisation, however, was rare.**
+
+| | Proportion |
+|---|---|
+| Normal at every measurement | **6.8%** |
+| Normal in at least 80% of measurements | **8.7%** |
+
+These figures belong beside the phrase "normal or near-normal values". The group mean does come down. But **fewer than one patient in ten stays inside the normal range.** The authors also note how widely the response varies between individuals.
+
+> Lier J, et al. *Natural History of Clinical Phenotypes and Their Biochemical Correlates in Adult X-Linked Adrenoleukodystrophy.* **J Inherit Metab Dis** 2026;49(2):e70176 · [DOI: 10.1002/jimd.70176](https://doi.org/10.1002/jimd.70176)
+
 It is still prescribed in practice, to asymptomatic boys and to patients with AMN. Whether to take it is a decision for the patient and their clinicians. **Taking it is not a reason to relax cerebral surveillance.**
 
 ---
@@ -269,6 +294,6 @@ Statements about the evidence for Lorenzo's oil follow the 2022 international co
 
 ---
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient. Treatment decisions should be made with your treating clinicians.*

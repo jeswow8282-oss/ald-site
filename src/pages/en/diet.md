@@ -16,7 +16,10 @@ This page summarises *Dietary Management in Adrenoleukodystrophy*, the first die
 
 For that reason, **a moderate restriction of foods high in saturated fat** is generally preferred to a strict low-fat regimen.
 
-There is a second point. **Lorenzo's oil combined with a low-fat diet does bring plasma C26:0 to normal or near-normal values in most patients. But there are no controlled trials showing improved outcome.** The 2022 international consensus recommendations state this explicitly (recommendation 36).
+There is a second point. **Lorenzo's oil combined with a low-fat diet does lower plasma C26:0. But there are no controlled trials showing improved outcome.** The 2022 international consensus recommendations state this explicitly (recommendation 36).
+
+How far it falls is also more limited than the phrasing suggests. In a 2026 German adult cohort study (364 patients), mean C26:0 in men taking Lorenzo's oil fell from 2.80 to 1.78 μmol/L — but **only 6.8% were within the normal range (below 1.08 μmol/L) at every measurement.** Diet alone did not produce a statistically significant difference.
+→ [Lorenzo's oil, on the treatment page](/en/treatment)
 
 **A number improving and a disease improving are not the same thing.**
 
@@ -211,6 +214,6 @@ Statements about the evidence for Lorenzo's oil follow the 2022 international co
 
 ---
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general information and does not replace medical or dietetic care for an individual patient. Dietary plans should be made with your treating clinicians and dietitian.*

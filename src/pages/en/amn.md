@@ -109,6 +109,18 @@ A separate phase 3 trial, **CALYX**, is running in adults with cerebral disease.
 
 AMN progresses **slowly, over years to decades**, with wide variation between individuals. It does not deteriorate abruptly in the way cerebral disease does.
 
+A 2026 report from the Leipzig adult cohort (364 patients, followed up to 25 years) puts numbers to that slowness.
+
+| | Men | Women |
+|---|---|---|
+| Mean age at symptom onset | 27 | 41 |
+| Annual increase in EDSS | 0.34 | 0.19 |
+| Age at which half need a walking aid | 41 | 70 |
+
+In the same cohort, **the average interval between symptom onset and diagnosis was 7.4 years**, with no difference between men and women. Only 17.6% were diagnosed before symptoms began, nearly all of them through family screening.
+
+> Lier J, et al. *Natural History of Clinical Phenotypes and Their Biochemical Correlates in Adult X-Linked Adrenoleukodystrophy.* **J Inherit Metab Dis** 2026;49(2):e70176 · [DOI: 10.1002/jimd.70176](https://doi.org/10.1002/jimd.70176)
+
 The number of things requiring management grows over time, and that management makes a real difference.
 
 One further point: severe head trauma has been reported as a possible trigger for cerebral disease. The causal relationship is not established, but international recommendations advise counselling male patients so that they can make their own decisions about how they live.
@@ -117,6 +129,6 @@ One further point: severe head trauma has been reported as a possible trigger fo
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

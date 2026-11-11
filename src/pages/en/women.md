@@ -62,6 +62,12 @@ The particular trap is that **a woman known to the family as "a carrier" reports
 
 The single largest reason for delay is that **the family history is not shared during the consultation.** When it is, the diagnostic pathway changes considerably.
 
+A 2026 report from the Leipzig adult cohort (109 of 364 patients were women) puts numbers to that delay. **Mean age at symptom onset in women was 41**, fourteen years later than in men (27), and **the average interval from onset to diagnosis was 7.4 years.** The length of that delay was the same for both sexes.
+
+One further finding is worth holding onto. **Women were considerably older at their first clinic visit, yet the severity of their symptoms at that visit was comparable to the men's.** Slower progression is not the same as a milder disease. Annual increase in disability score was 0.19 in women against 0.34 in men, and the age by which half needed a walking aid was 70 in women against 41 in men.
+
+> Lier J, et al. *Natural History of Clinical Phenotypes and Their Biochemical Correlates in Adult X-Linked Adrenoleukodystrophy.* **J Inherit Metab Dis** 2026;49(2):e70176 · [DOI: 10.1002/jimd.70176](https://doi.org/10.1002/jimd.70176)
+
 ## 4. Diagnosis
 
 **Plasma very long chain fatty acids alone may not be enough.** VLCFA levels fall within the normal range in a meaningful proportion of affected women.
@@ -110,6 +116,6 @@ Women with ALD are patients.
 
 *Based on the 2022 international consensus recommendations (*Neurology*) and published research. Sources are indicated in the text.*
 
-*Last reviewed: 7 August 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*

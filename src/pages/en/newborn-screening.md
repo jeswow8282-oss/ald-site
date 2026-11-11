@@ -133,6 +133,26 @@ AMN typically begins in adult life. A child identified at birth may never develo
 International recommendations address how to handle newborn screening positives with variants of unknown or benign significance. A confirmatory pathway has to exist alongside the screen.
 In some US states, VUS have been reported in up to half of screen-positive cases. A US multicentre study following these children (a preprint, not yet peer reviewed) found adrenal insufficiency and cerebral disease less often in the VUS group than in those with pathogenic variants — less often, but not never. → [About ALD](/en/pathogenesis)
 
+### One attempt to address this — the Grey Zone Project
+
+An international collaboration published in 2026 used data from 1,627 control subjects and 196 confirmed ALD patients to build **a framework that sorts childhood-onset risk into three bands, using the same C26:0-LPC measurement the screen itself relies on.**
+
+| C26:0-LPC (nmol/L) | Category |
+|---|---|
+| Below 110 | No ALD |
+| 110 – 177 | **Lower-risk** AI / cerebral ALD |
+| Above 177 | **At-risk** AI / cerebral ALD |
+
+Applied to 51 unique variants of uncertain significance (108 samples), **26 were reclassified as "no ALD", 15 as "lower-risk" and 10 as "at-risk".**
+
+The new element is **the middle band**. The traditional scheme divides variants into causes-disease and does-not, leaving nowhere to put a variant whose risk of childhood-onset disease is low but not zero. The authors are explicit about why they created it: **to reduce unnecessary MRI surveillance and the anxiety that comes with it.**
+
+The paper is equally explicit that the cost of screening is not only the cost of the test. MRI under sedation every six months from ages two to twelve and annually thereafter, repeated gadolinium exposure, the self-blame mothers carry for having passed on the variant, and the effect on insurance eligibility all belong in the ledger as **harms the screening programme itself creates.**
+
+> These thresholds were derived in a single laboratory, and LPC(26:0) measurement varies between laboratories. The paper states plainly that the numbers cannot be transferred to another setting without harmonisation.
+
+> Lund TC, et al. *The Grey Zone Project: Risk-Based Classification of ABCD1 Variants in X-Linked Adrenoleukodystrophy.* **J Inherit Metab Dis** 2026;49(2):e70157 · [DOI: 10.1002/jimd.70157](https://doi.org/10.1002/jimd.70157)
+
 **Girls will be identified too.**
 Girls carrying an *ABCD1* variant are at essentially no risk of cerebral disease but may develop myelopathy as adults. How they are counselled needs to be decided in advance. International recommendations classify them as patients rather than carriers.
 
@@ -148,6 +168,6 @@ Girls carrying an *ABCD1* variant are at essentially no risk of cerebral disease
 
 *Based on the 2022 international consensus recommendations (*Neurology*), the Korean Ministry of Health and Welfare's 2026 Maternal and Child Health Programme Guide, and published research. Sources are indicated in the text.*
 
-*Last reviewed: 1 October 2026*
+*Last reviewed: 11 November 2026*
 
 *This page provides general medical information and does not replace care for an individual patient.*
