@@ -278,6 +278,88 @@ Please discuss participation with your treating clinicians first.
 
 ---
 
+## 9. Still in the laboratory
+
+<!-- 갱신블록: 연구 단계 항목입니다. 논문으로 확인되면 위의 해당 절로 옮기세요. -->
+
+What follows is **not yet usable in people.** It summarises work presented at the ALD Connect annual meeting in November 2026 (Salt Lake City).
+
+> **Before reading on**
+>
+> This material was **presented at a conference and has not been published.** Most of it is at the cell or animal stage, and every human timeline below is a plan rather than a schedule.
+>
+> Things that look good in preclinical work frequently fail in people. Only some of what is listed here will become treatment, and not for several years.
+>
+> It is set down anyway because there is a difference between **knowing what is being attempted and not knowing.**
+
+### Nervonic acid (C24:1)
+
+A fatty-acid approach that stands as the successor to Lorenzo's oil, under development at the University of Minnesota.
+
+Nervonic acid is **the principal unsaturated fatty acid of myelin.** Post-mortem ALD brain shows reduced levels of it.
+
+The mechanism resembles Lorenzo's oil but is not identical. ELOVL1, the enzyme that elongates very long chain fatty acids, does not distinguish between saturated and unsaturated substrates. Supplying nervonic acid therefore **shifts the enzyme away from producing C26:0.** In the work presented, raising C24:1 in fibroblasts from ALD patients lowered C26:0 almost proportionally, and C26:0-LPC fell in the brains of ALD model mice.
+
+The obstacle is that nervonic acid is **barely soluble in water and absorbed erratically.** Taken as food, it does not deliver a consistent dose. An oral nanoemulsion formulation is being developed to address that.
+
+The timeline given in the presentation. **All of it is provisional.**
+
+| When | Step |
+|---|---|
+| Q1 2027 | Orphan drug designation filing |
+| Q1 2028 | Pre-IND meeting with the FDA |
+| Q3 2028 | IND submission |
+| Q1 2029 | First patient dosed |
+
+### ELOVL1 inhibition — reducing the supply instead
+
+The same enzyme approached from the opposite direction. Where nervonic acid redirects the enzyme, this **blocks it, reducing how much VLCFA is made at all.**
+
+Because it acts systemically, including in tissues gene therapy does not reach, it is discussed as **a complement to gene therapy rather than a replacement for it.** It is being tested in an adrenal cell model and in a female mouse model engineered for heavily skewed X-inactivation.
+
+### An AMN treatment designed to include women
+
+A project at Amsterdam UMC, funded through ALD Connect. It repurposes a medicine already in use for another indication, targeting an enzyme called SCD1. **The drug was not named in the presentation, and the work is at the cell and mouse stage.**
+
+What stands out here is less the drug than **the study design.** The project description states:
+
+> There is no treatment for AMN, and **women have been left out of ALD trials because their symptoms change too slowly to measure.**
+
+Its stated aim is to generate the data needed to plan **a first AMN clinical trial designed to include women.**
+→ [Women with ALD](/en/women)
+
+### RNA repair — correcting the transcript rather than the gene
+
+An approach presented by a group at the University of Utah. Rather than altering DNA, it **swaps the faulty portion of the RNA made from that DNA for a correct one** (trans-splicing).
+
+Pathogenic variants in *ABCD1* are scattered across the whole gene, which makes a per-variant therapy impractical. The attraction of this method is that **one tool may cover many variants at once.** Because it introduces no foreign protein and does not overexpress ABCD1, the group argues it may prove safer than existing gene therapies.
+
+It is at the stage of **a signal in cultured cells.** Patient-derived cell lines and animal models are the next step.
+
+### Pathogenesis moving towards immunity
+
+Less a treatment than **a direction in which treatments are being sought.**
+
+Why cerebral disease switches on when it does has long been unanswered. The finding that peroxisomes are not only fat-processing compartments but also **signalling platforms for innate immunity** has led to the hypothesis that an immune "second hit" arising there could account for that abruptness.
+
+If the hypothesis holds, treatment would mean **targeting specific pathways rather than suppressing immunity broadly.** The presentation was explicit that broad immunosuppression without mechanistic evidence should be avoided. This remains a hypothesis.
+→ [Why it happens, and why it differs between people](/en/pathogenesis)
+
+### Building a way to measure AMN at all
+
+Not a treatment, but **a precondition for testing one.**
+
+AMN is difficult to design a trial around. The reasons given were these.
+
+- Disability scales (EDSS, SSPROM) may take **5 to 10 years** to register change
+- Six-minute walk and body-sway measures need **2 to 3 years**
+- Genotype does not predict the course
+
+Work is therefore underway on **blood markers that could register change within months**, combining plasma microRNA and metabolomic profiling. Markers of that kind would shorten trials, and shorter trials are trials more likely to happen.
+→ [Adrenomyeloneuropathy (AMN)](/en/amn)
+
+---
+
 ## Sources
 
 Dietary content is based on the following.
@@ -291,6 +373,8 @@ Dietary content is based on the following.
 > The first dietary and cooking guide for patients with adrenoleukodystrophy published in Korea.
 
 Statements about the evidence for Lorenzo's oil follow the 2022 international consensus recommendations (*Neurology*, recommendation 36).
+
+Section 9, *Still in the laboratory*, draws on presentations at the **ALD Connect annual meeting, November 2026**, and not on published papers.
 
 ---
 
