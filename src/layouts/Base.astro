@@ -31,14 +31,15 @@ const L = isEN ? '/en' : '';
 
 const NAV_KO = [
   { href: '/pathogenesis', label: 'ALD 개요' },
-  { label: '표현형', children: [
+  { label: '표현형', href: '/phenotypes', children: [
+      { href: '/phenotypes',            label: '표현형 한눈에 보기' },
       { href: '/cerebral-ald',          label: '대뇌형 (cALD)' },
       { href: '/amn',                   label: '부신척수신경병증 (AMN)' },
       { href: '/women',                 label: '여성 ALD' },
       { href: '/adrenal-insufficiency', label: '부신기능부전' },
     ] },
   { href: '/newborn-screening', label: '신생아 선별검사' },
-  { label: '치료', children: [
+  { label: '치료', href: '/treatment', children: [
       { href: '/treatment',                 label: '대뇌형 치료' },
       { href: '/amn#치료와-관리',             label: 'AMN 치료와 관리' },
       { href: '/adrenal-insufficiency#치료',  label: '부신기능부전 관리' },
@@ -52,14 +53,15 @@ const NAV_KO = [
 ];
 const NAV_EN = [
   { href: '/pathogenesis', label: 'About ALD' },
-  { label: 'Phenotypes', children: [
+  { label: 'Phenotypes', href: '/phenotypes', children: [
+      { href: '/phenotypes',            label: 'Overview' },
       { href: '/cerebral-ald',          label: 'Cerebral ALD' },
       { href: '/amn',                   label: 'Adrenomyeloneuropathy' },
       { href: '/women',                 label: 'Women with ALD' },
       { href: '/adrenal-insufficiency', label: 'Adrenal Insufficiency' },
     ] },
   { href: '/newborn-screening', label: 'Newborn Screening' },
-  { label: 'Treatment', children: [
+  { label: 'Treatment', href: '/treatment', children: [
       { href: '/treatment',                     label: 'Cerebral ALD Treatment' },
       { href: '/amn#treatment-and-care',        label: 'AMN Care' },
       { href: '/adrenal-insufficiency#treatment', label: 'Adrenal Management' },
@@ -103,9 +105,10 @@ const T = isEN ? {
   switchTo: '/en',
 };
 
+// 묶음은 자기 주소와 하위 항목 주소를 모두 본다
 const isOn = (item) =>
-  item.href ? path === item.href.split('#')[0]
-            : (item.children || []).some((c) => path === c.href.split('#')[0]);
+  (item.href ? path === item.href.split('#')[0] : false) ||
+  (item.children || []).some((c) => path === c.href.split('#')[0]);
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org').href;
 ---
 <!doctype html>
@@ -443,9 +446,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
         {nav.map((n) => (
           n.children ? (
             <div class={`navgroup${isOn(n) ? ' on' : ''}`}>
-              <button type="button" class="navtop" aria-expanded="false">
+              <a class="navtop" href={url(n.href)} aria-expanded="false"
+                 aria-current={path === n.href ? 'page' : undefined}>
                 {n.label}<svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
-              </button>
+              </a>
               <div class="submenu">
                 {n.children.map((c) => (
                   <a href={url(c.href)} aria-current={path === c.href.split('#')[0] ? 'page' : undefined}>{c.label}</a>
@@ -535,8 +539,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.org
     // 기준 폭을 여기에 또 적으면 CSS와 어긋난다. 햄버거가 보이는지로 판단한다.
     var isCollapsed = function () { return btn && getComputedStyle(btn).display !== 'none'; };
     document.querySelectorAll('.navgroup > .navtop').forEach(function (b) {
-      b.addEventListener('click', function () {
-        if (!isCollapsed()) return;
+      b.addEventListener('click', function (e) {
+        if (!isCollapsed()) return;   // 가로 메뉴에서는 링크 그대로 이동한다
+        e.preventDefault();           // 접힌 메뉴에서는 하위 메뉴를 편다
         var g = b.parentElement;
         var willOpen = !g.classList.contains('open');
         document.querySelectorAll('.navgroup').forEach(function (x) { x.classList.remove('open'); });
